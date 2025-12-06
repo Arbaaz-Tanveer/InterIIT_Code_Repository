@@ -1,4 +1,4 @@
 [console_scripts]
 keyboard_controller = warehouse_hmi.keyboard_controller:main
-target_gui = warehouse_hmi.target_gui:main
+speaker_module = warehouse_hmi.speaker_module:main
 

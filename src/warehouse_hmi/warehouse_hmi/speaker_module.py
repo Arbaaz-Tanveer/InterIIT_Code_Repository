@@ -4,6 +4,9 @@ from std_msgs.msg import Bool, String
 from gtts import gTTS
 import os
 
+
+RACKPOINTS = 3
+NUMBEROFRACKS = 2
 class GoogleSpeakerNode(Node):
     def __init__(self):
         super().__init__('google_speaker_node')
@@ -15,26 +18,37 @@ class GoogleSpeakerNode(Node):
 
         # 2. Create Subscribers
         
-        # CHANGED TOPIC NAME: zscanactive -> zscan_active
+        # Topic: zscan_active
         self.zscan_sub = self.create_subscription(
             Bool,
             'zscan_active', 
             self.zscan_callback,
             10)
             
-        # CHANGED TOPIC NAME: autoscan -> auto_scan
+        # Topic: auto_scan
         self.autoscan_sub = self.create_subscription(
             String,
             'auto_scan', 
             self.autoscan_callback,
             10)
 
+        # 3. Create Publisher for /speak
+        self.speak_pub = self.create_publisher(String, '/speak', 10)
+
         self.get_logger().info("Google Speaker (High Quality) Initialized...")
 
     def speak(self, text):
-        """Generates MP3 from Google and plays it"""
-        self.get_logger().info(f'Downloading audio for: "{text}"')
+        """Generates MP3 from Google, plays it, and publishes the text."""
         
+        # --- NEW: Print to console ---
+        print(f"🗣️  SPEAKING: {text}")
+        self.get_logger().info(f"Speaking: {text}")
+
+        # --- NEW: Publish to /speak topic ---
+        msg = String()
+        msg.data = text
+        self.speak_pub.publish(msg)
+
         try:
             # Generate the audio file from Google
             tts = gTTS(text=text, lang=self.language, tld=self.tld, slow=False)
@@ -52,28 +66,24 @@ class GoogleSpeakerNode(Node):
     def zscan_callback(self, msg):
         if msg.data is True:
             self.speak("Started scanning")
-            self.count_active = 0
+            # self.count_active = 0
         else:
             self.count_active += 1
             
-            # --- MODIFIED LOGIC START ---
-            
             # Case A: Exactly 2 Racks completed (2 * 3 = 6 counts)
-            if self.count_active == 6:
+            if self.count_active == NUMBEROFRACKS*RACKPOINTS:
                 # The Final Message
                 self.speak("All racks scanning completed. Going back to home position.")
                 
             # Case B: Standard Rack Completion (e.g., Rack 1)
-            elif self.count_active % 3 == 0:
-                rack_number = self.count_active // 3
+            elif self.count_active % RACKPOINTS == 0:
+                rack_number = self.count_active // RACKPOINTS
                 self.speak(f"rack {rack_number} scanned")
                 self.speak("moving to next rack")
             
             # Case C: Intermediate steps (Between racks)
             else:
                 self.speak("Moving")
-            
-            # --- MODIFIED LOGIC END ---
 
     def autoscan_callback(self, msg):
         command = msg.data.upper()

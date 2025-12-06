@@ -106,7 +106,7 @@ cdr_deserialize(
     cdr, ros_message.bounds);
 
   return true;
-}
+}  // NOLINT(readability/fn_size)
 
 size_t
 ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_warehouse_msgs
@@ -357,7 +357,7 @@ cdr_deserialize(
     cdr, ros_message.transform);
 
   return true;
-}
+}  // NOLINT(readability/fn_size)
 
 size_t
 ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_warehouse_msgs

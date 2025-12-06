@@ -11,4 +11,4 @@ setup.py
 resource/warehouse_hmi
 warehouse_hmi/__init__.py
 warehouse_hmi/keyboard_controller.py
-warehouse_hmi/target_gui.py
+warehouse_hmi/speaker_module.py

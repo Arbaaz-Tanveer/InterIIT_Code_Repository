@@ -19,7 +19,7 @@ struct individual{
     float theta;
 };
 
-const cv::String mapFilename = "src/main_pkg/main_pkg/maps/distance_test_field.png";
+const cv::String mapFilename = "src/warehouse_navigation/config/maps/distance_test_field.png";
 
 cv::Mat mapImage;
 

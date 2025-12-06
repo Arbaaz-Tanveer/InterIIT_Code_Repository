@@ -11,5 +11,4 @@ setup.py
 config/qr_yolov11.pt
 resource/warehouse_scanning
 warehouse_scanning/__init__.py
-warehouse_scanning/autoscan_test.py
 warehouse_scanning/camera_node.py

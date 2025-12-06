@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import time
 import threading
 import os
@@ -79,6 +81,7 @@ scan_sub = None
 localisation_client = None
 executor = None
 executor_localisation = None
+restart_sub = None
 
 # Logging settings
 log_settings = {
@@ -268,6 +271,45 @@ def lidar_to_points_and_map(scan_data, map_size_px, scale,
     
     return points_flat, ground_map, full_points_meters
 
+# ---------------------------------------------------
+# Restart Localisation Callback
+# ---------------------------------------------------
+def restart_callback(msg):
+    """
+    Callback to force-reset the robot position.
+    Expected msg.data: [x, y, theta]
+    """
+    global bot_pos, x_abs_delta_since_last_localisation
+    global y_abs_delta_since_last_localisation, rotation_since_last_localisation
+    
+    try:
+        data = msg.data
+        if len(data) < 3:
+            print("Received restart request, but data is too short (needs [x,y,theta])")
+            return
+
+        new_x, new_y, new_theta = data[0], data[1], data[2]
+        
+        print(f"!!! RESTARTING LOCALISATION TO: X={new_x:.2f}, Y={new_y:.2f}, Theta={new_theta:.2f} !!!")
+        
+        with global_lock:
+            # 1. Force update the position
+            bot_pos[0] = new_x
+            bot_pos[1] = new_y
+            bot_pos[2] = new_theta
+            
+            # 2. Reset the "Delta" trackers. 
+            # If we don't do this, the localisation thread might think the robot 
+            # "teleported" illegally and reject future visual updates.
+            x_abs_delta_since_last_localisation = 0
+            y_abs_delta_since_last_localisation = 0
+            rotation_since_last_localisation = 0
+            
+            # Note: We do not clear the odo_buffer here because we don't have access 
+            # to its internal list, but updating bot_pos is the most critical step.
+
+    except Exception as e:
+        logging.exception(f"Error processing restart command: {e}")
 
 # ---------------------------------------------------
 # Odometry callback
@@ -636,7 +678,7 @@ def localisation_thread_func():
                         
                         # Stationary = High Odom Weight (0.95). Moving = Lower Odom Weight (0.75)
                         odometry_weight = 0.97 - min(0.20, 300.0 * velocity_proxy)
-                        # odometry_weight = 0         #-----------------------------------------------------------------------------------------------
+                        # odometry_weight = 1         #-----------------------------------------------------------------------------------------------
                         if log_settings["localisation"]["odometry_weight"]:
                             print(f"Odom Weight: {odometry_weight:.3f}")
 
@@ -694,7 +736,7 @@ def localisation_thread_func():
 # ---------------------------------------------------
 def init_ros2():
     global ros_node, bot_pos_pub, obstacles_pub
-    global command_sub, scan_sub, localisation_client, executor
+    global command_sub, scan_sub, restart_sub, localisation_client, executor # Added restart_sub
     
     rclpy.init()
     
@@ -710,18 +752,24 @@ def init_ros2():
     command_sub = ros_node.create_subscription(
         Float32MultiArray, 'odom_delta', command_callback, 10
     )
+    
     scan_sub = ros_node.create_subscription(
         LaserScan, 'scan', scan_callback, 10
     )
+
+    # NEW: Restart Localisation Subscriber
+    restart_sub = ros_node.create_subscription(
+        Float32MultiArray, 
+        '/restart_localisation', 
+        restart_callback, 
+        10
+    )
     
-    # --- Executor Setup (The Fix) ---
-    # Use one MultiThreadedExecutor for everything.
-    # We increase threads to 4 to ensure the scan callback, odom callback, 
-    # and service client response don't block each other.
+    # --- Executor Setup ---
     executor = MultiThreadedExecutor(num_threads=4)
     
     executor.add_node(ros_node)
-    executor.add_node(localisation_client) # Add client to the SPINNING executor
+    executor.add_node(localisation_client) 
     
     # Spin the executor in a background thread
     threading.Thread(target=lambda: executor.spin(), daemon=True).start()

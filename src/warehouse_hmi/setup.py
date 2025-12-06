@@ -22,7 +22,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'target_gui = warehouse_hmi.target_gui:main',
             'keyboard_controller = warehouse_hmi.keyboard_controller:main',
             'speaker_module = warehouse_hmi.speaker_module:main',
         ],

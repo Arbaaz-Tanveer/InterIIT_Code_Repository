@@ -1,0 +1,53 @@
+# ROS 2 build directories
+build/
+install/
+log/
+qr_session_logs/
+# Colcon symlink install (optional)
+.colcon/
+
+# ROS 2 workspace defaults
+ament_index/
+*~  
+*.swp
+
+# Python build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+pip-wheel-metadata/
+
+# C++ build artifacts
+*.o
+*.so
+*.a
+*.out
+
+# Launch logs
+*.log
+
+# Local configuration
+.env
+*.local
+*.json
+
+# VSCode settings
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# ROS 2 package-specific
+rosidl_generated/
+msg_gen/
+srv_gen/
+action_gen/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.bak

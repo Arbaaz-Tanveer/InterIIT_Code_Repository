@@ -57,40 +57,52 @@ def generate_launch_description():
         ),
 
         Node(
-            package="mpc_pkg",
-            executable="controller1",
-            output="screen",
-            arguments=["--ros-args", "--log-level", "fatal"]
-        ),
-
-        Node(
-            package="localisation_pkg",
-            executable="geneticLocaliserServer",
+            package="warehouse_navigation", 
+            executable="controller1", 
             output="screen"
         ),
 
         Node(
-            package="main_pkg",
-            executable="path_planner",
+            package="warehouse_navigation",
+            executable="genetic_node",
             output="screen"
         ),
 
         Node(
-            package="main_pkg",
-            executable="main",
+            package="warehouse_navigation", 
+            executable="path_planner.py", 
             output="screen"
         ),
 
         Node(
-            package="main_pkg",
-            executable="vision",
+            package="warehouse_robot_bringup", 
+            executable="main", 
             output="screen"
         ),
 
         Node(
-            package="main_pkg",
+            package="warehouse_navigation",
+            executable="vision.py",
+            output="screen"
+        ),
+
+        Node(
+            package="warehouse_robot_bringup",
             executable="hardware",
             output="screen"
         ),
+
+        Node(
+            package="warehouse_hmi",
+            executable="speaker_module",
+            output="screen"
+        ),
+
+        Node(
+            package="warehouse_scanning",
+            executable="camera_node",
+            output="screen"
+        ),
+        
 
     ])

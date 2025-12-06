@@ -23,9 +23,9 @@ class QRCameraModule(Node):
         super().__init__('camera_module')
         
         # ROS2 Publishers and Subscribers
-        self.scan_result_pub = self.create_publisher(String, 'scan_result', 10)
+        self.scan_result_pub = self.create_publisher(String, 'scan_data', 10)
         self.autoscan_sub = self.create_subscription(
-            Bool,
+            String,
             'auto_scan',
             self.autoscan_callback,
             10
@@ -38,14 +38,25 @@ class QRCameraModule(Node):
         self.autoscan_enabled = True
         self.get_logger().info('Camera Module Initialized. Autoscan: OFF')
         
-        # Setting up the folders and CSV with absolute path for logging the qr codes
-        self.base_folder = os.path.expanduser("~/qr_yolo_live_output_minimal")
-        self.csv_path = os.path.join(self.base_folder, "onbot_1.csv")
+        # --- PATH AND SESSION CONFIGURATION ---
+        
+        # 1. Get the directory where this script is located (The Repository)
+        repo_path = os.path.dirname(os.path.abspath(__file__))
+        
+        # 2. Define the output folder within the repository
+        self.base_folder = "qr_session_logs"
         os.makedirs(self.base_folder, exist_ok=True)
         
-        self.get_logger().info(f"CSV will be saved to: {self.csv_path}")
+        # 3. Generate a unique filename based on current time
+        session_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        csv_filename = f"session_{session_timestamp}.csv"
         
-        # Initializing CSV
+        self.csv_path = os.path.join(self.base_folder, csv_filename)
+        
+        self.get_logger().info(f"Session Output Folder: {self.base_folder}")
+        self.get_logger().info(f"Current Session CSV: {self.csv_path}")
+        
+        # Initializing CSV (New file for every session)
         if not os.path.exists(self.csv_path):
             with open(self.csv_path, "w", newline="") as f:
                 writer = csv.writer(f)
@@ -54,7 +65,14 @@ class QRCameraModule(Node):
         
         # YOLO Setup
         self.get_logger().info("Loading YOLO model...")
-        self.model = YOLO(r"qr_yolov11.pt")  #  absolute path to the model
+        # Assuming model is in the same repo path, otherwise provide absolute path
+        model_path = "src/warehouse_scanning/config/qr_yolov11.pt"
+        
+        # Fallback if model isn't found in repo, try relative
+        if not os.path.exists(model_path):
+            model_path = "qr_yolov11.pt" 
+
+        self.model = YOLO(model_path) 
         
 
         # using gpu
@@ -86,7 +104,7 @@ class QRCameraModule(Node):
         # Multiprocessing setup - CREATE MANAGER FIRST
         self.seen_qr_codes = mp.Manager().dict()
         
-        # Load previously saved unique QR codes from CSV (if exists)
+        # Load previously saved unique QR codes (Since file is new, this will usually be empty)
         self.load_existing_qr_codes()
         
         # Multiprocessing queues and worker
@@ -123,16 +141,16 @@ class QRCameraModule(Node):
                             self.decoded_qr_set.add(row['Decoded_Text'])
                             self.seen_qr_codes[row['Decoded_Text']] = True
                 
-                self.get_logger().info(f"Loaded {len(self.decoded_qr_set)} unique QR codes from previous sessions")
+                self.get_logger().info(f"Loaded {len(self.decoded_qr_set)} unique QR codes from current session file")
             except Exception as e:
                 self.get_logger().warn(f"Could not load existing QR codes: {e}")
         else:
-            self.get_logger().info("No previous CSV found - starting fresh")
+            self.get_logger().info("New session started - No existing data loaded.")
     
     
     def autoscan_callback(self, msg):
         """Callback for autoscan topic"""
-        self.autoscan_enabled = msg.data
+        self.autoscan_enabled = msg.data == "START"
         status = "ON" if self.autoscan_enabled else "OFF"
         self.get_logger().info(f'Autoscan: {status}')
         
@@ -386,7 +404,7 @@ def decode_worker(input_queue, csv_path, result_queue, seen_qr_codes):
                 with open(csv_path, "a", newline="") as f:
                     writer = csv.writer(f)
                     writer.writerow([timestamp, frame_id, "Decoding (BG)", used_method, "Decoded",
-                                     decoded_text, round(float(conf), 3), used_method])
+                                   decoded_text, round(float(conf), 3), used_method])
                 print(f"[CSV LOGGED - VALID FORMAT] {decoded_text}")
             except Exception as e:
                 print(f"[CSV ERROR] {e}")

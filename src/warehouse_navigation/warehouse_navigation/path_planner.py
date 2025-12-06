@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
@@ -22,6 +24,9 @@ TOTAL_SAFE_DIST = ROBOT_RADIUS + OBS_RADIUS + SAFETY_MARGIN
 LOOKAHEAD_DIST = 0.5
 STEP_SIZE = 0.1    
 CIRCLE_STEP_ANGLE = 0.1 
+
+# HYSTERESIS CONFIG
+HYSTERESIS_BONUS = 1.5  # Equivalent to ~85 degrees of arc preference to stick to previous decision
 
 # FILES
 CONFIG_FILE = "planner_config.json"
@@ -70,19 +75,20 @@ class SmartPathPlanner(Node):
         self.pub_distorted_scan = self.create_publisher(Float32MultiArray, '/distorted_scan_points', 10)
 
         self.robot_pose = None 
-        
-        # Store obstacles as tuples: (position_np_array, current_safety_radius)
-        # This allows merged obstacles to have different sizes.
         self.obstacles = []    
-        
         self.final_goal = None 
         self.stop_index = None
         
         self.scan_points = []
         self.raw_path_segments = []
         self.racks = [] 
-        
         self.segment_constraints = [] 
+        
+        # --- NEW: Memory for Hysteresis ---
+        # Key: (x_int, y_int), Value: 'ccw' or 'cw'
+        self.obs_memory = {}
+        self.active_obs_keys = set()
+        # ----------------------------------
         
         self.load_config()
 
@@ -93,7 +99,7 @@ class SmartPathPlanner(Node):
         self.face_modes_active = self.face_modes.copy()
 
         self.timer = self.create_timer(0.05, self.control_loop)
-        self.get_logger().info("Planner Initialized (Merged Obstacles + Fixed Endpoints)")
+        self.get_logger().info("Planner Initialized (Stable Hysteresis Logic)")
 
     def load_config(self):
         data = DEFAULT_DATA
@@ -170,7 +176,7 @@ class SmartPathPlanner(Node):
         
         return np.array(pts), np.array(modes), np.array(indices)
 
-    # ================= ROS CALLBACKS & OBSTACLE MERGING =================
+    # ================= ROS CALLBACKS =================
     def pose_callback(self, msg):
         x = msg.pose.position.x
         y = msg.pose.position.y
@@ -186,20 +192,16 @@ class SmartPathPlanner(Node):
         count = int(data[0])
         
         raw_obstacles = []
-        # Parse initial obstacles
         for i in range(count):
             idx = 1 + (i * 2)
             if idx + 1 < len(data):
-                # Start with default safe distance
                 raw_obstacles.append({
                     'pos': np.array([data[idx], data[idx+1]]),
                     'radius': TOTAL_SAFE_DIST
                 })
-        
         self.obstacles = self.merge_obstacles(raw_obstacles)
 
     def merge_obstacles(self, obstacles):
-        """Recursively merge intersecting obstacles."""
         merged = True
         current_obs_list = obstacles
 
@@ -210,39 +212,23 @@ class SmartPathPlanner(Node):
 
             for i in range(len(current_obs_list)):
                 if i in skip_indices: continue
-                
                 obs1 = current_obs_list[i]
                 merged_this_iter = False
                 
                 for j in range(i + 1, len(current_obs_list)):
                     if j in skip_indices: continue
-                    
                     obs2 = current_obs_list[j]
                     dist = np.linalg.norm(obs1['pos'] - obs2['pos'])
                     
-                    # Check intersection of safety circles
                     if dist < (obs1['radius'] + obs2['radius']):
-                        # MERGE THEM
-                        # New Center = Midpoint
                         new_center = (obs1['pos'] + obs2['pos']) / 2.0
-                        
-                        # New Radius = Distance from new center to furthest edge + buffer
-                        # Simply, radius needs to cover both.
-                        # Conservative estimate: half dist + max radius? 
-                        # Better: Expand just enough to cover the outer edges
-                        # Edge 1 from new center: dist/2 + r1
-                        # Edge 2 from new center: dist/2 + r2
                         new_radius = (dist / 2.0) + max(obs1['radius'], obs2['radius'])
-                        
-                        new_list.append({
-                            'pos': new_center,
-                            'radius': new_radius
-                        })
+                        new_list.append({'pos': new_center, 'radius': new_radius})
                         skip_indices.add(i)
                         skip_indices.add(j)
                         merged = True
                         merged_this_iter = True
-                        break # Break inner loop, restart outer logic in next while iteration
+                        break 
                 
                 if not merged_this_iter:
                     new_list.append(obs1)
@@ -291,13 +277,11 @@ class SmartPathPlanner(Node):
             self.racks = new_racks
             self.save_config()
 
-    # ================= INTERIOR PROJECTION LOGIC =================
+    # ================= INTERIOR PROJECTION =================
     def process_distorted_scan_points(self):
         distorted_points = []
-        
         for i, pt in enumerate(self.scan_points):
             current_pt = pt.copy()
-
             if i == 0 or i == len(self.scan_points) - 1:
                 distorted_points.append(current_pt)
                 continue
@@ -316,11 +300,9 @@ class SmartPathPlanner(Node):
                 target_sign = 1
                 A, B, C = 1, 0, 0
 
-            # Use merged obstacles
             for obs in self.obstacles:
                 obs_pos = obs['pos']
                 obs_r = obs['radius']
-                
                 d_vec = current_pt - obs_pos
                 dist_sq = np.dot(d_vec, d_vec)
                 safe_sq = obs_r**2
@@ -348,7 +330,6 @@ class SmartPathPlanner(Node):
                         else: current_pt = p1
                             
             distorted_points.append(current_pt)
-            
         return distorted_points
 
     def publish_distorted_points(self, points):
@@ -360,15 +341,18 @@ class SmartPathPlanner(Node):
         msg.data = flat_list
         self.pub_distorted_scan.publish(msg)
 
-    # ================= ARC GENERATION =================
+    # ================= ROBUST ARC GENERATION =================
     def generate_innermost_arc(self, obs, start_point, end_point):
-        # Unpack merged obstacle data
+        """
+        Generates an arc around the obstacle.
+        Uses hysteresis to prevent flickering between CCW and CW.
+        """
         obs_center = obs['pos']
         safe_dist = obs['radius']
 
+        # 1. Project start/end to circle
         start_vec = start_point - obs_center
         end_vec = end_point - obs_center
-        
         p_start_circ = obs_center + (start_vec / np.linalg.norm(start_vec)) * safe_dist
         p_end_circ = obs_center + (end_vec / np.linalg.norm(end_vec)) * safe_dist
 
@@ -378,30 +362,49 @@ class SmartPathPlanner(Node):
         ang_start = (ang_start + 2*math.pi) % (2*math.pi)
         ang_end = (ang_end + 2*math.pi) % (2*math.pi)
 
-        A = p_start_circ[1] - p_end_circ[1]
-        B = p_end_circ[0] - p_start_circ[0]
-        C = -A * p_start_circ[0] - B * p_start_circ[1]
+        # 2. Calculate Arc Lengths
+        diff_ccw = (ang_end - ang_start) % (2*math.pi)
+        diff_cw = (ang_start - ang_end) % (2*math.pi)
 
-        ref_val = A * 0 + B * 0 + C
-        ref_sign = 1 if ref_val >= 0 else -1
-
-        if ang_end > ang_start: mid_ccw = (ang_start + ang_end) / 2.0
-        else: mid_ccw = (ang_start + ang_end + 2*math.pi) / 2.0
+        # 3. Calculate "Inner" Bias (Preference for side closer to 0,0)
+        # We calculate the midpoints of both potential arcs and see which is closer to arena center
+        mid_ccw_ang = (ang_start + diff_ccw / 2.0)
+        mid_cw_ang = (ang_start - diff_cw / 2.0)
         
-        p_mid_ccw = np.array([
-            obs_center[0] + safe_dist * math.cos(mid_ccw),
-            obs_center[1] + safe_dist * math.sin(mid_ccw)
-        ])
+        mid_ccw_pt = obs_center + np.array([math.cos(mid_ccw_ang), math.sin(mid_ccw_ang)]) * safe_dist
+        mid_cw_pt = obs_center + np.array([math.cos(mid_cw_ang), math.sin(mid_cw_ang)]) * safe_dist
         
-        mid_val = A * p_mid_ccw[0] + B * p_mid_ccw[1] + C
-        mid_sign = 1 if mid_val >= 0 else -1
+        dist_ccw_to_origin = np.linalg.norm(mid_ccw_pt)
+        dist_cw_to_origin = np.linalg.norm(mid_cw_pt)
 
-        use_ccw = (mid_sign == ref_sign)
+        # Base Cost = Arc Length + Penalty if far from center
+        # We add a small penalty (0.5m equivalent) to the side that is further from center
+        # This preserves your original intent to stay "inside" the path loop
+        cost_ccw = diff_ccw + (0.5 if dist_ccw_to_origin > dist_cw_to_origin else 0.0)
+        cost_cw = diff_cw + (0.5 if dist_cw_to_origin > dist_ccw_to_origin else 0.0)
 
+        # 4. Apply Hysteresis (Memory)
+        # Create a unique key for this obstacle based on 10cm grid snap
+        obs_key = (int(round(obs_center[0], 1)*10), int(round(obs_center[1], 1)*10))
+        self.active_obs_keys.add(obs_key) # Mark as active for this frame
+
+        if obs_key in self.obs_memory:
+            prev_decision = self.obs_memory[obs_key]
+            if prev_decision == 'ccw':
+                cost_ccw -= HYSTERESIS_BONUS # Make staying CCW much cheaper
+            else:
+                cost_cw -= HYSTERESIS_BONUS  # Make staying CW much cheaper
+
+        # 5. Final Decision
+        use_ccw = (cost_ccw < cost_cw)
+        
+        # Save decision for next frame
+        self.obs_memory[obs_key] = 'ccw' if use_ccw else 'cw'
+
+        # 6. Generate Points
         arc_points = []
         if use_ccw:
-            diff = ang_end - ang_start
-            if diff < 0: diff += 2*math.pi
+            diff = diff_ccw
             steps = max(int(diff / CIRCLE_STEP_ANGLE), 2)
             for i in range(steps + 1):
                 a = ang_start + (diff * i / steps)
@@ -410,8 +413,7 @@ class SmartPathPlanner(Node):
                     obs_center[1] + safe_dist * math.sin(a)
                 ]))
         else:
-            diff = ang_start - ang_end
-            if diff < 0: diff += 2*math.pi
+            diff = diff_cw
             steps = max(int(diff / CIRCLE_STEP_ANGLE), 2)
             for i in range(steps + 1):
                 a = ang_start - (diff * i / steps)
@@ -426,8 +428,12 @@ class SmartPathPlanner(Node):
         if not self.obstacles:
             self.active_path = self.base_path.copy()
             self.face_modes_active = self.face_modes.copy()
+            self.obs_memory.clear() # Clear memory if no obstacles
             return
 
+        # Prepare memory for this frame
+        self.active_obs_keys = set()
+        
         collision_ranges = []
         path_len = len(self.base_path)
 
@@ -438,14 +444,13 @@ class SmartPathPlanner(Node):
             obs_pos = obs['pos']
             obs_r = obs['radius']
 
-            # 1. STATIC ENDPOINT PROTECTION
+            # STATIC ENDPOINT PROTECTION
             dist_start = np.linalg.norm(obs_pos - start_static_point)
             dist_end = np.linalg.norm(obs_pos - end_static_point)
 
             if dist_start < obs_r or dist_end < obs_r:
                 continue
 
-            # 2. STANDARD COLLISION CHECK
             indices = []
             for i, pt in enumerate(self.base_path):
                 if np.linalg.norm(pt - obs_pos) < obs_r:
@@ -497,6 +502,15 @@ class SmartPathPlanner(Node):
 
         self.active_path = np.array(new_path)
         self.face_modes_active = np.array(new_modes)
+
+        # Garbage Collection: Remove obstacles from memory that we didn't see this frame
+        # This prevents the dict from growing indefinitely
+        keys_to_remove = []
+        for k in self.obs_memory:
+            if k not in self.active_obs_keys:
+                keys_to_remove.append(k)
+        for k in keys_to_remove:
+            del self.obs_memory[k]
 
     def control_loop(self):
         if self.robot_pose is None: return
@@ -606,9 +620,7 @@ class SmartPathPlanner(Node):
 
         for obs in self.obstacles:
             c = to_pix(obs['pos'])
-            # Draw the actual "center" of the merged obstacle
             cv2.circle(img, c, 5, (255, 0, 0), -1) 
-            # Draw the computed safety radius
             cv2.circle(img, c, int(obs['radius']*PIX_TO_METER), (255, 200, 200), 1)
 
         for pt in self.scan_points:
@@ -629,7 +641,7 @@ class SmartPathPlanner(Node):
             end = (int(pt[0] + 30*math.cos(th)), int(pt[1] - 30*math.sin(th)))
             cv2.line(img, pt, end, (0,0,255), 3)
 
-        cv2.imshow("Smart Planner - Innermost Arc + Fixed Ends", img)
+        cv2.imshow("Smart Planner - Stable", img)
         cv2.waitKey(1)
 
 def main(args=None):

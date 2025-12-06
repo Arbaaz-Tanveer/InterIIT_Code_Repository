@@ -1,4 +1,3 @@
 [console_scripts]
-autoscan_test = warehouse_scanning.autoscan_test:main
 camera_node = warehouse_scanning.camera_node:main
 

@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
 import collections
 import math
 import logging
 from typing import Deque, NamedTuple, Tuple, List
-import pyudev
 import os
 import cv2
 import numpy as np
 import matplotlib as plt
-from skimage.morphology import skeletonize
 import time
 
 
@@ -118,39 +115,6 @@ class OdometryBuffer:
 
         return (x, y, theta)
         
-def compute_observed_bot_position(camera: str,
-                                  rel_measurement: Tuple[float, float],
-                                  observer_pose: Tuple[float, float, float]) -> Tuple[float, float]:
-    """
-    Given a camera name, a relative measurement (x, z) from the camera,
-    and an observer's global pose (x, y, theta), compute the observed bot's
-    global position.
-    """
-    x_cam, z_cam = rel_measurement
-    # Convert camera measurement to robot frame based on the camera orientation.
-    if camera == 'front':
-        # No rotation.
-        robot_offset_x = z_cam    
-        robot_offset_y = -x_cam    
-    elif camera == 'left':
-        robot_offset_x = x_cam         
-        robot_offset_y = z_cam        
-    elif camera == 'back':
-        robot_offset_x = -z_cam   
-        robot_offset_y = x_cam   
-    elif camera == 'right':
-        robot_offset_x = -x_cam  
-        robot_offset_y = -z_cam    
-    else:
-        raise ValueError("Camera must be one of 'front', 'right', 'back', or 'left'.")
-
-    obs_x, obs_y, theta = observer_pose
-
-    # Transform the robot offset (in robot frame) to the global field coordinates.
-    global_x = obs_x + robot_offset_x * math.cos(theta) - robot_offset_y * math.sin(theta)
-    global_y = obs_y + robot_offset_x * math.sin(theta) + robot_offset_y * math.cos(theta)
-
-    return (global_x, global_y)
 
 def principal_value_radians(angle_radians):
     """
@@ -163,30 +127,6 @@ def principal_value_radians(angle_radians):
     principal_angle = np.where(normalized_angle > np.pi, normalized_angle - (2 * np.pi), normalized_angle)
     return principal_angle
 
-def skeletonizer(img, grid_spacing = 3, make_dotted_img = False):
-
-    thinned_img = (skeletonize(img) * 255).astype(np.uint8)
-    # Create mask for thinned image
-    y, x = np.where(thinned_img == 255)
-
-    mask = (y % grid_spacing == 0) & (x % grid_spacing == 0)
-    selected_y = y[mask]
-    selected_x = x[mask]
-
-    if make_dotted_img:
-        dotted_img = np.zeros_like(thinned_img)
-        dotted_img[selected_y, selected_x] = 255
-    else:
-        dotted_img = None
-
-    # Center the coordinates
-    x_centered = selected_x - img.shape[1] / 2.0
-    y_centered = selected_y - img.shape[0] / 2.0
-
-    flattened_arr = np.stack((x_centered, y_centered), axis=1).flatten().astype(np.int16).tolist()
-
-    return dotted_img, flattened_arr
-
 def visualise_localisation_result(cam, angle, dx, dy, write_coords = True):
     # Return None early if no activation map
     if cam is None:
@@ -194,7 +134,7 @@ def visualise_localisation_result(cam, angle, dx, dy, write_coords = True):
 
     # Load the field map
     field_img = cv2.imread(
-        'src/main_pkg/main_pkg/maps/test_field.png'
+        'src/warehouse_navigation/config/maps/test_field.png'
     )
     if field_img is None:
         raise FileNotFoundError("Field map image not found")
@@ -271,92 +211,3 @@ if __name__ == "__main__":
     # Now, use integrate_backward to recover the initial pose from the final pose.
     recovered_initial_pose = odo_buffer.integrate_backward(new_pose, time_window_ms=2000)
     print(f"Recovered initial pose (backward integration): x={recovered_initial_pose[0]:.3f}, y={recovered_initial_pose[1]:.3f}, theta={recovered_initial_pose[2]:.3f}")
-
-    # Example camera measurement:
-    # Suppose the 'back' camera sees an observed bot at (0.2, 1.5) where 0.2 m is to the right
-    # and 1.5 m forward in the camera's frame.
-    observer_pose = (1, 1, 0)
-    camera = 'back'
-    rel_measurement = (0.2, 1.5)  # (x, z) in camera coordinates
-
-    observed_bot_global = compute_observed_bot_position(camera, rel_measurement, observer_pose)
-    print(f"Observed bot global position (from {camera} camera): x={observed_bot_global[0]:.3f}, y={observed_bot_global[1]:.3f}")
-
-
-class ImageProcessing:
-    def __init__(self):
-        pass
-    
-    def white_threshold(self,image, thresh_val=40, show=False):
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        ret, binary = cv2.threshold(gray, thresh_val, 255, cv2.THRESH_BINARY)
-        if show:
-            cv2.imshow("White Threshold", binary)
-            cv2.waitKey(0)
-            cv2.destroyWindow("White Threshold")
-        return binary
-    
-    def adaptive_threshold(self, image, block_size=53, C=-10):
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        # ADAPTIVE_THRESH_MEAN_C computes the mean of the neighborhood area minus C.
-        thresholded = cv2.adaptiveThreshold(
-            gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
-            cv2.THRESH_BINARY, block_size, C
-        )
-        return thresholded
-
-    def process_map(self,binary_image, min_arc_length=50, min_area=200, max_area=15000, min_length=20, max_circularity=0.35,show = False):
-
-        # Apply Gaussian blur to the binary image to reduce noise
-        blurred = cv2.GaussianBlur(binary_image, (3, 3), 0)
-        
-        # # Ensure image is binary by thresholding (in case the blur made values non-binary)
-        # _, thresh = cv2.threshold(blurred, 150, 255, cv2.THRESH_BINARY)
-        
-        # Find contours in the binary mask
-        start = time.time()
-        contours, _ = cv2.findContours(blurred, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        time_taken = time.time()-start
-        # print(f"Time for contour detection: {time_taken:.6f}s")
-        
-        # Create a blank mask to draw the filtered contours
-        mask_clean = np.zeros_like(blurred)
-        
-        for cnt in contours:
-            arc_len = cv2.arcLength(cnt, closed=True)
-            area = cv2.contourArea(cnt)
-            x, y, w, h = cv2.boundingRect(cnt)
-
-            if arc_len == 0:
-                continue
-            circularity = 4 * np.pi * (area / (arc_len * arc_len))
-
-            # Keep contours that meet the criteria
-            if (arc_len >= min_arc_length and area >= min_area and area <= max_area and 
-                max(w, h) >= min_length and circularity < max_circularity):
-                cv2.drawContours(mask_clean, [cnt], -1, 255, thickness=cv2.FILLED)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (4, 4))
-        final_result = cv2.dilate(mask_clean, kernel, iterations=1)
-        if(show):
-            self.show_intermediate_results(blurred, mask_clean, final_result)
-        return mask_clean
-
-    def show_intermediate_results(self,blurred, edges, dilated_edges):
-        """
-        Display intermediate processing results using matplotlib.
-        """
-        fig, axs = plt.subplots(1, 3, figsize=(15, 5))
-        axs[0].imshow(blurred, cmap='gray')
-        axs[0].set_title("Blurred Ground Map")
-        axs[0].axis('off')
-        
-        axs[1].imshow(edges, cmap='gray')
-        axs[1].set_title("Canny Edges")
-        axs[1].axis('off')
-        
-        axs[2].imshow(dilated_edges, cmap='gray')
-        axs[2].set_title("Dilated Edges")
-        axs[2].axis('off')
-        
-        plt.tight_layout()
-        plt.show()

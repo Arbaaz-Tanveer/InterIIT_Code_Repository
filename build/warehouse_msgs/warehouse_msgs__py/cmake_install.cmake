@@ -1,8 +1,8 @@
-# Install script for directory: /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs/warehouse_msgs__py
+# Install script for directory: /home/era/Documents/InterIIT_Code_Repository/build/warehouse_msgs/warehouse_msgs__py
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs")
+  set(CMAKE_INSTALL_PREFIX "/home/era/Documents/InterIIT_Code_Repository/install/warehouse_msgs")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

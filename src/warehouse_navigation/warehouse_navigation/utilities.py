@@ -134,7 +134,7 @@ def visualise_localisation_result(cam, angle, dx, dy, write_coords = True):
 
     # Load the field map
     field_img = cv2.imread(
-        'src/main_pkg/main_pkg/maps/test_field.png'
+        'src/warehouse_navigation/config/maps/test_field.png'
     )
     if field_img is None:
         raise FileNotFoundError("Field map image not found")

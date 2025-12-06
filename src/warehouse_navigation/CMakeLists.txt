@@ -48,7 +48,6 @@ ament_python_install_package(${PROJECT_NAME})
 # 4. Install Python Scripts
 install(PROGRAMS
   warehouse_navigation/path_planner.py
-  warehouse_navigation/obstacle_detector.py
   warehouse_navigation/vision.py
   warehouse_navigation/utilities.py
   DESTINATION lib/${PROJECT_NAME}
@@ -84,10 +83,10 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY
-  launch
-  config
-  DESTINATION share/${PROJECT_NAME}
-)
-
+# install(DIRECTORY
+#   launch
+#   config
+#   DESTINATION share/${PROJECT_NAME}
+# )
+    
 ament_package()

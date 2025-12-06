@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
 """
-lidar_circle_detector_cv.py
+obstacle_detector.py
 
 ROS2 node that detects circular obstacles from a 2D LIDAR.
 Includes a 'Max Range' filter to ignore far-away noise.

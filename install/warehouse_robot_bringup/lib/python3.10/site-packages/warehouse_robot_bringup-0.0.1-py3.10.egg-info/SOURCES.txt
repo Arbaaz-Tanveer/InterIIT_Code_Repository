@@ -13,6 +13,5 @@ launch/system.launch.py
 resource/warehouse_robot_bringup
 warehouse_robot_bringup/__init__.py
 warehouse_robot_bringup/hardware.py
-warehouse_robot_bringup/lidar_sim.py
 warehouse_robot_bringup/main.py
 warehouse_robot_bringup/robot_sim.py

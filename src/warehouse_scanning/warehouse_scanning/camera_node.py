@@ -44,7 +44,7 @@ class QRCameraModule(Node):
         repo_path = os.path.dirname(os.path.abspath(__file__))
         
         # 2. Define the output folder within the repository
-        self.base_folder = os.path.join(repo_path, "qr_session_logs")
+        self.base_folder = "qr_session_logs"
         os.makedirs(self.base_folder, exist_ok=True)
         
         # 3. Generate a unique filename based on current time
@@ -66,7 +66,7 @@ class QRCameraModule(Node):
         # YOLO Setup
         self.get_logger().info("Loading YOLO model...")
         # Assuming model is in the same repo path, otherwise provide absolute path
-        model_path = os.path.join(repo_path, "qr_yolov11.pt")
+        model_path = "src/warehouse_scanning/config/qr_yolov11.pt"
         
         # Fallback if model isn't found in repo, try relative
         if not os.path.exists(model_path):

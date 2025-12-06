@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import time
 import threading
 import os
@@ -14,10 +15,10 @@ from rclpy.executors import MultiThreadedExecutor
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension, Int16MultiArray
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped
-from localisation_pkg.srv import Localisation
+from warehouse_msgs.srv import Localisation
 
 # Import utilities (adjust path as needed)
-from main_pkg.utilities import (
+from warehouse_navigation.utilities import (
     OdometryBuffer, 
     principal_value_radians,
     visualise_localisation_result
@@ -30,17 +31,18 @@ from main_pkg.utilities import (
 # --- PERFORMANCE CONFIGURATION ---
 ENABLE_SAMPLING = True       # Set to True to downsample LiDAR points for speed
 SAMPLE_SIZE = 500            # Number of points to keep if sampling is on
-ENABLE_VISUALIZATION = False # Set to False to disable CV2 windows and map drawing
+ENABLE_VISUALIZATION = True # Set to False to disable CV2 windows and map drawing
 LIDAR_OFFSET_X = -20 #IN CM
 # ---------------------------------
 
 # --- OBSTACLE DETECTION CONFIG ---
 OBSTACLE_CLUSTER_DIST = 0.15     # Max distance between points to be one object
-OBSTACLE_MIN_POINTS = 5          # Min points to try fitting a circle
-OBSTACLE_MAX_RESIDUAL = 0.02     # How "round" the object must be
-OBSTACLE_MIN_RADIUS = 0.05       # Min radius in meters
-OBSTACLE_MAX_RADIUS = 0.3       # Max radius in meters
-OBSTACLE_MAX_RANGE = 4.0         # Ignore points further than 4m
+OBSTACLE_MIN_POINTS = 12          # Min points to try fitting a circle
+OBSTACLE_MAX_RESIDUAL = 0.007     # How "round" the object must be
+OBSTACLE_MIN_RADIUS = 0.07       # Min radius in meters
+OBSTACLE_MAX_RADIUS = 0.2       # Max radius in meters
+OBSTACLE_MAX_RANGE = 1.5         # Ignore points further than 4m
+OBSTACLE_MIN_ARC_ANGLE = 1.0    # Radians (approx 60 degrees). Filter out small arcs.
 # ---------------------------------
 obstacle_publishing = False
 
@@ -50,15 +52,15 @@ latest_ground_map = None
 latest_localiser_img = None
 latest_scan_data = None
 
-FIELD_WIDTH = 3.77
-FIELD_HEIGHT = 3.66
+FIELD_WIDTH = 5.1
+FIELD_HEIGHT = 6.2 
 
 map_scale = 100  # pixels per meter
-map_size_m = 8
+map_size_m = 12
 map_size_px = int(map_size_m * map_scale)
 
 # Robot state
-bot_pos = [1.285, -1.23, -np.pi/2]  # x, y, theta
+bot_pos = [1.5, -2.7, np.pi/2]  # x, y, theta
 obstacles = []
 odo_buffer = OdometryBuffer(capacity=2000)
 
@@ -79,6 +81,7 @@ scan_sub = None
 localisation_client = None
 executor = None
 executor_localisation = None
+restart_sub = None
 
 # Logging settings
 log_settings = {
@@ -176,6 +179,33 @@ def fit_circle(xy_points):
     
     return (float(x0), float(y0), float(r), mean_res)
 
+def calculate_arc_coverage(center, points):
+    """
+    Calculates the angular range (radians) the points cover on the circle.
+    """
+    cx, cy = center
+    # Calculate angle of every point relative to circle center
+    angles = np.arctan2(points[:, 1] - cy, points[:, 0] - cx)
+    
+    # Sort angles to find gaps
+    angles = np.sort(angles)
+    
+    # Calculate gaps between adjacent angles
+    if len(angles) < 2:
+        return 0.0
+        
+    # The wrap_gap is the empty space between the last point (near PI) and first point (near -PI)
+    wrap_gap = (2 * np.pi) - (angles[-1] - angles[0])
+    
+    gaps = np.diff(angles)
+    
+    # The largest gap represents the empty space. 
+    # Visible arc = Total Circle (2pi) - Empty Space (max_gap)
+    max_gap = max(np.max(gaps) if len(gaps) > 0 else 0, wrap_gap)
+    
+    visible_arc = (2 * np.pi) - max_gap
+    return visible_arc
+
 
 # ---------------------------------------------------
 # Convert LiDAR scan to ground map
@@ -241,6 +271,45 @@ def lidar_to_points_and_map(scan_data, map_size_px, scale,
     
     return points_flat, ground_map, full_points_meters
 
+# ---------------------------------------------------
+# Restart Localisation Callback
+# ---------------------------------------------------
+def restart_callback(msg):
+    """
+    Callback to force-reset the robot position.
+    Expected msg.data: [x, y, theta]
+    """
+    global bot_pos, x_abs_delta_since_last_localisation
+    global y_abs_delta_since_last_localisation, rotation_since_last_localisation
+    
+    try:
+        data = msg.data
+        if len(data) < 3:
+            print("Received restart request, but data is too short (needs [x,y,theta])")
+            return
+
+        new_x, new_y, new_theta = data[0], data[1], data[2]
+        
+        print(f"!!! RESTARTING LOCALISATION TO: X={new_x:.2f}, Y={new_y:.2f}, Theta={new_theta:.2f} !!!")
+        
+        with global_lock:
+            # 1. Force update the position
+            bot_pos[0] = new_x
+            bot_pos[1] = new_y
+            bot_pos[2] = new_theta
+            
+            # 2. Reset the "Delta" trackers. 
+            # If we don't do this, the localisation thread might think the robot 
+            # "teleported" illegally and reject future visual updates.
+            x_abs_delta_since_last_localisation = 0
+            y_abs_delta_since_last_localisation = 0
+            rotation_since_last_localisation = 0
+            
+            # Note: We do not clear the odo_buffer here because we don't have access 
+            # to its internal list, but updating bot_pos is the most critical step.
+
+    except Exception as e:
+        logging.exception(f"Error processing restart command: {e}")
 
 # ---------------------------------------------------
 # Odometry callback
@@ -348,28 +417,53 @@ class LocalisationClient(Node):
         
         return self.cli.call_async(self.req)
 
-def detect_and_create_obstacle_msg(raw_points):
+def detect_and_create_obstacle_msg(raw_points, robot_pose):
     """
-    Takes raw (x,y) meter points, performs clustering and circle fitting.
+    1. Rotates points 90 deg (Fixes Right-appearing-on-Back).
+    2. Clusters and fits circles.
+    3. Transforms to Global Frame (Applying Lidar Offset).
     Returns:
-        1. Float32MultiArray message ready for publishing
-        2. List of (cx, cy, r) tuples for visualization
+        - msg: Global coordinates for ROS
+        - vis_circles: Local coordinates (Robot Frame) for Visualization
     """
-    # 1. Filter by Max Range (Numpy optimization)
-    if len(raw_points) > 0:
-        dists = np.linalg.norm(raw_points, axis=1)
-        det_pts = raw_points[dists <= OBSTACLE_MAX_RANGE]
-    else:
+    if len(raw_points) == 0:
         return None, []
 
-    # 2. Cluster
+    # --- 1. ROTATION CORRECTION ---
+    # Fix "Right appearing as Back":
+    # Right is (0, -1). Back is (-1, 0).
+    # We rotate (-1, 0) -> (0, -1) using: x_new = -y, y_new = x
+    corrected_x = -raw_points[:, 1]
+    corrected_y =  raw_points[:, 0]
+    
+    # Stack for clustering
+    corrected_points = np.column_stack((corrected_x, corrected_y))
+
+    # Filter by Range
+    dists = np.linalg.norm(corrected_points, axis=1)
+    det_pts = corrected_points[dists <= OBSTACLE_MAX_RANGE]
+
+    if len(det_pts) == 0:
+        return None, []
+
+    # --- 2. CLUSTERING ---
     clusters = euclidean_clusters(det_pts)
     
-    # 3. Fit & Filter
-    obs_flat_list = []      # Data for ROS message
-    valid_circles_vis = []  # Data for CV2 visualization
+    obs_global_list = []
+    valid_circles_vis = []
     
+    bot_x, bot_y, bot_theta = robot_pose
+    cos_t = math.cos(bot_theta)
+    sin_t = math.sin(bot_theta)
+
+    # Convert Lidar Offset from CM (pixels) to Meters for the global calculation
+    # Assuming LIDAR_OFFSET_X = -20 means "20cm Back"
+    offset_meters = LIDAR_OFFSET_X / 100.0 
+
     for cluster in clusters:
+        # if( bot_y < -2):
+        #     break
+
         if len(cluster) < OBSTACLE_MIN_POINTS: continue
         
         fit = fit_circle(cluster)
@@ -377,17 +471,36 @@ def detect_and_create_obstacle_msg(raw_points):
         
         cx, cy, r, res = fit
         
-        # Filter: Residual & Radius
         if res <= OBSTACLE_MAX_RESIDUAL and OBSTACLE_MIN_RADIUS <= r <= OBSTACLE_MAX_RADIUS:
-            obs_flat_list.extend([cx, cy])
+            
+            # Check arc coverage before accepting the obstacle
+            cluster_np = np.array(cluster)
+            arc_angle = calculate_arc_coverage((cx, cy), cluster_np)
+            
+            if arc_angle < OBSTACLE_MIN_ARC_ANGLE:
+                continue
+
+            # --- GLOBAL TRANSFORM (With Offset) ---
+            # Apply offset to the Forward axis (cx)
+            cx_offset = cx - offset_meters
+            
+            # Rotate to Map Frame
+            gx = bot_x + (-cx_offset * cos_t - cy * sin_t)
+            gy = bot_y + (-cx_offset * sin_t + cy * cos_t)
+
+            if (gy < -2):
+                continue
+            
+            obs_global_list.extend([gx, gy])
+
+            # --- LOCAL FRAME (For Visualization) ---
+            # Return pure local coords. We handle the visual alignment in main()
             valid_circles_vis.append((cx, cy, r))
 
-    # 4. Create Message: [Count, x1, y1, x2, y2...]
-    final_data = [float(len(valid_circles_vis))] + obs_flat_list
+    final_data = [float(len(valid_circles_vis))] + obs_global_list
     msg = create_float32_array(final_data, label="obstacles")
     
     return msg, valid_circles_vis
-
 # ---------------------------------------------------
 # Localization thread
 # ---------------------------------------------------
@@ -437,18 +550,20 @@ def localisation_thread_func():
         # ====================================================
         if obstacle_publishing:
             try:
-                obs_msg, vis_circles = detect_and_create_obstacle_msg(raw_meter_points)
+                # Need robot pose for Global Coordinate transform
+                with global_lock:
+                   curr_pose = bot_pos.copy()
+
+                # Pass pose to the updated function
+                obs_msg, vis_circles = detect_and_create_obstacle_msg(raw_meter_points, curr_pose)
                 
-                # Publish
                 if obs_msg:
                     obstacles_pub.publish(obs_msg)
                 
-                # Update Visualization Global
                 with global_lock:
                     latest_obstacles_vis = vis_circles
 
             except Exception as e:
-                # Don't let detection crash the localization thread
                 print(f"Obstacle detection failed: {e}")
         # ====================================================
 
@@ -474,7 +589,7 @@ def localisation_thread_func():
                 (-curr_pos[1] + (FIELD_HEIGHT/2)) * map_scale,
                 2 * np.pi - curr_pos[2]
             ]
-            bound_size = [0.5 * map_scale, 0.5 * map_scale, np.pi/4] # Search window
+            bound_size = [0.3 * map_scale, 0.3 * map_scale, np.pi/5] # Search window
             
             bounds = [
                 map_pos[0] - bound_size[0], map_pos[0] + bound_size[0],
@@ -519,8 +634,8 @@ def localisation_thread_func():
                             angle_delta = rotation_since_last_localisation
                         
                         # Dynamic Tolerance: scales with distance moved
-                        square_distance_tolerance = 0.3 + sq_dist_delta * sq_dist_delta * 0.01
-                        angle_tolerance = 0.5 + angle_delta * 0.01
+                        square_distance_tolerance = 0.2 + sq_dist_delta * sq_dist_delta * 0.01
+                        angle_tolerance = 0.2 + angle_delta * 0.01
 
                         if log_settings["localisation"]["tolerance"]:
                              print(f"Tolerance: SqDist={square_distance_tolerance:.3f}, Angle={angle_tolerance:.3f}")
@@ -562,8 +677,8 @@ def localisation_thread_func():
                         velocity_proxy = displacement[0]**2 + displacement[1]**2
                         
                         # Stationary = High Odom Weight (0.95). Moving = Lower Odom Weight (0.75)
-                        # odometry_weight = 0.85 - min(0.20, 300.0 * velocity_proxy)
-                        odometry_weight = 1.00         #-----------------------------------------------------------------------------------------------
+                        # odometry_weight = 0.97 - min(0.20, 300.0 * velocity_proxy)
+                        odometry_weight = 1         #-----------------------------------------------------------------------------------------------
                         if log_settings["localisation"]["odometry_weight"]:
                             print(f"Odom Weight: {odometry_weight:.3f}")
 
@@ -621,7 +736,7 @@ def localisation_thread_func():
 # ---------------------------------------------------
 def init_ros2():
     global ros_node, bot_pos_pub, obstacles_pub
-    global command_sub, scan_sub, localisation_client, executor
+    global command_sub, scan_sub, restart_sub, localisation_client, executor # Added restart_sub
     
     rclpy.init()
     
@@ -637,18 +752,24 @@ def init_ros2():
     command_sub = ros_node.create_subscription(
         Float32MultiArray, 'odom_delta', command_callback, 10
     )
+    
     scan_sub = ros_node.create_subscription(
         LaserScan, 'scan', scan_callback, 10
     )
+
+    # NEW: Restart Localisation Subscriber
+    restart_sub = ros_node.create_subscription(
+        Float32MultiArray, 
+        '/restart_localisation', 
+        restart_callback, 
+        10
+    )
     
-    # --- Executor Setup (The Fix) ---
-    # Use one MultiThreadedExecutor for everything.
-    # We increase threads to 4 to ensure the scan callback, odom callback, 
-    # and service client response don't block each other.
+    # --- Executor Setup ---
     executor = MultiThreadedExecutor(num_threads=4)
     
     executor.add_node(ros_node)
-    executor.add_node(localisation_client) # Add client to the SPINNING executor
+    executor.add_node(localisation_client) 
     
     # Spin the executor in a background thread
     threading.Thread(target=lambda: executor.spin(), daemon=True).start()
@@ -692,10 +813,25 @@ def main():
                     
                     # DRAW OBSTACLES
                     center_px = map_size_px / 2.0
+                    
                     for (cx, cy, r) in current_obstacles:
-                        # Meters -> Pixels
-                        px = int(center_px + cy * map_scale + LIDAR_OFFSET_X)
-                        py = int(center_px - cx * map_scale)
+                        # ---------------------------------------------------------
+                        # MAPPING CORRECTED OBSTACLES TO RAW MAP PIXELS
+                        # ---------------------------------------------------------
+                        # The Map is drawn using:   Px = Center + Raw_Y + Offset
+                        #                           Py = Center - Raw_X
+                        #
+                        # Our Obstacles are:        cx = -Raw_Y
+                        #                           cy =  Raw_X
+                        #
+                        # Therefore, to align Obstacles (cx,cy) with the Map:
+                        # Px = Center - cx * scale + Offset
+                        # Py = Center - cy * scale
+                        # ---------------------------------------------------------
+                        
+                        px = int(center_px - cx * map_scale + LIDAR_OFFSET_X)
+                        py = int(center_px - cy * map_scale)
+                        
                         radius_px = int(r * map_scale)
                         
                         # Draw Circle (Green) and Center (Red)
