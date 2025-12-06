@@ -1,2 +1,0 @@
-# generated from colcon_core/shell/template/command_prefix.sh.em
-. "/home/era/Documents/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.sh"

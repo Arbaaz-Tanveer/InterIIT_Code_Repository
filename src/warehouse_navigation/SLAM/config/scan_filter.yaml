@@ -1,0 +1,32 @@
+
+laser_scan_filter_chain:
+  - name: rod1
+    type: laser_filters/AngularBoundsFilter
+    params:
+      lower_angle: 1.0884
+      upper_angle: 1.1443
+
+  - name: rod2
+    type: laser_filters/AngularBoundsFilter
+    params:
+      lower_angle: 1.515
+      upper_angle: 1.6266
+
+  - name: rod3
+    type: laser_filters/AngularBoundsFilter
+    params:
+      lower_angle: 1.9973
+      upper_angle: 2.0532
+
+  - name: rod4
+    type: laser_filters/AngularBoundsFilter
+    params:
+      lower_angle: -3.0516
+      upper_angle: -2.9449
+
+
+  - name: rod5
+    type: laser_filters/AngularBoundsFilter
+    params:
+      lower_angle: -0.1967
+      upper_angle: -0.09

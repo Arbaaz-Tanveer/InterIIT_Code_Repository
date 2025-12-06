@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<robot name="final_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- === quick-tweak params === -->
+  <xacro:property name="base_len"      value="0.480"/>  <!-- 480 mm -->
+  <xacro:property name="base_wid"      value="0.440"/>  <!-- 420 mm -->
+  <xacro:property name="plate_gap"     value="0.150"/>  <!-- distance between bottom and middle plate - 15 cm -->
+  <xacro:property name="extrusion"     value="0.020"/>  <!-- 20 mm -->
+  <xacro:property name="base_thk"      value="0.003"/>  <!-- THICK plates: 3 mm -->
+  <xacro:property name="wheel_radius"  value="0.050"/>  <!-- 50 mm radius -->
+  <xacro:property name="wheel_width"   value="0.045"/>  <!-- X2 choice: 35 mm width -->
+
+  <!-- Lift body so it’s clearly visible & above wheels -->
+  <xacro:property name="clearance"     value="0.002"/>  <!-- 2 mm visual clearance -->
+  <xacro:property name="gnd_clearence" value="0.020"/>  <!-- 20 mm visual clearance -->
+  <xacro:property name="base_offset_z" value="${gnd_clearence + base_thk/2 + clearance}"/>
+  <xacro:property name="upper_plate_z" value="${base_offset_z + plate_gap}"/>
+
+  <!-- Wheel center height (touching ground at z=0) -->
+  <xacro:property name="wheel_z"       value="${wheel_radius}"/>
+
+  <!-- Sensors (heights relative to base_link origin) -->
+  <xacro:property name="bno_z"         value="0.210"/>
+  <xacro:property name="bno_x"         value="-0.105"/>
+  <xacro:property name="bno_y"         value="-0.080"/>
+  <xacro:property name="lidar_z"       value="0.120"/>
+  <xacro:property name="lidar_off_x"   value="-0.200"/>
+
+  <!-- === base link: two chunky plates === -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${base_offset_z}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${base_len} ${base_wid} ${base_thk}"/>
+      </geometry>
+      <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 ${upper_plate_z}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${base_len} ${base_wid} ${base_thk}"/>
+      </geometry>
+      <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+    </visual>
+
+    <!-- simple inertial just to be sane; tweak later if you simulate dynamics -->
+    <inertial>
+      <origin xyz="0 0 ${(base_offset_z + upper_plate_z)/2}" rpy="0 0 0"/>
+      <mass value="15.0"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0"
+               iyy="0.5" iyz="0.0"
+               izz="0.6"/>
+    </inertial>
+  </link>
+
+  <link name="base_footprint"/>
+
+  <!-- === omni wheel macro (BLACK) === -->
+  <xacro:macro name="omni_wheel_v1" params="name">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0  1.57079632679 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+        <material name="black"><color rgba="0.0 0.0 0.0 1.0"/></material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0  1.57079632679 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+
+
+      <inertial>
+        <mass value="0.7"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0"
+                 izz="0.0006"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="omni_wheel_v2" params="name">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="0  1.57079632679 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+        <material name="black"><color rgba="0.0 0.0 0.0 1.0"/></material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0  1.57079632679 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+      </collision>
+
+
+      <inertial>
+        <mass value="0.7"/>
+        <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+                 iyy="0.001" iyz="0.0"
+                 izz="0.0006"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!-- Create wheels -->
+  <xacro:omni_wheel_v2 name="wheel_fl"/>
+  <xacro:omni_wheel_v1 name="wheel_fr"/>
+  <xacro:omni_wheel_v1 name="wheel_rl"/>
+  <xacro:omni_wheel_v2 name="wheel_rr"/>
+
+  <!-- === wheel joints (KIWI orientation: axle at ±45° in XY) === -->
+  <!-- ( +x forward, +y left ) -->
+  <joint name="wheel_fl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="wheel_fl"/>
+    <origin xyz="${ base_len/2 - wheel_width/2 - extrusion } ${ base_wid/2 - wheel_radius -extrusion } ${wheel_z}" rpy="0 0 0"/>
+    <axis xyz="1  0  0"/> 
+  </joint>
+
+  <joint name="wheel_fr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="wheel_fr"/>
+    <origin xyz="${ base_len/2 - wheel_width/2 -extrusion } ${ -base_wid/2 + wheel_radius + extrusion} ${wheel_z}" rpy="0 0 0"/>
+    <axis xyz="1  0  0"/>    
+  </joint>
+
+  <joint name="wheel_rl_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="wheel_rl"/>
+    <origin xyz="${ -base_len/2 + wheel_width/2 + extrusion } ${ base_wid/2 - wheel_radius - extrusion } ${wheel_z}" rpy="0 0 0"/>
+    <axis xyz="1  0  0"/> 
+  </joint>
+
+  <joint name="wheel_rr_joint" type="continuous">
+    <parent link="base_link"/>
+    <child  link="wheel_rr"/>
+    <origin xyz="${ -base_len/2 + wheel_width/2 + extrusion } ${ -base_wid/2 + wheel_radius + extrusion } ${wheel_z}" rpy="0 0 0"/>
+    <axis xyz="1  0  0"/>
+  </joint>
+
+  <!-- === BNO (GREEN, centered) === -->
+  <link name="bno_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.040 0.030 0.010"/>
+      </geometry>
+      <material name="green"><color rgba="0.0 1.0 0.0 1.0"/></material>
+    </visual>
+  </link>
+
+  <joint name="bno_fixed" type="fixed">
+    <parent link="base_link"/>
+    <child  link="bno_link"/>
+    <origin xyz="${bno_x} ${bno_y} ${bno_z}" rpy="0 0 0"/>
+  </joint>
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- === LiDAR (BLUE, 130mm forward, spinning) === -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.035" length="0.020"/> <!-- slightly taller for visibility -->
+      </geometry>
+      <material name="blue"><color rgba="0.0 0.0 1.0 1.0"/></material>
+    </visual>
+  </link>
+
+  <joint name="lidar_yaw" type="continuous">
+    <parent link="base_link"/>
+    <child  link="lidar_link"/>
+    <origin xyz="${lidar_off_x} 0 ${lidar_z}" rpy="0 0 1.5708"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+</robot>
