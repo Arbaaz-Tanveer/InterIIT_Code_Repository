@@ -1,3 +1,0 @@
-Timestamp,Frame_ID,Detection_Phase,Decoder,Status,Decoded_Text,Confidence,Method_Used
-2025-12-06 15:07:09,732,Decoding (BG),pyzbar_CLAHE_x0.5,Decoded,R04_S2_ITM430,0.968,pyzbar_CLAHE_x0.5
-2025-12-06 15:07:12,747,Decoding (BG),pyzbar_CLAHE_x0.5,Decoded,R01_S2_ITM430,0.96,pyzbar_CLAHE_x0.5

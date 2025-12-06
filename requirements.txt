@@ -1,4 +1,11 @@
-numpy
+numpy==1.26.4
 opencv-python
 pyserial
 ultralytics
+gtts
+pygame
+PyYAML
+torch
+pyzbar
+scipy
+matplotlib

@@ -1,3 +1,0 @@
-[console_scripts]
-camera_node = warehouse_scanning.camera_node:main
-

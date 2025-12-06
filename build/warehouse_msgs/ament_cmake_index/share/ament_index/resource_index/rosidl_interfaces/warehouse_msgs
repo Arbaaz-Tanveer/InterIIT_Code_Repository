@@ -1,4 +1,0 @@
-srv/Localisation.idl
-srv/Localisation.srv
-srv/Localisation_Request.msg
-srv/Localisation_Response.msg

@@ -1,8 +1,0 @@
-setup.py
-warehouse_msgs/__init__.py
-warehouse_msgs.egg-info/PKG-INFO
-warehouse_msgs.egg-info/SOURCES.txt
-warehouse_msgs.egg-info/dependency_links.txt
-warehouse_msgs.egg-info/top_level.txt
-warehouse_msgs/srv/__init__.py
-warehouse_msgs/srv/_localisation.py

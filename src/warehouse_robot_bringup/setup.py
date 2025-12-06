@@ -27,7 +27,6 @@ setup(
     entry_points={
         'console_scripts': [
             # These match the 'executable' names in your launch file
-            'robot_sim = warehouse_robot_bringup.robot_sim:main',
             'main = warehouse_robot_bringup.main:main',
             'hardware = warehouse_robot_bringup.hardware:main',
         ],

@@ -1,2 +1,0 @@
-std_msgs/Int16MultiArray points
-std_msgs/Float32MultiArray bounds

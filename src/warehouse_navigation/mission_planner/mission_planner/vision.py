@@ -44,7 +44,7 @@ OBSTACLE_MAX_RADIUS = 0.2       # Max radius in meters
 OBSTACLE_MAX_RANGE = 1.5         # Ignore points further than 4m
 OBSTACLE_MIN_ARC_ANGLE = 1.0    # Radians (approx 60 degrees). Filter out small arcs.
 # ---------------------------------
-obstacle_publishing = False
+obstacle_publishing = True
 
 # Global to share detected circles with the visualization thread
 latest_obstacles_vis = []

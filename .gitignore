@@ -8,6 +8,7 @@ qr_session_logs/
 
 # ROS 2 workspace defaults
 ament_index/
+node_modules/
 *~  
 *.swp
 
@@ -34,6 +35,7 @@ pip-wheel-metadata/
 .env
 *.local
 *.json
+!planner_config.json
 
 # VSCode settings
 .vscode/
