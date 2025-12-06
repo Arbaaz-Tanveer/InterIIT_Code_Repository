@@ -1,0 +1,722 @@
+[0.000000] (-) TimerEvent: {}
+[0.000749] (warehouse_hmi) JobQueued: {'identifier': 'warehouse_hmi', 'dependencies': OrderedDict()}
+[0.000935] (warehouse_msgs) JobQueued: {'identifier': 'warehouse_msgs', 'dependencies': OrderedDict()}
+[0.000991] (warehouse_scanning) JobQueued: {'identifier': 'warehouse_scanning', 'dependencies': OrderedDict()}
+[0.001032] (warehouse_navigation) JobQueued: {'identifier': 'warehouse_navigation', 'dependencies': OrderedDict([('warehouse_msgs', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs')])}
+[0.001054] (warehouse_robot_bringup) JobQueued: {'identifier': 'warehouse_robot_bringup', 'dependencies': OrderedDict([('warehouse_hmi', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi'), ('warehouse_msgs', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs'), ('warehouse_scanning', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning'), ('warehouse_navigation', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation')])}
+[0.001077] (warehouse_hmi) JobStarted: {'identifier': 'warehouse_hmi'}
+[0.099625] (-) TimerEvent: {}
+[0.199959] (-) TimerEvent: {}
+[0.300471] (-) TimerEvent: {}
+[0.401028] (-) TimerEvent: {}
+[0.501489] (-) TimerEvent: {}
+[0.601996] (-) TimerEvent: {}
+[0.702453] (-) TimerEvent: {}
+[0.725980] (warehouse_hmi) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/warehouse_hmi', 'build', '--build-base', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build', 'install', '--record', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_IN:en', 'USER': 'arbaaz', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/arbaaz', 'OLDPWD': '/home/arbaaz', 'DESKTOP_SESSION': 'ubuntu-xorg', 'NVM_BIN': '/home/arbaaz/.nvm/versions/node/v24.11.1/bin', 'NVM_INC': '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1926', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'NVM_DIR': '/home/arbaaz/.nvm', 'COLCON_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install', 'ROS_DISTRO': 'humble', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'arbaaz', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'arbaaz', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu-xorg', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.164', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '3', 'AMENT_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu-xorg', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800', 'CMAKE_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs'}, 'shell': False}
+[0.802626] (-) TimerEvent: {}
+[0.903225] (-) TimerEvent: {}
+[0.951083] (warehouse_hmi) StdoutLine: {'line': b'running egg_info\n'}
+[0.951572] (warehouse_hmi) StdoutLine: {'line': b'creating ../../build/warehouse_hmi/warehouse_hmi.egg-info\n'}
+[0.951907] (warehouse_hmi) StdoutLine: {'line': b'writing ../../build/warehouse_hmi/warehouse_hmi.egg-info/PKG-INFO\n'}
+[0.952053] (warehouse_hmi) StdoutLine: {'line': b'writing dependency_links to ../../build/warehouse_hmi/warehouse_hmi.egg-info/dependency_links.txt\n'}
+[0.952124] (warehouse_hmi) StdoutLine: {'line': b'writing entry points to ../../build/warehouse_hmi/warehouse_hmi.egg-info/entry_points.txt\n'}
+[0.952178] (warehouse_hmi) StdoutLine: {'line': b'writing requirements to ../../build/warehouse_hmi/warehouse_hmi.egg-info/requires.txt\n'}
+[0.952236] (warehouse_hmi) StdoutLine: {'line': b'writing top-level names to ../../build/warehouse_hmi/warehouse_hmi.egg-info/top_level.txt\n'}
+[0.952355] (warehouse_hmi) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_hmi/warehouse_hmi.egg-info/SOURCES.txt'\n"}
+[0.953639] (warehouse_hmi) StdoutLine: {'line': b"reading manifest file '../../build/warehouse_hmi/warehouse_hmi.egg-info/SOURCES.txt'\n"}
+[0.954243] (warehouse_hmi) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_hmi/warehouse_hmi.egg-info/SOURCES.txt'\n"}
+[0.954522] (warehouse_hmi) StdoutLine: {'line': b'running build\n'}
+[0.954692] (warehouse_hmi) StdoutLine: {'line': b'running build_py\n'}
+[0.954799] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build\n'}
+[0.954864] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib\n'}
+[0.954921] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi\n'}
+[0.955059] (warehouse_hmi) StdoutLine: {'line': b'copying warehouse_hmi/target_gui.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi\n'}
+[0.955136] (warehouse_hmi) StdoutLine: {'line': b'copying warehouse_hmi/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi\n'}
+[0.955212] (warehouse_hmi) StdoutLine: {'line': b'copying warehouse_hmi/keyboard_controller.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi\n'}
+[0.955265] (warehouse_hmi) StdoutLine: {'line': b'running install\n'}
+[0.955316] (warehouse_hmi) StdoutLine: {'line': b'running install_lib\n'}
+[0.955991] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi\n'}
+[0.956136] (warehouse_hmi) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi/target_gui.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi\n'}
+[0.956243] (warehouse_hmi) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi\n'}
+[0.956344] (warehouse_hmi) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build/lib/warehouse_hmi/keyboard_controller.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi\n'}
+[0.956693] (warehouse_hmi) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi/target_gui.py to target_gui.cpython-310.pyc\n'}
+[0.957553] (warehouse_hmi) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi/__init__.py to __init__.cpython-310.pyc\n'}
+[0.957694] (warehouse_hmi) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi/keyboard_controller.py to keyboard_controller.cpython-310.pyc\n'}
+[0.958242] (warehouse_hmi) StdoutLine: {'line': b'running install_data\n'}
+[0.958382] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/ament_index\n'}
+[0.958457] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/ament_index/resource_index\n'}
+[0.958553] (warehouse_hmi) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/ament_index/resource_index/packages\n'}
+[0.958608] (warehouse_hmi) StdoutLine: {'line': b'copying resource/warehouse_hmi -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/ament_index/resource_index/packages\n'}
+[0.958679] (warehouse_hmi) StdoutLine: {'line': b'copying package.xml -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi\n'}
+[0.958729] (warehouse_hmi) StdoutLine: {'line': b'running install_egg_info\n'}
+[0.960137] (warehouse_hmi) StdoutLine: {'line': b'Copying ../../build/warehouse_hmi/warehouse_hmi.egg-info to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages/warehouse_hmi-0.0.1-py3.10.egg-info\n'}
+[0.960973] (warehouse_hmi) StdoutLine: {'line': b'running install_scripts\n'}
+[0.979173] (warehouse_hmi) StdoutLine: {'line': b'Installing keyboard_controller script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/warehouse_hmi\n'}
+[0.979510] (warehouse_hmi) StdoutLine: {'line': b'Installing target_gui script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/warehouse_hmi\n'}
+[0.979643] (warehouse_hmi) StdoutLine: {'line': b"writing list of installed files to '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/install.log'\n"}
+[1.003399] (-) TimerEvent: {}
+[1.014154] (warehouse_hmi) CommandEnded: {'returncode': 0}
+[1.022749] (warehouse_hmi) JobEnded: {'identifier': 'warehouse_hmi', 'rc': 0}
+[1.023198] (warehouse_msgs) JobStarted: {'identifier': 'warehouse_msgs'}
+[1.030301] (warehouse_msgs) JobProgress: {'identifier': 'warehouse_msgs', 'progress': 'cmake'}
+[1.031523] (warehouse_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_msgs', '-DCMAKE_INSTALL_PREFIX=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[1.092482] (warehouse_msgs) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[1.103534] (-) TimerEvent: {}
+[1.148874] (warehouse_msgs) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.157176] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.203700] (-) TimerEvent: {}
+[1.236744] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.243578] (warehouse_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.243764] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.244126] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.247175] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.303885] (-) TimerEvent: {}
+[1.338531] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.345516] (warehouse_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.345786] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.346053] (warehouse_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.348702] (warehouse_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.404001] (-) TimerEvent: {}
+[1.499592] (warehouse_msgs) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.504148] (-) TimerEvent: {}
+[1.588401] (warehouse_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.591707] (warehouse_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.598202] (warehouse_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.604295] (-) TimerEvent: {}
+[1.637502] (warehouse_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.669682] (warehouse_msgs) StdoutLine: {'line': b'-- Found std_msgs: 4.2.4 (/opt/ros/humble/share/std_msgs/cmake)\n'}
+[1.693778] (warehouse_msgs) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.704444] (-) TimerEvent: {}
+[1.805037] (-) TimerEvent: {}
+[1.905407] (-) TimerEvent: {}
+[1.985602] (warehouse_msgs) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.005549] (-) TimerEvent: {}
+[2.105957] (-) TimerEvent: {}
+[2.206462] (-) TimerEvent: {}
+[2.236548] (warehouse_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.306778] (-) TimerEvent: {}
+[2.407285] (-) TimerEvent: {}
+[2.507760] (-) TimerEvent: {}
+[2.563749] (warehouse_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.587292] (warehouse_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[2.588947] (warehouse_msgs) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[2.607895] (-) TimerEvent: {}
+[2.614359] (warehouse_msgs) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[2.614609] (warehouse_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[2.614725] (warehouse_msgs) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[2.614829] (warehouse_msgs) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[2.636729] (warehouse_msgs) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[2.701658] (warehouse_msgs) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.708045] (-) TimerEvent: {}
+[2.735342] (warehouse_msgs) StdoutLine: {'line': b'-- Generating done\n'}
+[2.746776] (warehouse_msgs) StdoutLine: {'line': b'-- Build files have been written to: /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs\n'}
+[2.757736] (warehouse_msgs) CommandEnded: {'returncode': 0}
+[2.758693] (warehouse_msgs) JobProgress: {'identifier': 'warehouse_msgs', 'progress': 'build'}
+[2.760379] (warehouse_msgs) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs', '--', '-j12', '-l12'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[2.807278] (warehouse_msgs) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[2.808170] (-) TimerEvent: {}
+[2.818925] (warehouse_msgs) StdoutLine: {'line': b'[  6%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[2.829526] (warehouse_msgs) StdoutLine: {'line': b'[  6%] Built target ament_cmake_python_copy_warehouse_msgs\n'}
+[2.908363] (-) TimerEvent: {}
+[3.008761] (-) TimerEvent: {}
+[3.080210] (warehouse_msgs) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_generator_c.dir/rosidl_generator_c/warehouse_msgs/srv/detail/localisation__functions.c.o\x1b[0m\n'}
+[3.094960] (warehouse_msgs) StdoutLine: {'line': b'[  9%] Built target warehouse_msgs__cpp\n'}
+[3.108782] (warehouse_msgs) StdoutLine: {'line': b'[ 19%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[3.109059] (-) TimerEvent: {}
+[3.109181] (warehouse_msgs) StdoutLine: {'line': b'[ 19%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.109255] (warehouse_msgs) StdoutLine: {'line': b'[ 19%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.113170] (warehouse_msgs) StdoutLine: {'line': b'running egg_info\n'}
+[3.114611] (warehouse_msgs) StdoutLine: {'line': b'creating warehouse_msgs.egg-info\n'}
+[3.115187] (warehouse_msgs) StdoutLine: {'line': b'writing warehouse_msgs.egg-info/PKG-INFO\n'}
+[3.115575] (warehouse_msgs) StdoutLine: {'line': b'writing dependency_links to warehouse_msgs.egg-info/dependency_links.txt\n'}
+[3.115809] (warehouse_msgs) StdoutLine: {'line': b'writing top-level names to warehouse_msgs.egg-info/top_level.txt\n'}
+[3.116023] (warehouse_msgs) StdoutLine: {'line': b"writing manifest file 'warehouse_msgs.egg-info/SOURCES.txt'\n"}
+[3.118754] (warehouse_msgs) StdoutLine: {'line': b"reading manifest file 'warehouse_msgs.egg-info/SOURCES.txt'\n"}
+[3.119203] (warehouse_msgs) StdoutLine: {'line': b"writing manifest file 'warehouse_msgs.egg-info/SOURCES.txt'\n"}
+[3.152443] (warehouse_msgs) StdoutLine: {'line': b'[ 22%] \x1b[32m\x1b[1mLinking C shared library libwarehouse_msgs__rosidl_generator_c.so\x1b[0m\n'}
+[3.198664] (warehouse_msgs) StdoutLine: {'line': b'[ 22%] Built target ament_cmake_python_build_warehouse_msgs_egg\n'}
+[3.207754] (warehouse_msgs) StdoutLine: {'line': b'[ 22%] Built target warehouse_msgs__rosidl_generator_c\n'}
+[3.209168] (-) TimerEvent: {}
+[3.221049] (warehouse_msgs) StdoutLine: {'line': b'[ 29%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.221341] (warehouse_msgs) StdoutLine: {'line': b'[ 29%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[3.221421] (warehouse_msgs) StdoutLine: {'line': b'[ 32%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.309309] (-) TimerEvent: {}
+[3.377148] (warehouse_msgs) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/warehouse_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/warehouse_msgs/srv/localisation__type_support.cpp.o\x1b[0m\n'}
+[3.405244] (warehouse_msgs) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/warehouse_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/warehouse_msgs/srv/detail/localisation__type_support.cpp.o\x1b[0m\n'}
+[3.407549] (warehouse_msgs) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding CXX object CMakeFiles/warehouse_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/warehouse_msgs/srv/detail/dds_fastrtps/localisation__type_support.cpp.o\x1b[0m\n'}
+[3.409397] (-) TimerEvent: {}
+[3.509813] (-) TimerEvent: {}
+[3.516308] (warehouse_msgs) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding CXX object CMakeFiles/warehouse_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/warehouse_msgs/srv/localisation__type_support.cpp.o\x1b[0m\n'}
+[3.516652] (warehouse_msgs) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/warehouse_msgs/srv/detail/localisation__type_support.c.o\x1b[0m\n'}
+[3.521265] (warehouse_msgs) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/warehouse_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/warehouse_msgs/srv/detail/localisation__type_support_c.cpp.o\x1b[0m\n'}
+[3.561425] (warehouse_msgs) StdoutLine: {'line': b'[ 54%] \x1b[32m\x1b[1mLinking CXX shared library libwarehouse_msgs__rosidl_typesupport_c.so\x1b[0m\n'}
+[3.569049] (warehouse_msgs) StdoutLine: {'line': b'[ 58%] \x1b[32m\x1b[1mLinking C shared library libwarehouse_msgs__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[3.610005] (-) TimerEvent: {}
+[3.619997] (warehouse_msgs) StdoutLine: {'line': b'[ 58%] Built target warehouse_msgs__rosidl_typesupport_introspection_c\n'}
+[3.629127] (warehouse_msgs) StdoutLine: {'line': b'[ 58%] Built target warehouse_msgs__rosidl_typesupport_c\n'}
+[3.670002] (warehouse_msgs) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking CXX shared library libwarehouse_msgs__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[3.710176] (-) TimerEvent: {}
+[3.722230] (warehouse_msgs) StdoutLine: {'line': b'[ 61%] Built target warehouse_msgs__rosidl_typesupport_cpp\n'}
+[3.810377] (-) TimerEvent: {}
+[3.827367] (warehouse_msgs) StdoutLine: {'line': b'[ 64%] \x1b[32m\x1b[1mLinking CXX shared library libwarehouse_msgs__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[3.859212] (warehouse_msgs) StdoutLine: {'line': b'[ 67%] \x1b[32m\x1b[1mLinking CXX shared library libwarehouse_msgs__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[3.881584] (warehouse_msgs) StdoutLine: {'line': b'[ 70%] \x1b[32m\x1b[1mLinking CXX shared library libwarehouse_msgs__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[3.910651] (-) TimerEvent: {}
+[3.977846] (warehouse_msgs) StdoutLine: {'line': b'[ 70%] Built target warehouse_msgs__rosidl_typesupport_fastrtps_cpp\n'}
+[3.998487] (warehouse_msgs) StdoutLine: {'line': b'[ 70%] Built target warehouse_msgs__rosidl_typesupport_introspection_cpp\n'}
+[3.998748] (warehouse_msgs) StdoutLine: {'line': b'[ 70%] Built target warehouse_msgs__rosidl_typesupport_fastrtps_c\n'}
+[4.010776] (-) TimerEvent: {}
+[4.024172] (warehouse_msgs) StdoutLine: {'line': b'[ 70%] Built target warehouse_msgs\n'}
+[4.049241] (warehouse_msgs) StdoutLine: {'line': b'[ 74%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[4.110952] (-) TimerEvent: {}
+[4.211433] (-) TimerEvent: {}
+[4.311926] (-) TimerEvent: {}
+[4.368271] (warehouse_msgs) StdoutLine: {'line': b'[ 74%] Built target warehouse_msgs__py\n'}
+[4.391818] (warehouse_msgs) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_generator_py.dir/rosidl_generator_py/warehouse_msgs/srv/_localisation_s.c.o\x1b[0m\n'}
+[4.412096] (-) TimerEvent: {}
+[4.495661] (warehouse_msgs) StdoutLine: {'line': b'[ 80%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/warehouse_msgs/libwarehouse_msgs__rosidl_generator_py.so\x1b[0m\n'}
+[4.512240] (-) TimerEvent: {}
+[4.543007] (warehouse_msgs) StdoutLine: {'line': b'[ 80%] Built target warehouse_msgs__rosidl_generator_py\n'}
+[4.567334] (warehouse_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[4.567600] (warehouse_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[4.567878] (warehouse_msgs) StdoutLine: {'line': b'[ 90%] \x1b[32mBuilding C object CMakeFiles/warehouse_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[4.612448] (-) TimerEvent: {}
+[4.671778] (warehouse_msgs) StdoutLine: {'line': b'[ 93%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[4.673149] (warehouse_msgs) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[4.673419] (warehouse_msgs) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[4.712581] (-) TimerEvent: {}
+[4.718057] (warehouse_msgs) StdoutLine: {'line': b'[100%] Built target warehouse_msgs__rosidl_typesupport_c__pyext\n'}
+[4.718264] (warehouse_msgs) StdoutLine: {'line': b'[100%] Built target warehouse_msgs__rosidl_typesupport_introspection_c__pyext\n'}
+[4.721630] (warehouse_msgs) StdoutLine: {'line': b'[100%] Built target warehouse_msgs__rosidl_typesupport_fastrtps_c__pyext\n'}
+[4.738435] (warehouse_msgs) CommandEnded: {'returncode': 0}
+[4.739084] (warehouse_msgs) JobProgress: {'identifier': 'warehouse_msgs', 'progress': 'install'}
+[4.751247] (warehouse_msgs) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[4.759613] (warehouse_msgs) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[4.759900] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/ament_index/resource_index/rosidl_interfaces/warehouse_msgs\n'}
+[4.760078] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.760194] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg\n'}
+[4.760315] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg/rosidl_generator_c__visibility_control.h\n'}
+[4.760427] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.760561] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.760636] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__struct.h\n'}
+[4.760764] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__functions.h\n'}
+[4.760851] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__type_support.h\n'}
+[4.760990] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__functions.c\n'}
+[4.761123] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/localisation.h\n'}
+[4.761357] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/library_path.sh\n'}
+[4.761491] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/library_path.dsv\n'}
+[4.761680] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_generator_c.so\n'}
+[4.762076] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_generator_c.so" to ""\n'}
+[4.762170] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.762286] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg\n'}
+[4.762383] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[4.762440] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.762510] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.762562] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__rosidl_typesupport_fastrtps_c.h\n'}
+[4.762691] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_fastrtps_c.so\n'}
+[4.762876] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[4.762966] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.763018] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg\n'}
+[4.763084] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[4.763183] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.763239] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.763338] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__type_support.c\n'}
+[4.763425] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__rosidl_typesupport_introspection_c.h\n'}
+[4.763477] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_introspection_c.so\n'}
+[4.763727] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_introspection_c.so" to ""\n'}
+[4.763815] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_c.so\n'}
+[4.764073] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_c.so" to ""\n'}
+[4.764151] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.764238] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg\n'}
+[4.764302] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[4.764403] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.764486] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/localisation.hpp\n'}
+[4.764541] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.764628] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__traits.hpp\n'}
+[4.764692] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__struct.hpp\n'}
+[4.764767] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__type_support.hpp\n'}
+[4.764887] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__builder.hpp\n'}
+[4.765026] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.765132] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg\n'}
+[4.765186] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[4.765302] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.765373] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.765428] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[4.765573] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/dds_fastrtps\n'}
+[4.765694] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_fastrtps_cpp.so\n'}
+[4.766029] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[4.766141] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs\n'}
+[4.766197] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv\n'}
+[4.766272] (warehouse_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail\n'}
+[4.766358] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__type_support.cpp\n'}
+[4.766415] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/include/warehouse_msgs/warehouse_msgs/srv/detail/localisation__rosidl_typesupport_introspection_cpp.hpp\n'}
+[4.766500] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_introspection_cpp.so\n'}
+[4.766838] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[4.766926] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_cpp.so\n'}
+[4.767199] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_typesupport_cpp.so" to ""\n'}
+[4.767293] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/pythonpath.sh\n'}
+[4.767386] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/pythonpath.dsv\n'}
+[4.767515] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs-0.0.1-py3.10.egg-info\n'}
+[4.767688] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs-0.0.1-py3.10.egg-info/PKG-INFO\n'}
+[4.767836] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs-0.0.1-py3.10.egg-info/SOURCES.txt\n'}
+[4.767948] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs-0.0.1-py3.10.egg-info/dependency_links.txt\n'}
+[4.768058] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs-0.0.1-py3.10.egg-info/top_level.txt\n'}
+[4.768209] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs\n'}
+[4.768295] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_c.c\n'}
+[4.768440] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.768599] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.768754] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[4.768870] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/_warehouse_msgs_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[4.768994] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/__init__.py\n'}
+[4.769103] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/libwarehouse_msgs__rosidl_generator_py.so\n'}
+[4.769244] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.769482] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv\n'}
+[4.769613] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv/_localisation.py\n'}
+[4.769711] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv/__init__.py\n'}
+[4.769796] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv/_localisation_s.c\n'}
+[4.804996] (warehouse_msgs) StdoutLine: {'line': b"Listing '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs'...\n"}
+[4.805268] (warehouse_msgs) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/__init__.py'...\n"}
+[4.805346] (warehouse_msgs) StdoutLine: {'line': b"Listing '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv'...\n"}
+[4.805404] (warehouse_msgs) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv/__init__.py'...\n"}
+[4.805455] (warehouse_msgs) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/srv/_localisation.py'...\n"}
+[4.810886] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.811478] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[4.811915] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.812153] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[4.812389] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[4.812553] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages/warehouse_msgs/warehouse_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[4.812623] (-) TimerEvent: {}
+[4.812710] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_generator_py.so\n'}
+[4.812871] (warehouse_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/libwarehouse_msgs__rosidl_generator_py.so" to ""\n'}
+[4.812947] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/srv/Localisation.idl\n'}
+[4.813038] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/srv/Localisation.srv\n'}
+[4.813139] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/srv/Localisation_Request.msg\n'}
+[4.813298] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/srv/Localisation_Response.msg\n'}
+[4.813497] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/ament_index/resource_index/package_run_dependencies/warehouse_msgs\n'}
+[4.813678] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/ament_index/resource_index/parent_prefix_path/warehouse_msgs\n'}
+[4.813841] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/ament_prefix_path.sh\n'}
+[4.813981] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/ament_prefix_path.dsv\n'}
+[4.814120] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/path.sh\n'}
+[4.814256] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/environment/path.dsv\n'}
+[4.814397] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/local_setup.bash\n'}
+[4.814537] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/local_setup.sh\n'}
+[4.814654] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/local_setup.zsh\n'}
+[4.814788] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/local_setup.dsv\n'}
+[4.814922] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.dsv\n'}
+[4.815100] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/ament_index/resource_index/packages/warehouse_msgs\n'}
+[4.815286] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_generator_cExport.cmake\n'}
+[4.815467] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_generator_cExport-noconfig.cmake\n'}
+[4.815601] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[4.815743] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[4.815909] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_introspection_cExport.cmake\n'}
+[4.816050] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[4.816201] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_cExport.cmake\n'}
+[4.816336] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[4.816482] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_generator_cppExport.cmake\n'}
+[4.816637] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[4.816805] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[4.816959] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[4.817102] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[4.817243] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_cppExport.cmake\n'}
+[4.817424] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgs__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[4.817571] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_generator_pyExport.cmake\n'}
+[4.817715] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/export_warehouse_msgs__rosidl_generator_pyExport-noconfig.cmake\n'}
+[4.817865] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/rosidl_cmake-extras.cmake\n'}
+[4.817981] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[4.818123] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[4.818261] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[4.818430] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[4.818559] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[4.818716] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[4.818854] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgsConfig.cmake\n'}
+[4.818957] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake/warehouse_msgsConfig-version.cmake\n'}
+[4.819108] (warehouse_msgs) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.xml\n'}
+[4.822284] (warehouse_msgs) CommandEnded: {'returncode': 0}
+[4.837220] (warehouse_msgs) JobEnded: {'identifier': 'warehouse_msgs', 'rc': 0}
+[4.837780] (warehouse_scanning) JobStarted: {'identifier': 'warehouse_scanning'}
+[4.912818] (-) TimerEvent: {}
+[5.013245] (-) TimerEvent: {}
+[5.113614] (-) TimerEvent: {}
+[5.213928] (-) TimerEvent: {}
+[5.314273] (-) TimerEvent: {}
+[5.414658] (-) TimerEvent: {}
+[5.452806] (warehouse_scanning) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/warehouse_scanning', 'build', '--build-base', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build', 'install', '--record', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_IN:en', 'USER': 'arbaaz', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/arbaaz', 'OLDPWD': '/home/arbaaz', 'DESKTOP_SESSION': 'ubuntu-xorg', 'NVM_BIN': '/home/arbaaz/.nvm/versions/node/v24.11.1/bin', 'NVM_INC': '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1926', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'NVM_DIR': '/home/arbaaz/.nvm', 'COLCON_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install', 'ROS_DISTRO': 'humble', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'arbaaz', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'arbaaz', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu-xorg', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.164', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '3', 'AMENT_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu-xorg', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800', 'CMAKE_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs'}, 'shell': False}
+[5.514995] (-) TimerEvent: {}
+[5.615383] (-) TimerEvent: {}
+[5.682897] (warehouse_scanning) StdoutLine: {'line': b'running egg_info\n'}
+[5.683275] (warehouse_scanning) StdoutLine: {'line': b'creating ../../build/warehouse_scanning/warehouse_scanning.egg-info\n'}
+[5.683562] (warehouse_scanning) StdoutLine: {'line': b'writing ../../build/warehouse_scanning/warehouse_scanning.egg-info/PKG-INFO\n'}
+[5.683830] (warehouse_scanning) StdoutLine: {'line': b'writing dependency_links to ../../build/warehouse_scanning/warehouse_scanning.egg-info/dependency_links.txt\n'}
+[5.683907] (warehouse_scanning) StdoutLine: {'line': b'writing entry points to ../../build/warehouse_scanning/warehouse_scanning.egg-info/entry_points.txt\n'}
+[5.683969] (warehouse_scanning) StdoutLine: {'line': b'writing requirements to ../../build/warehouse_scanning/warehouse_scanning.egg-info/requires.txt\n'}
+[5.684023] (warehouse_scanning) StdoutLine: {'line': b'writing top-level names to ../../build/warehouse_scanning/warehouse_scanning.egg-info/top_level.txt\n'}
+[5.684166] (warehouse_scanning) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_scanning/warehouse_scanning.egg-info/SOURCES.txt'\n"}
+[5.685582] (warehouse_scanning) StdoutLine: {'line': b"reading manifest file '../../build/warehouse_scanning/warehouse_scanning.egg-info/SOURCES.txt'\n"}
+[5.686332] (warehouse_scanning) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_scanning/warehouse_scanning.egg-info/SOURCES.txt'\n"}
+[5.686556] (warehouse_scanning) StdoutLine: {'line': b'running build\n'}
+[5.686681] (warehouse_scanning) StdoutLine: {'line': b'running build_py\n'}
+[5.686863] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build\n'}
+[5.686930] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib\n'}
+[5.686983] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning\n'}
+[5.687066] (warehouse_scanning) StdoutLine: {'line': b'copying warehouse_scanning/camera_node.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning\n'}
+[5.687117] (warehouse_scanning) StdoutLine: {'line': b'copying warehouse_scanning/autoscan_test.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning\n'}
+[5.687167] (warehouse_scanning) StdoutLine: {'line': b'copying warehouse_scanning/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning\n'}
+[5.687216] (warehouse_scanning) StdoutLine: {'line': b'running install\n'}
+[5.687293] (warehouse_scanning) StdoutLine: {'line': b'running install_lib\n'}
+[5.687993] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning\n'}
+[5.688109] (warehouse_scanning) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning/camera_node.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning\n'}
+[5.688239] (warehouse_scanning) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning/autoscan_test.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning\n'}
+[5.688411] (warehouse_scanning) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build/lib/warehouse_scanning/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning\n'}
+[5.688764] (warehouse_scanning) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning/camera_node.py to camera_node.cpython-310.pyc\n'}
+[5.691391] (warehouse_scanning) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning/autoscan_test.py to autoscan_test.cpython-310.pyc\n'}
+[5.691810] (warehouse_scanning) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning/__init__.py to __init__.cpython-310.pyc\n'}
+[5.692105] (warehouse_scanning) StdoutLine: {'line': b'running install_data\n'}
+[5.692243] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/ament_index\n'}
+[5.692383] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/ament_index/resource_index\n'}
+[5.692461] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/ament_index/resource_index/packages\n'}
+[5.692513] (warehouse_scanning) StdoutLine: {'line': b'copying resource/warehouse_scanning -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/ament_index/resource_index/packages\n'}
+[5.692563] (warehouse_scanning) StdoutLine: {'line': b'copying package.xml -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning\n'}
+[5.692612] (warehouse_scanning) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/config\n'}
+[5.692662] (warehouse_scanning) StdoutLine: {'line': b'copying config/qr_yolov11.pt -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/config\n'}
+[5.715579] (-) TimerEvent: {}
+[5.725234] (warehouse_scanning) StdoutLine: {'line': b'running install_egg_info\n'}
+[5.727192] (warehouse_scanning) StdoutLine: {'line': b'Copying ../../build/warehouse_scanning/warehouse_scanning.egg-info to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages/warehouse_scanning-0.0.1-py3.10.egg-info\n'}
+[5.728007] (warehouse_scanning) StdoutLine: {'line': b'running install_scripts\n'}
+[5.746031] (warehouse_scanning) StdoutLine: {'line': b'Installing autoscan_test script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/warehouse_scanning\n'}
+[5.746252] (warehouse_scanning) StdoutLine: {'line': b'Installing camera_node script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/warehouse_scanning\n'}
+[5.746427] (warehouse_scanning) StdoutLine: {'line': b"writing list of installed files to '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/install.log'\n"}
+[5.781291] (warehouse_scanning) CommandEnded: {'returncode': 0}
+[5.786525] (warehouse_scanning) JobEnded: {'identifier': 'warehouse_scanning', 'rc': 0}
+[5.787068] (warehouse_navigation) JobStarted: {'identifier': 'warehouse_navigation'}
+[5.796714] (warehouse_navigation) JobProgress: {'identifier': 'warehouse_navigation', 'progress': 'cmake'}
+[5.797941] (warehouse_navigation) Command: {'cmd': ['/usr/bin/cmake', '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_navigation', '-DCMAKE_INSTALL_PREFIX=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[5.815694] (-) TimerEvent: {}
+[5.858181] (warehouse_navigation) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[5.915820] (-) TimerEvent: {}
+[5.916379] (warehouse_navigation) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[5.924264] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[6.006695] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[6.013379] (warehouse_navigation) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[6.013843] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[6.014057] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[6.015908] (-) TimerEvent: {}
+[6.016351] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[6.110894] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[6.116073] (-) TimerEvent: {}
+[6.117598] (warehouse_navigation) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[6.118062] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[6.118373] (warehouse_navigation) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[6.120685] (warehouse_navigation) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[6.216253] (-) TimerEvent: {}
+[6.274608] (warehouse_navigation) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[6.316642] (-) TimerEvent: {}
+[6.367023] (warehouse_navigation) StdoutLine: {'line': b'-- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[6.409018] (warehouse_navigation) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[6.414386] (warehouse_navigation) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[6.416756] (-) TimerEvent: {}
+[6.422486] (warehouse_navigation) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[6.434127] (warehouse_navigation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[6.449603] (warehouse_navigation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[6.492177] (warehouse_navigation) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[6.494904] (warehouse_navigation) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[6.516927] (-) TimerEvent: {}
+[6.613690] (warehouse_navigation) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[6.617064] (-) TimerEvent: {}
+[6.643995] (warehouse_navigation) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[6.689976] (warehouse_navigation) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[6.699475] (warehouse_navigation) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[6.717245] (-) TimerEvent: {}
+[6.785006] (warehouse_navigation) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[6.785536] (warehouse_navigation) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[6.817433] (-) TimerEvent: {}
+[6.872415] (warehouse_navigation) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[6.873370] (warehouse_navigation) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[6.917788] (-) TimerEvent: {}
+[6.920707] (warehouse_navigation) StdoutLine: {'line': b'-- Found rclpy: 3.3.15 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[6.922320] (warehouse_navigation) StdoutLine: {'line': b'-- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[6.933441] (warehouse_navigation) StdoutLine: {'line': b'-- Found warehouse_msgs: 0.0.1 (/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/cmake)\n'}
+[6.954292] (warehouse_navigation) StdoutLine: {'line': b'-- Found OpenCV: /usr (found version "4.5.4") \n'}
+[6.954893] (warehouse_navigation) StdoutLine: {'line': b'-- Found ACADO Header: /usr/local/include/acado\n'}
+[6.955069] (warehouse_navigation) StdoutLine: {'line': b'-- Found ACADO Library: /usr/local/lib/libacado_toolkit_s.so\n'}
+[7.017905] (-) TimerEvent: {}
+[7.104729] (warehouse_navigation) StdoutLine: {'line': b'-- Configuring done\n'}
+[7.118050] (-) TimerEvent: {}
+[7.123366] (warehouse_navigation) StdoutLine: {'line': b'-- Generating done\n'}
+[7.129081] (warehouse_navigation) StdoutLine: {'line': b'-- Build files have been written to: /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation\n'}
+[7.141407] (warehouse_navigation) CommandEnded: {'returncode': 0}
+[7.143181] (warehouse_navigation) JobProgress: {'identifier': 'warehouse_navigation', 'progress': 'build'}
+[7.143444] (warehouse_navigation) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation', '--', '-j12', '-l12'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[7.205496] (warehouse_navigation) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/controller1.dir/src/controller1.cpp.o\x1b[0m\n'}
+[7.207169] (warehouse_navigation) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/genetic_node.dir/src/genetic.cpp.o\x1b[0m\n'}
+[7.217953] (warehouse_navigation) StdoutLine: {'line': b'[ 50%] Built target ament_cmake_python_copy_warehouse_navigation\n'}
+[7.218207] (-) TimerEvent: {}
+[7.318579] (-) TimerEvent: {}
+[7.419016] (-) TimerEvent: {}
+[7.485885] (warehouse_navigation) StdoutLine: {'line': b'running egg_info\n'}
+[7.486735] (warehouse_navigation) StdoutLine: {'line': b'creating warehouse_navigation.egg-info\n'}
+[7.487019] (warehouse_navigation) StdoutLine: {'line': b'writing warehouse_navigation.egg-info/PKG-INFO\n'}
+[7.487190] (warehouse_navigation) StdoutLine: {'line': b'writing dependency_links to warehouse_navigation.egg-info/dependency_links.txt\n'}
+[7.487305] (warehouse_navigation) StdoutLine: {'line': b'writing top-level names to warehouse_navigation.egg-info/top_level.txt\n'}
+[7.487579] (warehouse_navigation) StdoutLine: {'line': b"writing manifest file 'warehouse_navigation.egg-info/SOURCES.txt'\n"}
+[7.489579] (warehouse_navigation) StdoutLine: {'line': b"reading manifest file 'warehouse_navigation.egg-info/SOURCES.txt'\n"}
+[7.490028] (warehouse_navigation) StdoutLine: {'line': b"writing manifest file 'warehouse_navigation.egg-info/SOURCES.txt'\n"}
+[7.519217] (-) TimerEvent: {}
+[7.533269] (warehouse_navigation) StdoutLine: {'line': b'[ 50%] Built target ament_cmake_python_build_warehouse_navigation_egg\n'}
+[7.619429] (-) TimerEvent: {}
+[7.719888] (-) TimerEvent: {}
+[7.820567] (-) TimerEvent: {}
+[7.921020] (-) TimerEvent: {}
+[8.021461] (-) TimerEvent: {}
+[8.121917] (-) TimerEvent: {}
+[8.222393] (-) TimerEvent: {}
+[8.322924] (-) TimerEvent: {}
+[8.423604] (-) TimerEvent: {}
+[8.524060] (-) TimerEvent: {}
+[8.624530] (-) TimerEvent: {}
+[8.725184] (-) TimerEvent: {}
+[8.825655] (-) TimerEvent: {}
+[8.926098] (-) TimerEvent: {}
+[9.026685] (-) TimerEvent: {}
+[9.127117] (-) TimerEvent: {}
+[9.228773] (-) TimerEvent: {}
+[9.329407] (-) TimerEvent: {}
+[9.429951] (-) TimerEvent: {}
+[9.530429] (-) TimerEvent: {}
+[9.630867] (-) TimerEvent: {}
+[9.731520] (-) TimerEvent: {}
+[9.831958] (-) TimerEvent: {}
+[9.932406] (-) TimerEvent: {}
+[10.032864] (-) TimerEvent: {}
+[10.133305] (-) TimerEvent: {}
+[10.233786] (-) TimerEvent: {}
+[10.334449] (-) TimerEvent: {}
+[10.434896] (-) TimerEvent: {}
+[10.535352] (-) TimerEvent: {}
+[10.635774] (-) TimerEvent: {}
+[10.712932] (warehouse_navigation) StdoutLine: {'line': b'[ 75%] \x1b[32m\x1b[1mLinking CXX executable genetic_node\x1b[0m\n'}
+[10.735949] (-) TimerEvent: {}
+[10.836445] (-) TimerEvent: {}
+[10.936904] (-) TimerEvent: {}
+[11.037389] (-) TimerEvent: {}
+[11.137830] (-) TimerEvent: {}
+[11.207240] (warehouse_navigation) StdoutLine: {'line': b'[ 75%] Built target genetic_node\n'}
+[11.238006] (-) TimerEvent: {}
+[11.338469] (-) TimerEvent: {}
+[11.438935] (-) TimerEvent: {}
+[11.539404] (-) TimerEvent: {}
+[11.639779] (-) TimerEvent: {}
+[11.740230] (-) TimerEvent: {}
+[11.840960] (-) TimerEvent: {}
+[11.941446] (-) TimerEvent: {}
+[12.041909] (-) TimerEvent: {}
+[12.142381] (-) TimerEvent: {}
+[12.242763] (-) TimerEvent: {}
+[12.343243] (-) TimerEvent: {}
+[12.443751] (-) TimerEvent: {}
+[12.544206] (-) TimerEvent: {}
+[12.644704] (-) TimerEvent: {}
+[12.745181] (-) TimerEvent: {}
+[12.845629] (-) TimerEvent: {}
+[12.945990] (-) TimerEvent: {}
+[13.046461] (-) TimerEvent: {}
+[13.146928] (-) TimerEvent: {}
+[13.247420] (-) TimerEvent: {}
+[13.347903] (-) TimerEvent: {}
+[13.448392] (-) TimerEvent: {}
+[13.548861] (-) TimerEvent: {}
+[13.649356] (-) TimerEvent: {}
+[13.749803] (-) TimerEvent: {}
+[13.850215] (-) TimerEvent: {}
+[13.950725] (-) TimerEvent: {}
+[14.051153] (-) TimerEvent: {}
+[14.151519] (-) TimerEvent: {}
+[14.252005] (-) TimerEvent: {}
+[14.352478] (-) TimerEvent: {}
+[14.452988] (-) TimerEvent: {}
+[14.553465] (-) TimerEvent: {}
+[14.653943] (-) TimerEvent: {}
+[14.754938] (-) TimerEvent: {}
+[14.855445] (-) TimerEvent: {}
+[14.956199] (-) TimerEvent: {}
+[15.056684] (-) TimerEvent: {}
+[15.157198] (-) TimerEvent: {}
+[15.257794] (-) TimerEvent: {}
+[15.358261] (-) TimerEvent: {}
+[15.458756] (-) TimerEvent: {}
+[15.559236] (-) TimerEvent: {}
+[15.659675] (-) TimerEvent: {}
+[15.760121] (-) TimerEvent: {}
+[15.860580] (-) TimerEvent: {}
+[15.960995] (-) TimerEvent: {}
+[16.061366] (-) TimerEvent: {}
+[16.161835] (-) TimerEvent: {}
+[16.262302] (-) TimerEvent: {}
+[16.362903] (-) TimerEvent: {}
+[16.463406] (-) TimerEvent: {}
+[16.563880] (-) TimerEvent: {}
+[16.664376] (-) TimerEvent: {}
+[16.764850] (-) TimerEvent: {}
+[16.865275] (-) TimerEvent: {}
+[16.965689] (-) TimerEvent: {}
+[17.066145] (-) TimerEvent: {}
+[17.166655] (-) TimerEvent: {}
+[17.267122] (-) TimerEvent: {}
+[17.367617] (-) TimerEvent: {}
+[17.468026] (-) TimerEvent: {}
+[17.568437] (-) TimerEvent: {}
+[17.668845] (-) TimerEvent: {}
+[17.769266] (-) TimerEvent: {}
+[17.869755] (-) TimerEvent: {}
+[17.970228] (-) TimerEvent: {}
+[18.070680] (-) TimerEvent: {}
+[18.171045] (-) TimerEvent: {}
+[18.271653] (-) TimerEvent: {}
+[18.372072] (-) TimerEvent: {}
+[18.472731] (-) TimerEvent: {}
+[18.573374] (-) TimerEvent: {}
+[18.673787] (-) TimerEvent: {}
+[18.774663] (-) TimerEvent: {}
+[18.875097] (-) TimerEvent: {}
+[18.975535] (-) TimerEvent: {}
+[19.076181] (-) TimerEvent: {}
+[19.176638] (-) TimerEvent: {}
+[19.277091] (-) TimerEvent: {}
+[19.377594] (-) TimerEvent: {}
+[19.478099] (-) TimerEvent: {}
+[19.578627] (-) TimerEvent: {}
+[19.679159] (-) TimerEvent: {}
+[19.779705] (-) TimerEvent: {}
+[19.880189] (-) TimerEvent: {}
+[19.980650] (-) TimerEvent: {}
+[20.076724] (warehouse_navigation) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable controller1\x1b[0m\n'}
+[20.080793] (-) TimerEvent: {}
+[20.181226] (-) TimerEvent: {}
+[20.281750] (-) TimerEvent: {}
+[20.382285] (-) TimerEvent: {}
+[20.482948] (-) TimerEvent: {}
+[20.583553] (-) TimerEvent: {}
+[20.684096] (-) TimerEvent: {}
+[20.784628] (-) TimerEvent: {}
+[20.885076] (-) TimerEvent: {}
+[20.985551] (-) TimerEvent: {}
+[21.086052] (-) TimerEvent: {}
+[21.186536] (-) TimerEvent: {}
+[21.232720] (warehouse_navigation) StdoutLine: {'line': b'[100%] Built target controller1\n'}
+[21.249619] (warehouse_navigation) CommandEnded: {'returncode': 0}
+[21.250446] (warehouse_navigation) JobProgress: {'identifier': 'warehouse_navigation', 'progress': 'install'}
+[21.251281] (warehouse_navigation) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'arbaaz'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/arbaaz'), ('OLDPWD', '/home/arbaaz'), ('DESKTOP_SESSION', 'ubuntu-xorg'), ('NVM_BIN', '/home/arbaaz/.nvm/versions/node/v24.11.1/bin'), ('NVM_INC', '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '1926'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('NVM_DIR', '/home/arbaaz/.nvm'), ('COLCON_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'arbaaz'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'arbaaz'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu-xorg'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.164'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('ROS_DOMAIN_ID', '3'), ('AMENT_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu-xorg'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg'), ('NVM_CD_FLAGS', ''), ('XDG_DATA_DIRS', '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble')]), 'shell': False}
+[21.259985] (warehouse_navigation) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[21.260416] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.sh\n'}
+[21.260673] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.dsv\n'}
+[21.260875] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info\n'}
+[21.261116] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/PKG-INFO\n'}
+[21.261212] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/SOURCES.txt\n'}
+[21.261287] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/dependency_links.txt\n'}
+[21.261396] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/top_level.txt\n'}
+[21.261486] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation\n'}
+[21.261546] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py\n'}
+[21.261649] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py\n'}
+[21.261728] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py\n'}
+[21.261782] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py\n'}
+[21.261872] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/__init__.py\n'}
+[21.286682] (-) TimerEvent: {}
+[21.302607] (warehouse_navigation) StdoutLine: {'line': b"Listing '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation'...\n"}
+[21.302932] (warehouse_navigation) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/__init__.py'...\n"}
+[21.303050] (warehouse_navigation) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py'...\n"}
+[21.303153] (warehouse_navigation) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py'...\n"}
+[21.303251] (warehouse_navigation) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py'...\n"}
+[21.303370] (warehouse_navigation) StdoutLine: {'line': b"Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py'...\n"}
+[21.308589] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/path_planner.py\n'}
+[21.308813] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/obstacle_detector.py\n'}
+[21.309020] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/vision.py\n'}
+[21.309337] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/utilities.py\n'}
+[21.309731] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/genetic_node\n'}
+[21.310911] (warehouse_navigation) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/genetic_node" to ""\n'}
+[21.311044] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/controller1\n'}
+[21.319488] (warehouse_navigation) StdoutLine: {'line': b'-- Set runtime path of "/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/controller1" to ""\n'}
+[21.319873] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/launch\n'}
+[21.319990] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config\n'}
+[21.320150] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps\n'}
+[21.320225] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/distance_test_field.png\n'}
+[21.320273] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/test_field.png\n'}
+[21.320480] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/package_run_dependencies/warehouse_navigation\n'}
+[21.320675] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/parent_prefix_path/warehouse_navigation\n'}
+[21.320831] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.sh\n'}
+[21.320959] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.dsv\n'}
+[21.321109] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.sh\n'}
+[21.321222] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.dsv\n'}
+[21.321356] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.bash\n'}
+[21.321500] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.sh\n'}
+[21.321634] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.zsh\n'}
+[21.321794] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.dsv\n'}
+[21.321911] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.dsv\n'}
+[21.322096] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/packages/warehouse_navigation\n'}
+[21.322267] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig.cmake\n'}
+[21.322424] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig-version.cmake\n'}
+[21.322549] (warehouse_navigation) StdoutLine: {'line': b'-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.xml\n'}
+[21.325566] (warehouse_navigation) CommandEnded: {'returncode': 0}
+[21.335901] (warehouse_navigation) JobEnded: {'identifier': 'warehouse_navigation', 'rc': 0}
+[21.336536] (warehouse_robot_bringup) JobStarted: {'identifier': 'warehouse_robot_bringup'}
+[21.386862] (-) TimerEvent: {}
+[21.487295] (-) TimerEvent: {}
+[21.587971] (-) TimerEvent: {}
+[21.688462] (-) TimerEvent: {}
+[21.788938] (-) TimerEvent: {}
+[21.889442] (-) TimerEvent: {}
+[21.952882] (warehouse_robot_bringup) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/warehouse_robot_bringup', 'build', '--build-base', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build', 'install', '--record', '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_IN:en', 'USER': 'arbaaz', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/arbaaz', 'OLDPWD': '/home/arbaaz', 'DESKTOP_SESSION': 'ubuntu-xorg', 'NVM_BIN': '/home/arbaaz/.nvm/versions/node/v24.11.1/bin', 'NVM_INC': '/home/arbaaz/.nvm/versions/node/v24.11.1/include/node', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1926', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'NVM_DIR': '/home/arbaaz/.nvm', 'COLCON_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install', 'ROS_DISTRO': 'humble', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'arbaaz', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'arbaaz', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin:/home/arbaaz/.nvm/versions/node/v24.11.1/bin:/opt/ros/humble/bin:/home/arbaaz/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/ThinkBook-15-G3-ACL:@/tmp/.ICE-unix/1898,unix/ThinkBook-15-G3-ACL:/tmp/.ICE-unix/1898', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/a567a0b2_c622_4f1c_8fff_33df3f8921c5', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu-xorg', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.164', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'ROS_DOMAIN_ID': '3', 'AMENT_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu-xorg', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu-xorg:/etc/xdg', 'NVM_CD_FLAGS': '', 'XDG_DATA_DIRS': '/usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800', 'CMAKE_PREFIX_PATH': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs'}, 'shell': False}
+[21.989583] (-) TimerEvent: {}
+[22.089957] (-) TimerEvent: {}
+[22.180756] (warehouse_robot_bringup) StdoutLine: {'line': b'running egg_info\n'}
+[22.181227] (warehouse_robot_bringup) StdoutLine: {'line': b'creating ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info\n'}
+[22.181620] (warehouse_robot_bringup) StdoutLine: {'line': b'writing ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/PKG-INFO\n'}
+[22.181980] (warehouse_robot_bringup) StdoutLine: {'line': b'writing dependency_links to ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/dependency_links.txt\n'}
+[22.182220] (warehouse_robot_bringup) StdoutLine: {'line': b'writing entry points to ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/entry_points.txt\n'}
+[22.182400] (warehouse_robot_bringup) StdoutLine: {'line': b'writing requirements to ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/requires.txt\n'}
+[22.182557] (warehouse_robot_bringup) StdoutLine: {'line': b'writing top-level names to ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/top_level.txt\n'}
+[22.182691] (warehouse_robot_bringup) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/SOURCES.txt'\n"}
+[22.183546] (warehouse_robot_bringup) StdoutLine: {'line': b"reading manifest file '../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/SOURCES.txt'\n"}
+[22.184157] (warehouse_robot_bringup) StdoutLine: {'line': b"writing manifest file '../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info/SOURCES.txt'\n"}
+[22.184269] (warehouse_robot_bringup) StdoutLine: {'line': b'running build\n'}
+[22.184337] (warehouse_robot_bringup) StdoutLine: {'line': b'running build_py\n'}
+[22.184441] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build\n'}
+[22.184544] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib\n'}
+[22.184608] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.184659] (warehouse_robot_bringup) StdoutLine: {'line': b'copying warehouse_robot_bringup/hardware.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.184757] (warehouse_robot_bringup) StdoutLine: {'line': b'copying warehouse_robot_bringup/lidar_sim.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.184812] (warehouse_robot_bringup) StdoutLine: {'line': b'copying warehouse_robot_bringup/robot_sim.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.184937] (warehouse_robot_bringup) StdoutLine: {'line': b'copying warehouse_robot_bringup/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.185012] (warehouse_robot_bringup) StdoutLine: {'line': b'copying warehouse_robot_bringup/main.py -> /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup\n'}
+[22.185102] (warehouse_robot_bringup) StdoutLine: {'line': b'running install\n'}
+[22.185404] (warehouse_robot_bringup) StdoutLine: {'line': b'running install_lib\n'}
+[22.186202] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.186306] (warehouse_robot_bringup) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup/hardware.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.186404] (warehouse_robot_bringup) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup/lidar_sim.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.186481] (warehouse_robot_bringup) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup/robot_sim.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.186562] (warehouse_robot_bringup) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup/__init__.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.186649] (warehouse_robot_bringup) StdoutLine: {'line': b'copying /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build/lib/warehouse_robot_bringup/main.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup\n'}
+[22.187093] (warehouse_robot_bringup) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup/hardware.py to hardware.cpython-310.pyc\n'}
+[22.189097] (warehouse_robot_bringup) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup/lidar_sim.py to lidar_sim.cpython-310.pyc\n'}
+[22.189585] (warehouse_robot_bringup) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup/robot_sim.py to robot_sim.cpython-310.pyc\n'}
+[22.190045] (-) TimerEvent: {}
+[22.192349] (warehouse_robot_bringup) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup/__init__.py to __init__.cpython-310.pyc\n'}
+[22.192661] (warehouse_robot_bringup) StdoutLine: {'line': b'byte-compiling /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup/main.py to main.cpython-310.pyc\n'}
+[22.193958] (warehouse_robot_bringup) StdoutLine: {'line': b'running install_data\n'}
+[22.194059] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/ament_index\n'}
+[22.194224] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/ament_index/resource_index\n'}
+[22.194286] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/ament_index/resource_index/packages\n'}
+[22.194355] (warehouse_robot_bringup) StdoutLine: {'line': b'copying resource/warehouse_robot_bringup -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/ament_index/resource_index/packages\n'}
+[22.194418] (warehouse_robot_bringup) StdoutLine: {'line': b'copying package.xml -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup\n'}
+[22.194535] (warehouse_robot_bringup) StdoutLine: {'line': b'creating /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/launch\n'}
+[22.194610] (warehouse_robot_bringup) StdoutLine: {'line': b'copying launch/simulation.launch.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/launch\n'}
+[22.194665] (warehouse_robot_bringup) StdoutLine: {'line': b'copying launch/system.launch.py -> /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/launch\n'}
+[22.194716] (warehouse_robot_bringup) StdoutLine: {'line': b'running install_egg_info\n'}
+[22.196175] (warehouse_robot_bringup) StdoutLine: {'line': b'Copying ../../build/warehouse_robot_bringup/warehouse_robot_bringup.egg-info to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages/warehouse_robot_bringup-0.0.1-py3.10.egg-info\n'}
+[22.196987] (warehouse_robot_bringup) StdoutLine: {'line': b'running install_scripts\n'}
+[22.215011] (warehouse_robot_bringup) StdoutLine: {'line': b'Installing hardware script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/warehouse_robot_bringup\n'}
+[22.215365] (warehouse_robot_bringup) StdoutLine: {'line': b'Installing lidar_sim script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/warehouse_robot_bringup\n'}
+[22.215598] (warehouse_robot_bringup) StdoutLine: {'line': b'Installing main script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/warehouse_robot_bringup\n'}
+[22.215745] (warehouse_robot_bringup) StdoutLine: {'line': b'Installing robot_sim script to /home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/warehouse_robot_bringup\n'}
+[22.215862] (warehouse_robot_bringup) StdoutLine: {'line': b"writing list of installed files to '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/install.log'\n"}
+[22.251618] (warehouse_robot_bringup) CommandEnded: {'returncode': 0}
+[22.256177] (warehouse_robot_bringup) JobEnded: {'identifier': 'warehouse_robot_bringup', 'rc': 0}
+[22.256977] (-) EventReactorShutdown: {}

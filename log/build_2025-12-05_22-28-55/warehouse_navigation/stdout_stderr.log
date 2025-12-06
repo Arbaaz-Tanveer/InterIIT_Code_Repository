@@ -1,0 +1,57 @@
+[35m[1mConsolidate compiler generated dependencies of target genetic_node[0m
+[35m[1mConsolidate compiler generated dependencies of target controller1[0m
+[ 50%] Built target genetic_node
+[ 50%] Built target ament_cmake_python_copy_warehouse_navigation
+[100%] Built target controller1
+running egg_info
+writing warehouse_navigation.egg-info/PKG-INFO
+writing dependency_links to warehouse_navigation.egg-info/dependency_links.txt
+writing top-level names to warehouse_navigation.egg-info/top_level.txt
+reading manifest file 'warehouse_navigation.egg-info/SOURCES.txt'
+writing manifest file 'warehouse_navigation.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_warehouse_navigation_egg
+-- Install configuration: ""
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.sh
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.dsv
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/PKG-INFO
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/SOURCES.txt
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/dependency_links.txt
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/top_level.txt
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/__init__.py
+Listing '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation'...
+Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py'...
+Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py'...
+Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py'...
+Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py'...
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/path_planner.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/obstacle_detector.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/vision.py
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/utilities.py
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/genetic_node
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/controller1
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/launch
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/distance_test_field.png
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/test_field.png
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/package_run_dependencies/warehouse_navigation
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/parent_prefix_path/warehouse_navigation
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.sh
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.sh
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.dsv
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.bash
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.sh
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.zsh
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.dsv
+-- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.dsv
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/packages/warehouse_navigation
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig.cmake
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig-version.cmake
+-- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.xml

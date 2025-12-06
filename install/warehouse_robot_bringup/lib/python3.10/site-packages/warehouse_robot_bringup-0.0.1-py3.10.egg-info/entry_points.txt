@@ -1,0 +1,6 @@
+[console_scripts]
+hardware = warehouse_robot_bringup.hardware:main
+lidar_sim = warehouse_robot_bringup.lidar_sim:main
+main = warehouse_robot_bringup.main:main
+robot_sim = warehouse_robot_bringup.robot_sim:main
+

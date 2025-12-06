@@ -1,0 +1,385 @@
+[0.097s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--executor', 'sequential']
+[0.097s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='sequential', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x781b40ba0040>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x781b40b6fb50>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x781b40b6fb50>>, mixin_verb=('build',))
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.260s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.260s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/arbaaz/InterIIT_Code_Repository'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.261s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.284s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ignore', 'ignore_ament_install']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ignore_ament_install'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_pkg']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_pkg'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['colcon_meta']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'colcon_meta'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['ros']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'ros'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['cmake', 'python']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'cmake'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extensions ['python_setup_py']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(docs) by extension 'python_setup_py'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.285s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extensions ['ignore', 'ignore_ament_install']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extension 'ignore'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extension 'ignore_ament_install'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extensions ['colcon_pkg']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extension 'colcon_pkg'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extensions ['colcon_meta']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extension 'colcon_meta'
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extensions ['ros']
+[0.286s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_hmi) by extension 'ros'
+[0.288s] DEBUG:colcon.colcon_core.package_identification:Package 'src/warehouse_hmi' with type 'ros.ament_python' and name 'warehouse_hmi'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extension 'ignore'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extension 'ignore_ament_install'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extensions ['colcon_pkg']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extension 'colcon_pkg'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extensions ['colcon_meta']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extension 'colcon_meta'
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extensions ['ros']
+[0.289s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_msgs) by extension 'ros'
+[0.289s] DEBUG:colcon.colcon_core.package_identification:Package 'src/warehouse_msgs' with type 'ros.ament_cmake' and name 'warehouse_msgs'
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extensions ['ignore', 'ignore_ament_install']
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extension 'ignore'
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extension 'ignore_ament_install'
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extensions ['colcon_pkg']
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extension 'colcon_pkg'
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extensions ['colcon_meta']
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extension 'colcon_meta'
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extensions ['ros']
+[0.290s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_navigation) by extension 'ros'
+[0.291s] DEBUG:colcon.colcon_core.package_identification:Package 'src/warehouse_navigation' with type 'ros.ament_cmake' and name 'warehouse_navigation'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extension 'ignore'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extension 'ignore_ament_install'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extensions ['colcon_pkg']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extension 'colcon_pkg'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extensions ['colcon_meta']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extension 'colcon_meta'
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extensions ['ros']
+[0.291s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_robot_bringup) by extension 'ros'
+[0.292s] DEBUG:colcon.colcon_core.package_identification:Package 'src/warehouse_robot_bringup' with type 'ros.ament_python' and name 'warehouse_robot_bringup'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extensions ['ignore', 'ignore_ament_install']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extension 'ignore'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extension 'ignore_ament_install'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extensions ['colcon_pkg']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extension 'colcon_pkg'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extensions ['colcon_meta']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extension 'colcon_meta'
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extensions ['ros']
+[0.292s] Level 1:colcon.colcon_core.package_identification:_identify(src/warehouse_scanning) by extension 'ros'
+[0.293s] DEBUG:colcon.colcon_core.package_identification:Package 'src/warehouse_scanning' with type 'ros.ament_python' and name 'warehouse_scanning'
+[0.293s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.293s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.293s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.293s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.293s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.310s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.311s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.313s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 5 installed packages in /home/arbaaz/InterIIT_Code_Repository/install
+[0.315s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 335 installed packages in /opt/ros/humble
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_target' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_clean_cache' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_clean_first' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'cmake_force_configure' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'ament_cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'catkin_cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_hmi' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.351s] DEBUG:colcon.colcon_core.verb:Building package 'warehouse_hmi' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi', 'merge_install': False, 'path': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi', 'symlink_install': False, 'test_result_base': None}
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_target' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[0.351s] Level 5:colcon.colcon_core.verb:set package 'warehouse_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.351s] DEBUG:colcon.colcon_core.verb:Building package 'warehouse_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs', 'merge_install': False, 'path': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_msgs', 'symlink_install': False, 'test_result_base': None}
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_target' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_clean_cache' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_clean_first' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'cmake_force_configure' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'ament_cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'catkin_cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_scanning' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.352s] DEBUG:colcon.colcon_core.verb:Building package 'warehouse_scanning' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning', 'merge_install': False, 'path': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning', 'symlink_install': False, 'test_result_base': None}
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_target' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_clean_cache' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_clean_first' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'cmake_force_configure' from command line to 'False'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'ament_cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'catkin_cmake_args' from command line to 'None'
+[0.352s] Level 5:colcon.colcon_core.verb:set package 'warehouse_navigation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.352s] DEBUG:colcon.colcon_core.verb:Building package 'warehouse_navigation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation', 'merge_install': False, 'path': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_navigation', 'symlink_install': False, 'test_result_base': None}
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_args' from command line to 'None'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_target' from command line to 'None'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.353s] Level 5:colcon.colcon_core.verb:set package 'warehouse_robot_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.353s] DEBUG:colcon.colcon_core.verb:Building package 'warehouse_robot_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup', 'merge_install': False, 'path': '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.353s] INFO:colcon.colcon_core.executor:Executing jobs using 'sequential' executor
+[0.355s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_hmi'
+[0.355s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi' with build type 'ament_python'
+[0.355s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_hmi', 'ament_prefix_path')
+[0.357s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.357s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/ament_prefix_path.ps1'
+[0.357s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/ament_prefix_path.dsv'
+[0.358s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/ament_prefix_path.sh'
+[0.358s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.358s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.621s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi'
+[0.621s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.621s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.983s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi': PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_hmi build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/install.log --single-version-externally-managed install_data
+[1.275s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_hmi' returned '0': PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_hmi build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_hmi/install.log --single-version-externally-managed install_data
+[1.277s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi' for CMake module files
+[1.277s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi' for CMake config files
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib'
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin'
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/pkgconfig/warehouse_hmi.pc'
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages'
+[1.278s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_hmi', 'pythonpath')
+[1.279s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/pythonpath.ps1'
+[1.279s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/pythonpath.dsv'
+[1.279s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/hook/pythonpath.sh'
+[1.280s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/bin'
+[1.280s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_hmi)
+[1.280s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/package.ps1'
+[1.281s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/package.dsv'
+[1.281s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/package.sh'
+[1.282s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/package.bash'
+[1.282s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/warehouse_hmi/package.zsh'
+[1.283s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/share/colcon-core/packages/warehouse_hmi)
+[1.283s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_hmi' finished with '0'
+[1.283s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_msgs'
+[1.284s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_msgs' with build type 'ament_cmake'
+[1.284s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_msgs'
+[1.284s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.284s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.294s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs -- -j12 -l12
+[1.676s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs -- -j12 -l12
+[1.688s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs
+[1.743s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_msgs)
+[1.744s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs
+[1.744s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs' for CMake module files
+[1.745s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs' for CMake config files
+[1.746s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_msgs', 'cmake_prefix_path')
+[1.746s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.ps1'
+[1.746s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.dsv'
+[1.746s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.sh'
+[1.747s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib'
+[1.747s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_msgs', 'ld_library_path_lib')
+[1.747s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.ps1'
+[1.747s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.dsv'
+[1.748s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.sh'
+[1.748s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/bin'
+[1.748s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/pkgconfig/warehouse_msgs.pc'
+[1.748s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/python3.10/site-packages'
+[1.748s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/bin'
+[1.749s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.ps1'
+[1.749s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.dsv'
+[1.749s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.sh'
+[1.750s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.bash'
+[1.750s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.zsh'
+[1.750s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/colcon-core/packages/warehouse_msgs)
+[1.751s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_msgs)
+[1.751s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs' for CMake module files
+[1.751s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs' for CMake config files
+[1.752s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_msgs', 'cmake_prefix_path')
+[1.752s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.ps1'
+[1.752s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.dsv'
+[1.753s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/cmake_prefix_path.sh'
+[1.753s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib'
+[1.753s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_msgs', 'ld_library_path_lib')
+[1.753s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.ps1'
+[1.754s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.dsv'
+[1.754s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/hook/ld_library_path_lib.sh'
+[1.754s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/bin'
+[1.754s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/pkgconfig/warehouse_msgs.pc'
+[1.754s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/lib/python3.10/site-packages'
+[1.755s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/bin'
+[1.755s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.ps1'
+[1.755s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.dsv'
+[1.756s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.sh'
+[1.756s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.bash'
+[1.756s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/warehouse_msgs/package.zsh'
+[1.757s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/share/colcon-core/packages/warehouse_msgs)
+[1.757s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_msgs' finished with '0'
+[1.757s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_scanning'
+[1.757s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning' with build type 'ament_python'
+[1.757s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_scanning', 'ament_prefix_path')
+[1.757s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/ament_prefix_path.ps1'
+[1.758s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/ament_prefix_path.dsv'
+[1.758s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/ament_prefix_path.sh'
+[1.759s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.759s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.024s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning'
+[2.025s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.025s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.371s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning': PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_scanning build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/install.log --single-version-externally-managed install_data
+[2.669s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning' for CMake module files
+[2.669s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_scanning' returned '0': PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_scanning build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_scanning/install.log --single-version-externally-managed install_data
+[2.670s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning' for CMake config files
+[2.671s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib'
+[2.671s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin'
+[2.671s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/pkgconfig/warehouse_scanning.pc'
+[2.671s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages'
+[2.671s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_scanning', 'pythonpath')
+[2.671s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/pythonpath.ps1'
+[2.671s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/pythonpath.dsv'
+[2.672s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/hook/pythonpath.sh'
+[2.672s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/bin'
+[2.672s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_scanning)
+[2.672s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/package.ps1'
+[2.673s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/package.dsv'
+[2.673s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/package.sh'
+[2.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/package.bash'
+[2.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/warehouse_scanning/package.zsh'
+[2.674s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/share/colcon-core/packages/warehouse_scanning)
+[2.674s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_scanning' finished with '0'
+[2.674s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_navigation'
+[2.674s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_navigation' with build type 'ament_cmake'
+[2.674s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_navigation'
+[2.675s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.675s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.690s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation -- -j12 -l12
+[3.062s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation' returned '0': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation -- -j12 -l12
+[3.064s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation
+[3.129s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_navigation)
+[3.129s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation' for CMake module files
+[3.130s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation' returned '0': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation
+[3.131s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation' for CMake config files
+[3.131s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_navigation', 'cmake_prefix_path')
+[3.131s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.ps1'
+[3.132s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.dsv'
+[3.132s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.sh'
+[3.133s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib'
+[3.133s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/bin'
+[3.133s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/pkgconfig/warehouse_navigation.pc'
+[3.133s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/python3.10/site-packages'
+[3.133s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/bin'
+[3.133s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.ps1'
+[3.134s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.dsv'
+[3.134s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.sh'
+[3.134s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.bash'
+[3.134s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.zsh'
+[3.135s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/colcon-core/packages/warehouse_navigation)
+[3.135s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_navigation)
+[3.135s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation' for CMake module files
+[3.136s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation' for CMake config files
+[3.136s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_navigation', 'cmake_prefix_path')
+[3.136s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.ps1'
+[3.137s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.dsv'
+[3.137s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/hook/cmake_prefix_path.sh'
+[3.137s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib'
+[3.138s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/bin'
+[3.138s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/pkgconfig/warehouse_navigation.pc'
+[3.138s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/python3.10/site-packages'
+[3.138s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/bin'
+[3.138s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.ps1'
+[3.139s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.dsv'
+[3.139s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.sh'
+[3.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.bash'
+[3.140s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.zsh'
+[3.140s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/colcon-core/packages/warehouse_navigation)
+[3.140s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_navigation' finished with '0'
+[3.140s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_robot_bringup'
+[3.140s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup' with build type 'ament_python'
+[3.141s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_robot_bringup', 'ament_prefix_path')
+[3.141s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/ament_prefix_path.ps1'
+[3.142s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/ament_prefix_path.dsv'
+[3.142s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/ament_prefix_path.sh'
+[3.143s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.143s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.436s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup'
+[3.436s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.436s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.793s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup': AMENT_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/opt/ros/humble PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_robot_bringup build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/install.log --single-version-externally-managed install_data
+[4.083s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup' for CMake module files
+[4.084s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arbaaz/InterIIT_Code_Repository/src/warehouse_robot_bringup' returned '0': AMENT_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/opt/ros/humble PYTHONPATH=/home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/warehouse_robot_bringup build --build-base /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/build install --record /home/arbaaz/InterIIT_Code_Repository/build/warehouse_robot_bringup/install.log --single-version-externally-managed install_data
+[4.085s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup' for CMake config files
+[4.085s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib'
+[4.085s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin'
+[4.085s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/pkgconfig/warehouse_robot_bringup.pc'
+[4.085s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/lib/python3.10/site-packages'
+[4.085s] Level 1:colcon.colcon_core.shell:create_environment_hook('warehouse_robot_bringup', 'pythonpath')
+[4.086s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/pythonpath.ps1'
+[4.086s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/pythonpath.dsv'
+[4.086s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/hook/pythonpath.sh'
+[4.087s] Level 1:colcon.colcon_core.environment:checking '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/bin'
+[4.087s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(warehouse_robot_bringup)
+[4.087s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/package.ps1'
+[4.087s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/package.dsv'
+[4.088s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/package.sh'
+[4.088s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/package.bash'
+[4.088s] INFO:colcon.colcon_core.shell:Creating package script '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/warehouse_robot_bringup/package.zsh'
+[4.089s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup/share/colcon-core/packages/warehouse_robot_bringup)
+[4.089s] DEBUG:colcon.colcon_core.executor.sequential:run_until_complete 'warehouse_robot_bringup' finished with '0'
+[4.089s] DEBUG:colcon.colcon_core.executor.sequential:closing loop
+[4.089s] DEBUG:colcon.colcon_core.executor.sequential:loop closed
+[4.089s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[4.095s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[4.095s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[4.095s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[4.108s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[4.109s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arbaaz/InterIIT_Code_Repository/install/local_setup.ps1'
+[4.109s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arbaaz/InterIIT_Code_Repository/install/_local_setup_util_ps1.py'
+[4.111s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arbaaz/InterIIT_Code_Repository/install/setup.ps1'
+[4.112s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arbaaz/InterIIT_Code_Repository/install/local_setup.sh'
+[4.112s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arbaaz/InterIIT_Code_Repository/install/_local_setup_util_sh.py'
+[4.113s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arbaaz/InterIIT_Code_Repository/install/setup.sh'
+[4.114s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arbaaz/InterIIT_Code_Repository/install/local_setup.bash'
+[4.114s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arbaaz/InterIIT_Code_Repository/install/setup.bash'
+[4.115s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arbaaz/InterIIT_Code_Repository/install/local_setup.zsh'
+[4.115s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arbaaz/InterIIT_Code_Repository/install/setup.zsh'

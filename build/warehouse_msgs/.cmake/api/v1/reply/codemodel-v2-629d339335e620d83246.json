@@ -1,0 +1,233 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-dcdc89cd118ea539d41f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				},
+				{
+					"build" : "warehouse_msgs__py",
+					"jsonFile" : "directory-warehouse_msgs__py-3cf50c33f88717eadd85.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs/warehouse_msgs__py",
+					"targetIndexes" : 
+					[
+						5
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "warehouse_msgs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_warehouse_msgs_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_warehouse_msgs_egg-cfa540ebce8cf3530b36.json",
+					"name" : "ament_cmake_python_build_warehouse_msgs_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_warehouse_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_warehouse_msgs-671a187e863670b381cf.json",
+					"name" : "ament_cmake_python_copy_warehouse_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-7b403c87aceda353e020.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs-d158652fce5fc0b236fc.json",
+					"name" : "warehouse_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__cpp-4dfc228a2508a49aa501.json",
+					"name" : "warehouse_msgs__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "warehouse_msgs__py::@a68a118f0264b1d9af5f",
+					"jsonFile" : "target-warehouse_msgs__py-8dc22060bf4118d7cc9e.json",
+					"name" : "warehouse_msgs__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_generator_c-eba35bb17834434f671b.json",
+					"name" : "warehouse_msgs__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_generator_py-ad578b242dca3119d06e.json",
+					"name" : "warehouse_msgs__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_c-9f8add6232e58616501b.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_c__pyext-46dcd30bdba508fa8cd6.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_cpp-2b5bbfe4b047ed607cfe.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_fastrtps_c-423f68e110835fd27c00.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_fastrtps_c__pyext-afa606a6c26230814d39.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_fastrtps_cpp-2360efbf6969d1137df6.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_introspection_c-515a09d5c95a437d9cd8.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_introspection_c__pyext-b624c5e4ae1c2073c6c2.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs__rosidl_typesupport_introspection_cpp-24ec9062ce9cdfcb9eca.json",
+					"name" : "warehouse_msgs__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "warehouse_msgs_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-warehouse_msgs_uninstall-b7272baa6c32e32eb0d0.json",
+					"name" : "warehouse_msgs_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/arbaaz/InterIIT_Code_Repository/build/warehouse_msgs",
+		"source" : "/home/arbaaz/InterIIT_Code_Repository/src/warehouse_msgs"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

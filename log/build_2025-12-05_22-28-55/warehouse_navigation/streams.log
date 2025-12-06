@@ -1,0 +1,61 @@
+[0.014s] Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation -- -j12 -l12
+[0.062s] [35m[1mConsolidate compiler generated dependencies of target genetic_node[0m
+[0.063s] [35m[1mConsolidate compiler generated dependencies of target controller1[0m
+[0.083s] [ 50%] Built target genetic_node
+[0.084s] [ 50%] Built target ament_cmake_python_copy_warehouse_navigation
+[0.088s] [100%] Built target controller1
+[0.331s] running egg_info
+[0.332s] writing warehouse_navigation.egg-info/PKG-INFO
+[0.332s] writing dependency_links to warehouse_navigation.egg-info/dependency_links.txt
+[0.332s] writing top-level names to warehouse_navigation.egg-info/top_level.txt
+[0.335s] reading manifest file 'warehouse_navigation.egg-info/SOURCES.txt'
+[0.335s] writing manifest file 'warehouse_navigation.egg-info/SOURCES.txt'
+[0.372s] [100%] Built target ament_cmake_python_build_warehouse_navigation_egg
+[0.386s] Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation' returned '0': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --build /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation -- -j12 -l12
+[0.388s] Invoking command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation
+[0.396s] -- Install configuration: ""
+[0.396s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.sh
+[0.396s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/pythonpath.dsv
+[0.396s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info
+[0.396s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/PKG-INFO
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/SOURCES.txt
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/dependency_links.txt
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation-0.0.1-py3.10.egg-info/top_level.txt
+[0.397s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py
+[0.397s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py
+[0.397s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/__init__.py
+[0.443s] Listing '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation'...
+[0.443s] Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/obstacle_detector.py'...
+[0.443s] Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/path_planner.py'...
+[0.443s] Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/utilities.py'...
+[0.443s] Compiling '/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/local/lib/python3.10/dist-packages/warehouse_navigation/vision.py'...
+[0.449s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/path_planner.py
+[0.449s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/obstacle_detector.py
+[0.449s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/vision.py
+[0.450s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/utilities.py
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/genetic_node
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/lib/warehouse_navigation/controller1
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/launch
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/distance_test_field.png
+[0.450s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/config/maps/test_field.png
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/package_run_dependencies/warehouse_navigation
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/parent_prefix_path/warehouse_navigation
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.sh
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/ament_prefix_path.dsv
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.sh
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/environment/path.dsv
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.bash
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.sh
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.zsh
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/local_setup.dsv
+[0.451s] -- Installing: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.dsv
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/ament_index/resource_index/packages/warehouse_navigation
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig.cmake
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/cmake/warehouse_navigationConfig-version.cmake
+[0.451s] -- Up-to-date: /home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation/share/warehouse_navigation/package.xml
+[0.454s] Invoked command in '/home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation' returned '0': CMAKE_PREFIX_PATH=/home/arbaaz/InterIIT_Code_Repository/install/warehouse_msgs:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_navigation:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_robot_bringup:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_scanning:/home/arbaaz/InterIIT_Code_Repository/install/warehouse_hmi:/opt/ros/humble /usr/bin/cmake --install /home/arbaaz/InterIIT_Code_Repository/build/warehouse_navigation
