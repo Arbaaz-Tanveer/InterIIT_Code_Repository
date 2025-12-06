@@ -55,7 +55,7 @@ def generate_launch_description():
         ]
     )
 
-    # command to call slam_toolbox save_map service when launch shuts down
+  
     save_map_cmd = [
         'bash', '-lc',
         "ros2 service call /slam_toolbox/save_map slam_toolbox/srv/SaveMap \"name: {data: 'final_map'}\" || echo 'save_map call failed'"
@@ -65,7 +65,7 @@ def generate_launch_description():
         output='screen'
     )
 
-    # register OnShutdown event handler so save is attempted on Ctrl+C / launch shutdown
+
     shutdown_handler = RegisterEventHandler(
         OnShutdown(
             on_shutdown=[
