@@ -4,7 +4,7 @@
   <name>SLAM</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="example@example.com">shivansh</maintainer>
+  <maintainer email="example@example.com">xyz</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
