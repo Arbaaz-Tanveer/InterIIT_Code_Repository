@@ -41,7 +41,7 @@ OBSTACLE_MIN_POINTS = 12          # Min points to try fitting a circle
 OBSTACLE_MAX_RESIDUAL = 0.007     # How "round" the object must be
 OBSTACLE_MIN_RADIUS = 0.07       # Min radius in meters
 OBSTACLE_MAX_RADIUS = 0.2       # Max radius in meters
-OBSTACLE_MAX_RANGE = 1.5         # Ignore points further than 4m
+OBSTACLE_MAX_RANGE = 3.0         # Ignore points further than 4m
 OBSTACLE_MIN_ARC_ANGLE = 1.0    # Radians (approx 60 degrees). Filter out small arcs.
 # ---------------------------------
 obstacle_publishing = True

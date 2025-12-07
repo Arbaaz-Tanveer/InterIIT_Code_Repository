@@ -65,6 +65,7 @@ class STMBridge(Node):
         self.use_autoscan = False             # default: use manual until "on" received
         self.latest_zscan_bool = False
         self.latest_zscan_value = LOWER_LIMIT  # last integer zscan value (manual)
+        self.calibrated = False # Odom-based calibration flag
 
         # Serial and threading
         self.ser = None
@@ -108,7 +109,8 @@ class STMBridge(Node):
 
     def cb_autoscan(self, msg: String):
         text = (msg.data or "").strip()
-        new_state = (text == "START")
+        # Enable autonomous control for both START (AutoScan loops) and COORDINATE (Point-to-Point)
+        new_state = (text == "START" or text == "COORDINATE")
         prev = self.use_autoscan
         self.use_autoscan = new_state
         self.get_logger().info(f"autoscan set to {self.use_autoscan} (raw='{msg.data}')")
@@ -251,6 +253,14 @@ class STMBridge(Node):
                 arr.data = [float(ts), float(dx), float(dy), float(dtheta)]
                 self.pub_odom.publish(arr)
                 self.get_logger().debug(f"Published odom array: {arr.data}")
+                
+                # Calibration: Move to 20cm on first connection
+                if not self.calibrated:
+                    self.get_logger().info("Calibration triggered: Moving Z-Scanner to 20cm (LOWER_LIMIT).")
+                    self.send_zscan(LOWER_LIMIT)
+                    self.latest_zscan_value = LOWER_LIMIT
+                    self.calibrated = True
+
             except Exception:
                 self.get_logger().warn(f"Failed to parse odom: {text}")
 

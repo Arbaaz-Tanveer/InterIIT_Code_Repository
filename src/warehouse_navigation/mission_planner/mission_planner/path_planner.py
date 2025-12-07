@@ -2,7 +2,7 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32MultiArray, MultiArrayDimension
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension, String, Bool
 from geometry_msgs.msg import PoseStamped
 import numpy as np
 import math
@@ -13,7 +13,8 @@ import json
 # ================= CONFIGURATION =================
 ARENA_WIDTH_M = 4.5   
 ARENA_HEIGHT_M = 6.5  
-PIX_TO_METER = 100    
+PIX_TO_METER = 100 
+SEARCH_WINDOW = 50 # Number of points to search ahead/behind for tracking (hysteresis)    
 
 # Robot & Physics
 ROBOT_RADIUS = 0.25 
@@ -24,6 +25,22 @@ TOTAL_SAFE_DIST = ROBOT_RADIUS + OBS_RADIUS + SAFETY_MARGIN
 LOOKAHEAD_DIST = 0.5
 STEP_SIZE = 0.1    
 CIRCLE_STEP_ANGLE = 0.1 
+
+ARRIVAL_THRESHOLD = 0.15
+THETA_THRESHOLD = 0.1 
+
+# --- OBSTACLE FILTERS & PERSISTENCE ---
+OBS_IGNORE_BELOW_Y = -2.0           # Ignore individual obstacles detected below this Y
+ROBOT_IGNORE_ALL_Y_THRESHOLD = -2.0 # If robot is below this Y, ignore ALL obstacles (Start Zone)
+
+OBS_PERSISTENCE_TIMEOUT = 1.0       # Obstacles persist for 1.0s after detection stops
+OBS_SMOOTHING_ALPHA = 0.3           # Smoothing factor (0.1 = Slow/Smooth, 1.0 = Instant)
+OBS_MATCH_DIST = 0.2                # Max distance to match a new detection to a tracked obstacle
+
+# --- MANUAL MODE LOGIC ---
+TRANSITION_POINT = np.array([-1.2, -2.0]) # Point on the path to go to first if in start zone
+TRANSITION_TOLERANCE = 0.3               # Distance to consider transition point reached
+# -------------------------
 
 # FILES
 CONFIG_FILE = "planner_config.json"
@@ -60,30 +77,46 @@ class SmartPathPlanner(Node):
     def __init__(self):
         super().__init__('smart_path_planner')
 
+        # Standard Subscriptions
         self.sub_pose = self.create_subscription(PoseStamped, '/robot_pose', self.pose_callback, 10)
         self.sub_obs = self.create_subscription(Float32MultiArray, '/obstacles', self.obs_callback, 10)
         self.sub_target = self.create_subscription(Float32MultiArray, '/decision_target_data', self.target_callback, 10)
         
+        # Mode & Manual Control Subscriptions
+        self.sub_auto_scan = self.create_subscription(String, '/auto_scan', self.auto_scan_callback, 10)
+        self.sub_manual_pose = self.create_subscription(PoseStamped, '/manual_pose', self.manual_pose_callback, 10)
+        
+        # Map Updates
         self.sub_scan_update = self.create_subscription(Float32MultiArray, 'map/scan_points', self.scan_update_callback, 10)
         self.sub_path_update = self.create_subscription(Float32MultiArray, 'map/path_segments', self.path_update_callback, 10)
         self.sub_racks_update = self.create_subscription(Float32MultiArray, 'map/racks', self.racks_update_callback, 10)
 
+        # Publishers
         self.pub_path = self.create_publisher(Float32MultiArray, 'target_pos', 10)
         self.pub_distorted_scan = self.create_publisher(Float32MultiArray, '/distorted_scan_points', 10)
+        self.pub_motion = self.create_publisher(Bool, 'motion_active', 10)
 
+        # State Variables
         self.robot_pose = None 
         
-        # Store obstacles as tuples: (position_np_array, current_safety_radius)
-        # This allows merged obstacles to have different sizes.
-        self.obstacles = []    
+        # Obstacle Lists
+        self.obstacles = []           # Final merged list for planning
+        self.tracked_obstacles = []   # Internal list for persistence/smoothing
         
+        # Planning State
         self.final_goal = None 
         self.stop_index = None
         
+        # Mode State
+        self.auto_mode = False          # False = Manual, True = Auto
+        self.manual_target_pose = None  # [x, y, theta]
+        self.going_to_transition = False
+        self.last_path_idx = None       # For tracking hysteresis 
+        
+        # Map Data
         self.scan_points = []
         self.raw_path_segments = []
         self.racks = [] 
-        
         self.segment_constraints = [] 
         
         self.load_config()
@@ -95,7 +128,7 @@ class SmartPathPlanner(Node):
         self.face_modes_active = self.face_modes.copy()
 
         self.timer = self.create_timer(0.05, self.control_loop)
-        self.get_logger().info("Planner Initialized (Merged Obstacles + Fixed Endpoints)")
+        self.get_logger().info("Planner Initialized")
 
     def load_config(self):
         data = DEFAULT_DATA
@@ -110,6 +143,7 @@ class SmartPathPlanner(Node):
         self.scan_points = [np.array(p) for p in data.get("scan_points", [])]
         self.raw_path_segments = data.get("path_segments", DEFAULT_DATA["path_segments"])
         self.racks = data.get("racks", DEFAULT_DATA["racks"])
+        self.current_scan_index = 0
 
     def save_config(self):
         try:
@@ -172,7 +206,7 @@ class SmartPathPlanner(Node):
         
         return np.array(pts), np.array(modes), np.array(indices)
 
-    # ================= ROS CALLBACKS & OBSTACLE MERGING =================
+    # ================= ROS CALLBACKS =================
     def pose_callback(self, msg):
         x = msg.pose.position.x
         y = msg.pose.position.y
@@ -182,23 +216,131 @@ class SmartPathPlanner(Node):
         theta = math.atan2(siny_cosp, cosy_cosp)
         self.robot_pose = np.array([x, y, theta])
 
+    def auto_scan_callback(self, msg):
+        cmd = msg.data.strip().upper()
+        if cmd == "START":
+            self.auto_mode = True
+            self.get_logger().info("MODE: AUTO")
+        elif cmd == "COORDINATE":
+            self.auto_mode = False 
+            self.manual_target_pose = None # Reset stale target
+            self.going_to_transition = False # Reset transition logic
+            
+            # Send empty path to reset controller
+            empty_msg = Float32MultiArray()
+            self.pub_path.publish(empty_msg)
+            
+            self.get_logger().info("MODE: COORDINATE (Waiting for new target...)")
+        elif cmd == "STOP":
+            self.auto_mode = False
+            
+            # Send empty path to reset controller
+            empty_msg = Float32MultiArray()
+            self.pub_path.publish(empty_msg)
+            
+            self.get_logger().info("MODE: MANUAL")
+
+    def manual_pose_callback(self, msg):
+        x = msg.pose.position.x
+        y = msg.pose.position.y
+        
+        # Quaternion to Theta
+        q = msg.pose.orientation
+        siny_cosp = 2.0 * (q.w * q.z + q.x * q.y)
+        cosy_cosp = 1.0 - 2.0 * (q.y * q.y + q.z * q.z)
+        theta = math.atan2(siny_cosp, cosy_cosp)
+        
+        self.manual_target_pose = np.array([x, y, theta])
+        
+        # Logic: If receiving a new target, check if we need to use transition point
+        # Condition 1: Robot is in Start Zone (Y < -2.0)
+        # Condition 2: Target is Inside Arena (Y > -2.0)
+        
+        current_y = self.robot_pose[1] if self.robot_pose is not None else -3.0
+        
+        if current_y < ROBOT_IGNORE_ALL_Y_THRESHOLD and y > ROBOT_IGNORE_ALL_Y_THRESHOLD:
+            self.going_to_transition = True
+            self.get_logger().info(f"Coordinate Mode: Target Inside ({y:.2f}), Robot Outside ({current_y:.2f}). Going via Transition: {TRANSITION_POINT}")
+        else:
+            self.going_to_transition = False
+            self.get_logger().info(f"Coordinate Mode: Going Direct: {x:.2f}, {y:.2f}")
+
     def obs_callback(self, msg):
+        current_time = self.get_clock().now().nanoseconds / 1e9
+        
+        # 1. ZONE OVERRIDE: If robot is in the start zone, clear everything
+        if self.robot_pose is not None:
+            if self.robot_pose[1] < ROBOT_IGNORE_ALL_Y_THRESHOLD:
+                self.obstacles = []
+                self.tracked_obstacles = []
+                return
+
+        # 2. PARSE NEW DETECTIONS
+        raw_detections = []
         data = msg.data
-        if len(data) < 1: return
-        count = int(data[0])
+        if len(data) >= 1:
+            count = int(data[0])
+            for i in range(count):
+                idx = 1 + (i * 2)
+                if idx + 1 < len(data):
+                    ox, oy = data[idx], data[idx+1]
+                    
+                    # Y-Level Filter
+                    if oy > OBS_IGNORE_BELOW_Y:
+                        raw_detections.append(np.array([ox, oy]))
+
+        # 3. MATCHING & SMOOTHING
+        # We try to match every new detection to an existing tracked obstacle
+        used_track_indices = set()
         
-        raw_obstacles = []
-        # Parse initial obstacles
-        for i in range(count):
-            idx = 1 + (i * 2)
-            if idx + 1 < len(data):
-                # Start with default safe distance
-                raw_obstacles.append({
-                    'pos': np.array([data[idx], data[idx+1]]),
-                    'radius': TOTAL_SAFE_DIST
+        for raw_pos in raw_detections:
+            best_idx = -1
+            min_dist = OBS_MATCH_DIST
+
+            # Find closest tracked obstacle
+            for i, tracked in enumerate(self.tracked_obstacles):
+                if i in used_track_indices: continue
+                
+                dist = np.linalg.norm(raw_pos - tracked['pos'])
+                if dist < min_dist:
+                    min_dist = dist
+                    best_idx = i
+            
+            if best_idx != -1:
+                # MATCH FOUND: Update position using Exponential Moving Average
+                old_pos = self.tracked_obstacles[best_idx]['pos']
+                
+                # Smooth: New = (Alpha * Raw) + ((1-Alpha) * Old)
+                smooth_pos = (raw_pos * OBS_SMOOTHING_ALPHA) + (old_pos * (1.0 - OBS_SMOOTHING_ALPHA))
+                
+                self.tracked_obstacles[best_idx]['pos'] = smooth_pos
+                self.tracked_obstacles[best_idx]['last_seen'] = current_time
+                used_track_indices.add(best_idx)
+            else:
+                # NO MATCH: Create new tracked obstacle
+                self.tracked_obstacles.append({
+                    'pos': raw_pos,
+                    'radius': TOTAL_SAFE_DIST,
+                    'last_seen': current_time
                 })
+
+        # 4. PRUNING (PERSISTENCE LOGIC)
+        # Remove obstacles that haven't been seen for > TIMEOUT seconds
+        active_list = []
+        for obs in self.tracked_obstacles:
+            if (current_time - obs['last_seen']) < OBS_PERSISTENCE_TIMEOUT:
+                active_list.append(obs)
         
-        self.obstacles = self.merge_obstacles(raw_obstacles)
+        self.tracked_obstacles = active_list
+
+        # 5. MERGE FOR PLANNER
+        # Send the smoothed, persistent list to the merger
+        if self.tracked_obstacles:
+            # We must pass a deep copy or rebuild the list to avoid reference issues during merge
+            clean_list_for_merge = [{'pos': o['pos'].copy(), 'radius': o['radius']} for o in self.tracked_obstacles]
+            self.obstacles = self.merge_obstacles(clean_list_for_merge)
+        else:
+            self.obstacles = []
 
     def merge_obstacles(self, obstacles):
         """Recursively merge intersecting obstacles."""
@@ -222,18 +364,8 @@ class SmartPathPlanner(Node):
                     obs2 = current_obs_list[j]
                     dist = np.linalg.norm(obs1['pos'] - obs2['pos'])
                     
-                    # Check intersection of safety circles
                     if dist < (obs1['radius'] + obs2['radius']):
-                        # MERGE THEM
-                        # New Center = Midpoint
                         new_center = (obs1['pos'] + obs2['pos']) / 2.0
-                        
-                        # New Radius = Distance from new center to furthest edge + buffer
-                        # Simply, radius needs to cover both.
-                        # Conservative estimate: half dist + max radius? 
-                        # Better: Expand just enough to cover the outer edges
-                        # Edge 1 from new center: dist/2 + r1
-                        # Edge 2 from new center: dist/2 + r2
                         new_radius = (dist / 2.0) + max(obs1['radius'], obs2['radius'])
                         
                         new_list.append({
@@ -244,7 +376,7 @@ class SmartPathPlanner(Node):
                         skip_indices.add(j)
                         merged = True
                         merged_this_iter = True
-                        break # Break inner loop, restart outer logic in next while iteration
+                        break 
                 
                 if not merged_this_iter:
                     new_list.append(obs1)
@@ -318,7 +450,6 @@ class SmartPathPlanner(Node):
                 target_sign = 1
                 A, B, C = 1, 0, 0
 
-            # Use merged obstacles
             for obs in self.obstacles:
                 obs_pos = obs['pos']
                 obs_r = obs['radius']
@@ -364,7 +495,6 @@ class SmartPathPlanner(Node):
 
     # ================= ARC GENERATION =================
     def generate_innermost_arc(self, obs, start_point, end_point):
-        # Unpack merged obstacle data
         obs_center = obs['pos']
         safe_dist = obs['radius']
 
@@ -440,14 +570,14 @@ class SmartPathPlanner(Node):
             obs_pos = obs['pos']
             obs_r = obs['radius']
 
-            # 1. STATIC ENDPOINT PROTECTION
+            # STATIC ENDPOINT PROTECTION
             dist_start = np.linalg.norm(obs_pos - start_static_point)
             dist_end = np.linalg.norm(obs_pos - end_static_point)
 
             if dist_start < obs_r or dist_end < obs_r:
                 continue
 
-            # 2. STANDARD COLLISION CHECK
+            # STANDARD COLLISION CHECK
             indices = []
             for i, pt in enumerate(self.base_path):
                 if np.linalg.norm(pt - obs_pos) < obs_r:
@@ -507,70 +637,237 @@ class SmartPathPlanner(Node):
         distorted_points = self.process_distorted_scan_points()
         self.publish_distorted_points(distorted_points)
 
-        if self.final_goal is None:
+        # === 1. DETERMINE TARGET AND PATH STRATEGY ===
+        active_target_goal = None
+        use_straight_line = False
+        
+        if self.auto_mode:
+            # AUTO MODE: Use target from main.py via /decision_target_data
+            active_target_goal = self.final_goal
+        else:
+            # MANUAL MODE
+            if self.manual_target_pose is None:
+                self.visualize(0, [], 1, distorted_points)
+                return # No target yet
+
+            # Check if we reached transition point
+            dist_to_trans = np.linalg.norm(self.robot_pose[:2] - TRANSITION_POINT)
+            
+            # Debug log to see why it might be stuck
+            if self.going_to_transition:
+                 self.get_logger().info(f"Dist to transition: {dist_to_trans:.2f} (Tol: {TRANSITION_TOLERANCE})")
+
+            # If we were going to transition and just reached it, clear the flag
+            # Increased local tolerance to ensuring triggering
+            if self.going_to_transition and dist_to_trans < 0.5:
+                self.going_to_transition = False
+                self.get_logger().info("Transition Point Reached. Going Direct.")
+
+            if self.going_to_transition:
+                # Follow existing path to transition point
+                active_target_goal = TRANSITION_POINT
+            else:
+                # Go straight to manual target
+                use_straight_line = True
+                active_target_goal = self.manual_target_pose[:2]
+
+        if active_target_goal is None and not use_straight_line:
              self.visualize(0, [], 1, distorted_points)
+             # If no target in manual mode, ensure we stop
+             if not self.auto_mode:
+                 m = Bool()
+                 m.data = False
+                 self.pub_motion.publish(m)
              return
 
-        dists = np.linalg.norm(self.active_path - self.robot_pose[:2], axis=1)
-        curr_idx = np.argmin(dists)
-        path_len = len(self.active_path)
-
-        is_closed = np.linalg.norm(self.active_path[0] - self.active_path[-1]) < 0.1
-
-        stop_idx = path_len - 1
-        if self.stop_index is not None:
-            dists_to_goal = np.linalg.norm(self.active_path - self.final_goal, axis=1)
-            stop_idx = np.argmin(dists_to_goal)
-
+        # === 2. GENERATE PATH ===
+        path_msg_points = []
+        viz_segment = []
+        curr_idx = 0
         direction = 1
-        if is_closed:
-            forward_dist = (stop_idx - curr_idx + path_len) % path_len
-            backward_dist = (curr_idx - stop_idx + path_len) % path_len
-            if backward_dist < forward_dist:
-                direction = -1
-        else:
-            if stop_idx < curr_idx:
-                direction = -1
 
-        points_count = int(LOOKAHEAD_DIST / STEP_SIZE)
-        indices = []
-        idx = curr_idx
-        
-        for _ in range(points_count + 1):
-            indices.append(idx)
-            if idx == stop_idx: break
-            idx += direction
-            if is_closed: idx = idx % path_len
-            else:
-                if idx < 0 or idx >= path_len: break
-        
-        if len(indices) < 1: return
+        # CHECK ARRIVAL (Coordinate Mode)
+        if not self.auto_mode and self.manual_target_pose is not None:
+             # Check if we are close enough to the MANUAL TARGET
+             # Note: active_target_goal might be transition point, so we check the FINAL manual target?
+             # Actually, if going via transition, we first reach transition, then switch to final.
+             # So we should check arrival at 'active_target_goal'.
+             
+             dist_to_current_goal = np.linalg.norm(self.robot_pose[:2] - active_target_goal)
+             
+             # Calculate Theta Diff
+             # If target is transition, we don't care about theta? Usually we don't.
+             # If target is Final Manual Pose, we care about theta.
+             
+             theta_error = 0.0
+             if not self.going_to_transition:
+                 # Final Target
+                 desired_th = self.manual_target_pose[2]
+                 diff = desired_th - self.robot_pose[2]
+                 # Normalize
+                 while diff > math.pi: diff -= 2*math.pi
+                 while diff < -math.pi: diff += 2*math.pi
+                 theta_error = abs(diff)
+             
+             if dist_to_current_goal < ARRIVAL_THRESHOLD and theta_error < THETA_THRESHOLD:
+                  # Reached
+                  if self.going_to_transition:
+                      # If we were going to transition and reached it, loop will handle switching in next iter
+                      # But for now, we still consider it "motion active" until logic flips valid target
+                      pass 
+                  else:
+                      # Final goal reached
+                      self.get_logger().info("Target Reached (XY + Theta). Stopping.")
+                      # Clear target so we don't keep trying
+                      self.manual_target_pose = None
+                      
+                      # Stop
+                      m = Bool()
+                      m.data = False
+                      self.pub_motion.publish(m)
+                      
+                      # Publish empty path
+                      empty = Float32MultiArray()
+                      self.pub_path.publish(empty)
+                      
+                      self.visualize(0, [], 1, distorted_points)
+                      return
 
-        path_segment = self.active_path[indices]
-        modes_segment = self.face_modes_active[indices]
-        
-        msg = Float32MultiArray()
-        for i, pt in enumerate(path_segment):
-            x, y = pt
-            mode = modes_segment[i]
-            target_theta = 0.0
+        if use_straight_line:
+            # --- STRAIGHT LINE GENERATION ---
+            start = self.robot_pose[:2]
+            end = active_target_goal
+            vec = end - start
+            dist = np.linalg.norm(vec)
+            if dist > 0:
+                vec = vec / dist
             
-            if mode == 2: target_theta = math.pi       
-            elif mode == 3: target_theta = math.pi / 2 
-            elif mode == 4: target_theta = 0.0         
-            elif mode == 5: target_theta = -math.pi / 2 
+            # Generate a simple straight path of LOOKAHEAD_DIST
+            steps = int(LOOKAHEAD_DIST / STEP_SIZE) + 1
+            for i in range(1, steps + 1):
+                p = start + vec * (i * STEP_SIZE)
+                # If we overshoot the target, clamp to target
+                if np.linalg.norm(p - start) > dist:
+                    p = end
+                
+                # Theta is simply the angle to target, or final theta if close
+                target_theta = math.atan2(vec[1], vec[0])
+                
+                # If very close to end, use manual orientation
+                if np.linalg.norm(p - end) < 0.1:
+                    target_theta = self.manual_target_pose[2]
+
+                path_msg_points.append([p[0], p[1], target_theta])
+                viz_segment.append(p)
+                
+        else:
+            # --- EXISTING PATH FOLLOWING LOGIC ---
+            
+            # 1. Update Current Index with Hysteresis (Local Window)
+            path_len = len(self.active_path)
+            
+            if self.last_path_idx is None or self.last_path_idx >= path_len:
+                # First run or reset: Search Global
+                dists = np.linalg.norm(self.active_path - self.robot_pose[:2], axis=1)
+                curr_idx = np.argmin(dists)
             else:
-                if i < len(path_segment)-1:
-                    dx = path_segment[i+1][0] - x
-                    dy = path_segment[i+1][1] - y
-                    if abs(dx) > 0.001 or abs(dy) > 0.001:
-                        target_theta = math.atan2(dy, dx)
-                        if direction == -1: target_theta += math.pi
+                # Tracking: Search Local Window
+                start_search = self.last_path_idx - SEARCH_WINDOW
+                end_search = self.last_path_idx + SEARCH_WINDOW
+                
+                # Handle cyclic indices if needed, or clamping
+                # Since we don't know if path is truly cyclic, simple clamping or modulo is tricky
+                # safe approach: generate verify indices list
+                search_indices = []
+                for k in range(start_search, end_search + 1):
+                    # modulo for closed loops, or clamp for open?
+                    # let's use modulo if closed, clamp if open
+                    if np.linalg.norm(self.active_path[0] - self.active_path[-1]) < 0.1:
+                         search_indices.append(k % path_len)
+                    else:
+                         if 0 <= k < path_len:
+                             search_indices.append(k)
+                
+                # Find best in window
+                best_local_dist = 1e9
+                best_local_idx = self.last_path_idx
+                
+                for k in search_indices:
+                    d = np.linalg.norm(self.active_path[k] - self.robot_pose[:2])
+                    if d < best_local_dist:
+                        best_local_dist = d
+                        best_local_idx = k
+                
+                curr_idx = best_local_idx
 
-            msg.data.extend([float(x), float(y), float(target_theta)])
+            self.last_path_idx = curr_idx # Update tracking memory
+            path_len = len(self.active_path)
+            is_closed = np.linalg.norm(self.active_path[0] - self.active_path[-1]) < 0.1
 
+            stop_idx = path_len - 1
+            if active_target_goal is not None:
+                dists_to_goal = np.linalg.norm(self.active_path - active_target_goal, axis=1)
+                stop_idx = np.argmin(dists_to_goal)
+
+            direction = 1
+            if is_closed:
+                forward_dist = (stop_idx - curr_idx + path_len) % path_len
+                backward_dist = (curr_idx - stop_idx + path_len) % path_len
+                if backward_dist < forward_dist:
+                    direction = -1
+            else:
+                if stop_idx < curr_idx:
+                    direction = -1
+
+            points_count = int(LOOKAHEAD_DIST / STEP_SIZE)
+            indices = []
+            idx = curr_idx
+            
+            for _ in range(points_count + 1):
+                indices.append(idx)
+                if idx == stop_idx: break
+                idx += direction
+                if is_closed: idx = idx % path_len
+                else:
+                    if idx < 0 or idx >= path_len: break
+            
+            if len(indices) > 0:
+                path_segment = self.active_path[indices]
+                modes_segment = self.face_modes_active[indices]
+                viz_segment = path_segment
+                
+                for i, pt in enumerate(path_segment):
+                    x, y = pt
+                    mode = modes_segment[i]
+                    target_theta = 0.0
+                    
+                    if mode == 2: target_theta = math.pi       
+                    elif mode == 3: target_theta = math.pi / 2 
+                    elif mode == 4: target_theta = 0.0         
+                    elif mode == 5: target_theta = -math.pi / 2 
+                    else:
+                        if i < len(path_segment)-1:
+                            dx = path_segment[i+1][0] - x
+                            dy = path_segment[i+1][1] - y
+                            if abs(dx) > 0.001 or abs(dy) > 0.001:
+                                target_theta = math.atan2(dy, dx)
+                                if direction == -1: target_theta += math.pi
+                    
+                    path_msg_points.append([float(x), float(y), float(target_theta)])
+
+        # === 3. PUBLISH ===
+        msg = Float32MultiArray()
+        for p in path_msg_points:
+            msg.data.extend([float(p[0]), float(p[1]), float(p[2])])
         self.pub_path.publish(msg)
-        self.visualize(curr_idx, path_segment, direction, distorted_points)
+        
+        # Enable Motion in Coordinate Mode since we have a valid path
+        if not self.auto_mode:
+            m = Bool()
+            m.data = True
+            self.pub_motion.publish(m)
+        
+        self.visualize(curr_idx, viz_segment, direction, distorted_points)
 
     def visualize(self, curr_idx, local_segment, direction, distorted_points):
         h = int(ARENA_HEIGHT_M * PIX_TO_METER)
@@ -608,9 +905,7 @@ class SmartPathPlanner(Node):
 
         for obs in self.obstacles:
             c = to_pix(obs['pos'])
-            # Draw the actual "center" of the merged obstacle
             cv2.circle(img, c, 5, (255, 0, 0), -1) 
-            # Draw the computed safety radius
             cv2.circle(img, c, int(obs['radius']*PIX_TO_METER), (255, 200, 200), 1)
 
         for pt in self.scan_points:
@@ -631,7 +926,15 @@ class SmartPathPlanner(Node):
             end = (int(pt[0] + 30*math.cos(th)), int(pt[1] - 30*math.sin(th)))
             cv2.line(img, pt, end, (0,0,255), 3)
 
-        cv2.imshow("Smart Planner - Innermost Arc + Fixed Ends", img)
+        # Status Overlay
+        status = "AUTO" if self.auto_mode else "MANUAL"
+        if not self.auto_mode and self.going_to_transition:
+            status += " (TRANSITION)"
+        elif not self.auto_mode:
+            status += " (DIRECT)"
+            
+        cv2.putText(img, status, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+        cv2.imshow("Smart Planner", img)
         cv2.waitKey(1)
 
 def main(args=None):
