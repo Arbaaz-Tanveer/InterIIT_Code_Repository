@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 from glob import glob
 import os
 
-package_name = 'SLAM'
+package_name = 'slam'
 
 setup(
     name=package_name,
@@ -25,6 +25,9 @@ setup(
         
         # Install YAML config files (including ekf.yaml)
         ('share/' + package_name + '/config', glob('config/*.yaml')),
+        
+        # Install Scripts
+        ('share/' + package_name + '/scripts', glob('scripts/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -35,7 +38,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'data_converter = my_robot_bringup.data_converter:main',
+            'data_converter = slam.data_converter:main',
+            'keyboard_map_saver = slam.keyboard_map_saver:main',
         ],
     },
 )

@@ -59,6 +59,9 @@ class WarehouseManager(Node):
         
         self.pub_zscan_trigger = self.create_publisher(
             Bool, 'zscan', 10)
+            
+        self.pub_session = self.create_publisher(
+            String, 'session_control', 10)
 
         # --- INTERNAL STATE ---
         self.points = []          
@@ -184,7 +187,17 @@ class WarehouseManager(Node):
                 self.scan_limit_idx = -1 # Full loop
                 self.rack_queue = []     # Clear specific rack requests
                 
+                
                 if self.state == "IDLE":
+                    # Determine Session Type
+                    # If target_idx is 1 (Start) or 0 (Uninit?), it's a NEW session.
+                    # Otherwise, we are resuming from a later point.
+                    is_new_session = (self.target_idx <= 1)
+                    session_msg = String()
+                    session_msg.data = "NEW" if is_new_session else "RESUME"
+                    self.pub_session.publish(session_msg)
+                    self.get_logger().info(f"Session Control: {session_msg.data} (Idx: {self.target_idx})")
+
                     if self.target_idx >= len(self.points) - 1 or self.target_idx == 0:
                         self.target_idx = 1
                     self.state = "MOVING"

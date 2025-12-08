@@ -5,7 +5,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    package_name = 'SLAM'
+    package_name = 'slam'
     urdf_file_name = 'final_bot.urdf.xacro'   # rename properly
     ekf_config_name = 'ekf.yaml'
 

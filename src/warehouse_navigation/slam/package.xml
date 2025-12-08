@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>SLAM</name>
+  <name>slam</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="example@example.com">xyz</maintainer>
+  <maintainer email="shivanshg23@iitk.ac.in">shivansh</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>

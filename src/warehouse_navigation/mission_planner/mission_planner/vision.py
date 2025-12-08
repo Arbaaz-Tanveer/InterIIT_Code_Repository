@@ -52,10 +52,29 @@ latest_ground_map = None
 latest_localiser_img = None
 latest_scan_data = None
 
+map_scale = 100  # pixels per meter
+
+# Default Dimensions (Fallback)
 FIELD_WIDTH = 5.1
 FIELD_HEIGHT = 6.2 
 
-map_scale = 100  # pixels per meter
+# Dynamic Calculation from Saved Map
+try:
+    map_config_path = "/home/era/Documents/fresh_start/InterIIT_Code_Repository/src/warehouse_navigation/mission_planner/config/maps/test_field.png"
+    if os.path.exists(map_config_path):
+        field_img = cv2.imread(map_config_path, cv2.IMREAD_GRAYSCALE)
+        if field_img is not None:
+            h_px, w_px = field_img.shape
+            FIELD_WIDTH = w_px / map_scale
+            FIELD_HEIGHT = h_px / map_scale
+            print(f"Loaded Field Map: {w_px}x{h_px} px")
+            print(f"Dynamic Field Dimensions: W={FIELD_WIDTH:.2f}m, H={FIELD_HEIGHT:.2f}m")
+        else:
+            print(f"Warning: Failed to read image for dimensions: {map_config_path}")
+    else:
+        print(f"Warning: Map file not found for dimensions: {map_config_path}")
+except Exception as e:
+    print(f"Error calculating field dimensions: {e}")
 map_size_m = 12
 map_size_px = int(map_size_m * map_scale)
 
