@@ -109,6 +109,7 @@ class SmartPathPlanner(Node):
         
         # Mode State
         self.auto_mode = False          # False = Manual, True = Auto
+        self.current_mode_name = "MANUAL"
         self.manual_target_pose = None  # [x, y, theta]
         self.going_to_transition = False
         self.last_path_idx = None       # For tracking hysteresis 
@@ -220,9 +221,11 @@ class SmartPathPlanner(Node):
         cmd = msg.data.strip().upper()
         if cmd == "START":
             self.auto_mode = True
+            self.current_mode_name = "AUTO"
             self.get_logger().info("MODE: AUTO")
         elif cmd == "COORDINATE":
             self.auto_mode = False 
+            self.current_mode_name = "COORDINATE"
             self.manual_target_pose = None # Reset stale target
             self.going_to_transition = False # Reset transition logic
             
@@ -233,6 +236,7 @@ class SmartPathPlanner(Node):
             self.get_logger().info("MODE: COORDINATE (Waiting for new target...)")
         elif cmd == "STOP":
             self.auto_mode = False
+            self.current_mode_name = "MANUAL"
             
             # Send empty path to reset controller
             empty_msg = Float32MultiArray()
@@ -927,11 +931,11 @@ class SmartPathPlanner(Node):
             cv2.line(img, pt, end, (0,0,255), 3)
 
         # Status Overlay
-        status = "AUTO" if self.auto_mode else "MANUAL"
+        status = self.current_mode_name
         if not self.auto_mode and self.going_to_transition:
             status += " (TRANSITION)"
-        elif not self.auto_mode:
-            status += " (DIRECT)"
+        elif not self.auto_mode and self.manual_target_pose is not None:
+            status += " (ACTIVE)"
             
         cv2.putText(img, status, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         cv2.imshow("Smart Planner", img)

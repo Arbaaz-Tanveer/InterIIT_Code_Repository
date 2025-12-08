@@ -70,6 +70,7 @@ class WarehouseManager(Node):
         self.zscan_busy = False 
         self.current_z_cm = ZSCAN_LOWER  # Assume 20 on startup (due to calib)
         self.target_z_end = None # 'TOP' or 'BOTTOM' for the actual scan move
+        self.scanner_at_top = False # Track logical position (False=Bottom, True=Top)
         
         # State Machine
         self.state = "IDLE"
@@ -241,6 +242,8 @@ class WarehouseManager(Node):
         self.pub_zscan_trigger.publish(msg)
         mode_str = "TOP (1)" if value else "BOTTOM (0)"
         self.get_logger().info(f"Setting Z-Scan to {mode_str}")
+        # Update internal state approximation immediately
+        self.current_z_cm = ZSCAN_UPPER if value else ZSCAN_LOWER
 
     def stop_robot(self):
         self.set_motion(False)
@@ -366,23 +369,36 @@ class WarehouseManager(Node):
         elif self.state == "START_SCAN":
             self.set_motion(False)
             
-            # Logic: Move zscanner to nearest end first, then scan to other end.
+            # Check if we are already at an end (Tolerance 5cm)
             dist_lower = abs(self.current_z_cm - ZSCAN_LOWER)
             dist_upper = abs(self.current_z_cm - ZSCAN_UPPER)
+            is_at_lower = dist_lower < 5.0
+            is_at_upper = dist_upper < 5.0
             
-            # Determine Nearest End
-            # bool True = Top (170), False = Bottom (20)
-            nearest_is_top = (dist_upper < dist_lower)
-            
-            self.get_logger().info(f"Z-Scan Setup: Current={self.current_z_cm:.1f}. Moving to Nearest: {'TOP' if nearest_is_top else 'BOTTOM'} first.")
-            
-            self.trigger_zscan(nearest_is_top) # Move to Start
-            
-            # The "Actual Scan" will be to the OTHER end
-            self.target_z_end = not nearest_is_top 
-            
-            self.state = "ALIGN_Z_WAIT"
-            self.timer_start_time = time.time()
+            if is_at_lower or is_at_upper:
+                # Optimized Zigzag: We are at an end, scanning to opposite
+                target_is_top = is_at_lower # If at lower, go top
+                
+                self.get_logger().info(f"Z-Scan (Zigzag): At {'BOTTOM' if is_at_lower else 'TOP'}. Sweeping to {'TOP' if target_is_top else 'BOTTOM'}.")
+                
+                self.target_z_end = target_is_top
+                self.trigger_zscan(self.target_z_end)
+                self.scanner_at_top = target_is_top
+                
+                self.state = "WAITING_FOR_SCAN_START"
+                self.timer_start_time = time.time()
+            else:
+                # Intermediate Position: Must align first
+                nearest_is_top = (dist_upper < dist_lower)
+                self.get_logger().info(f"Z-Scan (Align): Intermediate ({self.current_z_cm:.1f}). Aligning to {'TOP' if nearest_is_top else 'BOTTOM'} first.")
+                
+                self.trigger_zscan(nearest_is_top) # Goto Nearest
+                
+                # After alignment, we scan to the OPPOSITE
+                self.target_z_end = not nearest_is_top
+                
+                self.state = "ALIGN_Z_WAIT"
+                self.timer_start_time = time.time()
 
         # --- STATE: ALIGN_Z_WAIT (Moving to Start Position) ---
         elif self.state == "ALIGN_Z_WAIT":
@@ -394,20 +410,17 @@ class WarehouseManager(Node):
                  # It started moving
                  pass 
             else:
-                # Not busy?
-                # Case 1: Just started, hasn't reported busy yet. (Wait short time)
-                # Case 2: Already arrived.
-                if elapsed > 2.0: # Give 2s to start moving
-                     self.get_logger().info("Aligned at Start Position. Starting SWEEP.")
-                     self.state = "PERFORM_SCAN"
+                # Case: Arrived or didn't start (assuming success/timeout handled by hardware/latency)
+                if elapsed > 3.0: 
+                     self.get_logger().info("Aligned. Starting Full SWEEP.")
+                     
+                     # Now trigger the actual sweep
+                     self.trigger_zscan(self.target_z_end)
+                     self.scanner_at_top = self.target_z_end
+                     
+                     self.state = "WAITING_FOR_SCAN_START"
+                     self.timer_start_time = time.time()
         
-        # --- STATE: PERFORM_SCAN (The Actual Sweep) ---
-        elif self.state == "PERFORM_SCAN":
-             self.set_motion(False)
-             self.trigger_zscan(self.target_z_end) # Move to Other End
-             self.state = "WAITING_FOR_SCAN_START"
-             self.timer_start_time = time.time()
-
         # --- STATE: WAITING_FOR_SCAN_START ---
         elif self.state == "WAITING_FOR_SCAN_START":
             self.set_motion(False)
@@ -415,9 +428,13 @@ class WarehouseManager(Node):
                 self.get_logger().info("Scanner Active...")
                 self.state = "SCANNING"
             elif time.time() - self.timer_start_time > 5.0:
-                 self.get_logger().warn("Scanner Timeout. Retrying...")
-                 z_val = (self.target_idx % 2 != 0)
-                 self.trigger_zscan(z_val)
+                 # Timeout logic
+                 self.get_logger().warn("Scanner Timeout (Didn't start). Switching Direction (Auto-Correction).")
+                 
+                 self.scanner_at_top = not self.scanner_at_top 
+                 self.target_z_end = self.scanner_at_top
+                 
+                 self.trigger_zscan(self.target_z_end)
                  self.timer_start_time = time.time()
 
         # --- STATE: SCANNING ---
