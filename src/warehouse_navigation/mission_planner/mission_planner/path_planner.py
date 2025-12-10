@@ -19,7 +19,7 @@ SEARCH_WINDOW = 50 # Number of points to search ahead/behind for tracking (hyste
 # Robot & Physics
 ROBOT_RADIUS = 0.25 
 OBS_RADIUS = 0.15   
-SAFETY_MARGIN = 0.1 
+SAFETY_MARGIN = 0.15 
 TOTAL_SAFE_DIST = ROBOT_RADIUS + OBS_RADIUS + SAFETY_MARGIN
 
 LOOKAHEAD_DIST = 0.5

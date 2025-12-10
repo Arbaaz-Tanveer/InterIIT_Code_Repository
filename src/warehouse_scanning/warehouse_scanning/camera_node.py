@@ -30,12 +30,6 @@ class QRCameraModule(Node):
             self.autoscan_callback,
             10
         )
-        self.session_sub = self.create_subscription(
-            String,
-            'session_control',
-            self.session_control_callback,
-            10
-        )
         
         # ROS2 Service to clear saved QR codes
         self.clear_srv = self.create_service(Trigger, 'clear_qr_codes', self.clear_qr_codes_callback)
@@ -52,18 +46,22 @@ class QRCameraModule(Node):
         # 2. Define the output folder within the repository
         self.base_folder = "qr_session_logs"
         os.makedirs(self.base_folder, exist_ok=True)
+        
+        # 3. Generate a unique filename based on current time
+        session_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        csv_filename = f"session_{session_timestamp}.csv"
+        
+        self.csv_path = os.path.join(self.base_folder, csv_filename)
+        
         self.get_logger().info(f"Session Output Folder: {self.base_folder}")
+        self.get_logger().info(f"Current Session CSV: {self.csv_path}")
         
-        # Multiprocessing setup - CREATE MANAGER FIRST
-        self.seen_qr_codes = mp.Manager().dict()
-        
-        # Multiprocessing queues
-        self.queue = mp.Queue()
-        self.result_queue = mp.Queue()
-        self.worker = None
-
-        # Initial Session Setup
-        self.start_new_session()
+        # Initializing CSV (New file for every session)
+        if not os.path.exists(self.csv_path):
+            with open(self.csv_path, "w", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(["Timestamp", "Frame_ID", "Detection_Phase", "Decoder", 
+                               "Status", "Decoded_Text", "Confidence", "Method_Used"])
         
         # YOLO Setup
         self.get_logger().info("Loading YOLO model...")
@@ -103,9 +101,20 @@ class QRCameraModule(Node):
         self.decoded_qr_set = set()
         self.invalid_format_count = 0
         
+        # Multiprocessing setup - CREATE MANAGER FIRST
+        self.seen_qr_codes = mp.Manager().dict()
+        
         # Load previously saved unique QR codes (Since file is new, this will usually be empty)
-        # self.load_existing_qr_codes() # No longer needed as we start fresh every session
-
+        self.load_existing_qr_codes()
+        
+        # Multiprocessing queues and worker
+        self.queue = mp.Queue()
+        self.result_queue = mp.Queue()
+        self.worker = mp.Process(
+            target=decode_worker, 
+            args=(self.queue, self.csv_path, self.result_queue, self.seen_qr_codes)
+        )
+        self.worker.start()
         
         # Start result handler thread
         self.result_thread = threading.Thread(target=self.handle_results, daemon=True)
@@ -141,60 +150,12 @@ class QRCameraModule(Node):
     
     def autoscan_callback(self, msg):
         """Callback for autoscan topic"""
-        cmd = msg.data
-        self.autoscan_enabled = (cmd == "START")
+        self.autoscan_enabled = msg.data == "START"
         status = "ON" if self.autoscan_enabled else "OFF"
         self.get_logger().info(f'Autoscan: {status}')
         
-    def session_control_callback(self, msg):
-        cmd = msg.data.strip().upper()
-        if cmd == "NEW":
-            self.get_logger().info("Session Control: NEW SESSION requested.")
-            self.start_new_session()
-        elif cmd == "RESUME":
-            self.get_logger().info("Session Control: RESUMING current session.")
-    
-    def start_new_session(self):
-        """Creates a new CSV, clears caches, and restarts worker."""
-        # 1. Generate new filename
-        session_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        csv_filename = f"session_{session_timestamp}.csv"
-        self.csv_path = os.path.join(self.base_folder, csv_filename)
-        
-        self.get_logger().info(f"--- NEW SESSION BEGUN: {csv_filename} ---")
-        
-        # 2. Init CSV
-        with open(self.csv_path, "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["Timestamp", "Frame_ID", "Detection_Phase", "Decoder", 
-                           "Status", "Decoded_Text", "Confidence", "Method_Used"])
-
-        # 3. Clear Caches
-        self.decoded_qr_set.clear()
-        self.seen_qr_codes.clear()
-        self.invalid_format_count = 0
-        
-        # 4. Restart Worker pointing to new file
-        self.start_worker()
-
-    def start_worker(self):
-        """Restarts the decode worker process."""
-        if self.worker is not None and self.worker.is_alive():
-            self.get_logger().info("Stopping previous worker...")
-            self.queue.put(None)
-            self.worker.join()
-        
-        # Drain queues just in case (optional, but good practice)
-        while not self.result_queue.empty():
-            try: self.result_queue.get_nowait()
-            except: pass
-            
-        self.get_logger().info(f"Starting new worker for: {self.csv_path}")
-        self.worker = mp.Process(
-            target=decode_worker, 
-            args=(self.queue, self.csv_path, self.result_queue, self.seen_qr_codes)
-        )
-        self.worker.start()
+        if self.autoscan_enabled:
+            self.get_logger().info(f"Continuing scan session - {len(self.decoded_qr_set)} unique QR codes already scanned")
     
     
     def clear_qr_codes_callback(self, request, response):
@@ -233,11 +194,31 @@ class QRCameraModule(Node):
         self.get_logger().info("Initializing camera...")
         
         CAP_BACKEND = cv2.CAP_V4L2
-        self.cap = cv2.VideoCapture(0, CAP_BACKEND) # Here we are putting the cam (0 for default cam, 2 for external cam)
-        
-        if not self.cap.isOpened():
-            self.get_logger().error("Failed to open camera!")
-            return
+        indices_to_try = list(range(7))  # Try 0 to 6
+        current_idx_pos = 0
+
+        while True:
+            target_index = indices_to_try[current_idx_pos]
+            # self.get_logger().info(f"Checking camera index {target_index}...")
+            
+            self.cap = cv2.VideoCapture(target_index, CAP_BACKEND)
+            
+            if self.cap.isOpened():
+                # Read a frame to verify it is actually working
+                ret, _ = self.cap.read()
+                if ret:
+                    self.get_logger().info(f"Successfully opened and verified camera at index {target_index}!")
+                    break
+                else:
+                    self.get_logger().warn(f"Camera index {target_index} opened but returned no frames.")
+                    self.cap.release()
+            
+            # Move to next index
+            current_idx_pos += 1
+            if current_idx_pos >= len(indices_to_try):
+                self.get_logger().warn("No working camera found in indices 0-6. Retrying scan in 2s...")
+                current_idx_pos = 0
+                time.sleep(2)
         
         # Full HD settings(as per PS we need high res for better detection)
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -245,6 +226,18 @@ class QRCameraModule(Node):
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
         self.cap.set(cv2.CAP_PROP_FPS, 30)
+        
+        # --- Manual Focus Settings ---
+        self.get_logger().info("Configuring Manual Focus...")
+        # Disable Autofocus (0 = Off, 1 = On)
+        self.cap.set(cv2.CAP_PROP_AUTOFOCUS, 0) 
+        # Set Focus Value (0-255, usually 0 is infinity/far or near depending on HW, 0 is often safe for fixed far)
+        # Adjust this value if needed (e.g., 0, 20, 255)
+        FOCUS_VAL = 0
+        self.cap.set(cv2.CAP_PROP_FOCUS, FOCUS_VAL)
+        actual_focus = self.cap.get(cv2.CAP_PROP_FOCUS)
+        self.get_logger().info(f"Manual Focus Set to: {FOCUS_VAL} (Readback: {actual_focus})")
+        # -----------------------------
         
         # Flush buffer
         for _ in range(10):
@@ -408,12 +401,18 @@ def decode_worker(input_queue, csv_path, result_queue, seen_qr_codes):
                     success = True
                     break
                 
-                data, pts, _ = qr_detector.detectAndDecode(resized)
-                if data:
-                    decoded_text = data
-                    used_method = f"opencv_{method_name}_x{scale}"
-                    success = True
-                    break
+                try:
+                    data, pts, _ = qr_detector.detectAndDecode(resized)
+                    if data:
+                        decoded_text = data
+                        used_method = f"opencv_{method_name}_x{scale}"
+                        success = True
+                        break
+                except cv2.error as e:
+                    # Catch OpenCV specific errors like invalid source points
+                    pass
+                except Exception as e:
+                    pass
             if success:
                 break
         

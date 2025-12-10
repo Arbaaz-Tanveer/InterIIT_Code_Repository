@@ -36,15 +36,15 @@ LIDAR_OFFSET_X = -20 #IN CM
 # ---------------------------------
 
 # --- OBSTACLE DETECTION CONFIG ---
-OBSTACLE_CLUSTER_DIST = 0.15     # Max distance between points to be one object
+OBSTACLE_CLUSTER_DIST = 0.05     # Max distance between points to be one object
 OBSTACLE_MIN_POINTS = 12          # Min points to try fitting a circle
-OBSTACLE_MAX_RESIDUAL = 0.007     # How "round" the object must be
-OBSTACLE_MIN_RADIUS = 0.07       # Min radius in meters
+OBSTACLE_MAX_RESIDUAL = 0.005     # How "round" the object must be
+OBSTACLE_MIN_RADIUS = 0.08       # Min radius in meters
 OBSTACLE_MAX_RADIUS = 0.2       # Max radius in meters
-OBSTACLE_MAX_RANGE = 3.0         # Ignore points further than 4m
-OBSTACLE_MIN_ARC_ANGLE = 1.0    # Radians (approx 60 degrees). Filter out small arcs.
+OBSTACLE_MAX_RANGE = 1.5         # Ignore points further than 4m
+OBSTACLE_MIN_ARC_ANGLE = 1.2    # Radians (approx 60 degrees). Filter out small arcs.
 # ---------------------------------
-obstacle_publishing = False
+obstacle_publishing = True
 
 # Global to share detected circles with the visualization thread
 latest_obstacles_vis = []
@@ -697,7 +697,7 @@ def localisation_thread_func():
                         
                         # Stationary = High Odom Weight (0.95). Moving = Lower Odom Weight (0.75)
                         odometry_weight = 0.97 - min(0.20, 300.0 * velocity_proxy)
-                        odometry_weight = 1         #-----------------------------------------------------------------------------------------------
+                        # odometry_weight = 1         #-----------------------------------------------------------------------------------------------
                         if log_settings["localisation"]["odometry_weight"]:
                             print(f"Odom Weight: {odometry_weight:.3f}")
 

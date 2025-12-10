@@ -81,7 +81,7 @@ class LidarMapTool:
     def __init__(self, root, initial_map_path=None):
         self.root = root
         self.root.title("LIDAR Map Tool (Fixed ROS QoS)")
-        self.root.geometry("1400x950")
+        self.root.geometry("800x480")
 
         # --- ROS Setup (Lazy Init) ---
         self.ros_node = None
@@ -112,8 +112,27 @@ class LidarMapTool:
 
     def _setup_ui(self):
         # --- Left Panel ---
-        control_frame = tk.Frame(self.root, width=320, bg="#f0f0f0")
-        control_frame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
+        # --- Left Panel (Scrollable Container) ---
+        container_frame = tk.Frame(self.root, width=320, bg="#f0f0f0")
+        container_frame.pack(side=tk.LEFT, fill=tk.Y, padx=5, pady=5)
+
+        self.ctrl_canvas = tk.Canvas(container_frame, width=300, bg="#f0f0f0", highlightthickness=0)
+        self.ctrl_scrollbar = tk.Scrollbar(container_frame, orient="vertical", command=self.ctrl_canvas.yview)
+        
+        control_frame = tk.Frame(self.ctrl_canvas, bg="#f0f0f0")
+        
+        control_frame.bind(
+            "<Configure>",
+            lambda e: self.ctrl_canvas.configure(
+                scrollregion=self.ctrl_canvas.bbox("all")
+            )
+        )
+        
+        self.ctrl_canvas.create_window((0, 0), window=control_frame, anchor="nw")
+        self.ctrl_canvas.configure(yscrollcommand=self.ctrl_scrollbar.set)
+        
+        self.ctrl_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.ctrl_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
         # 1. File
         tk.Label(control_frame, text="1. File", font=("Arial", 10, "bold"), bg="#f0f0f0").pack(pady=5)
