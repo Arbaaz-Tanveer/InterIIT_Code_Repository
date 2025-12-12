@@ -81,8 +81,9 @@ class GoogleSpeakerNode(Node):
         if match_idx != -1:
             # Logic: Index 0 = Start/Home. Index 1..N = Rack Points.
             if match_idx == 0 or match_idx == len(self.scan_points) - 1:
-                 self.speak("Moving to Home Position")
-                 self.current_rack = -1
+                 if self.current_rack != -1:
+                     self.speak("Moving to Home Position")
+                     self.current_rack = -1
             else:
                 # 0 is Home. 1 is Rack 1 Point 1.
                 # Adjusted Index = match_idx - 1

@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
             'keyboard_controller = warehouse_hmi.keyboard_controller:main',
             'speaker_module = warehouse_hmi.speaker_module:main',
+            'hmi_display = warehouse_hmi.hmi_display:main',
         ],
     },
 )

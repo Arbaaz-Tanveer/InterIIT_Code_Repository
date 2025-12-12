@@ -465,18 +465,25 @@ class SmartPathPlanner(Node):
     # ================= INTERIOR PROJECTION LOGIC =================
     def process_distorted_scan_points(self):
         distorted_points = []
+        scan_point_thetas = []
         
         for i, pt in enumerate(self.scan_points):
             current_pt = pt.copy()
+            target_theta = 0.0
 
-            if i == 0 or i == len(self.scan_points) - 1:
-                distorted_points.append(current_pt)
-                continue
-            
+            # Find Mode / Theta from Base Path
             if len(self.base_path) > 0:
                 dists = np.linalg.norm(self.base_path - current_pt, axis=1)
                 nearest_idx = np.argmin(dists)
                 seg_idx = self.path_segment_indices[nearest_idx]
+                
+                # Get Mode from Segment
+                # Segment: [x1, y1, x2, y2, mode]
+                mode = self.raw_path_segments[seg_idx][4]
+                if mode == 2: target_theta = math.pi
+                elif mode == 3: target_theta = math.pi / 2
+                elif mode == 4: target_theta = 0.0
+                elif mode == 5: target_theta = -math.pi / 2
                 
                 constraint = self.segment_constraints[seg_idx]
                 A, B, C = constraint['A'], constraint['B'], constraint['C']
@@ -486,7 +493,13 @@ class SmartPathPlanner(Node):
                 normal = np.array([1.0, 0.0])
                 target_sign = 1
                 A, B, C = 1, 0, 0
+            
+            scan_point_thetas.append(target_theta)
 
+            if i == 0 or i == len(self.scan_points) - 1:
+                distorted_points.append(current_pt)
+                continue
+            
             for obs in self.obstacles:
                 obs_pos = obs['pos']
                 obs_r = obs['radius']
@@ -519,7 +532,7 @@ class SmartPathPlanner(Node):
                             
             distorted_points.append(current_pt)
             
-        return distorted_points
+        return distorted_points, scan_point_thetas
 
     def publish_distorted_points(self, points):
         msg = Float32MultiArray()
@@ -671,7 +684,7 @@ class SmartPathPlanner(Node):
         if self.robot_pose is None: return
         self.update_active_path()
         
-        distorted_points = self.process_distorted_scan_points()
+        distorted_points, scan_thetas = self.process_distorted_scan_points()
         self.publish_distorted_points(distorted_points)
 
         # === 1. DETERMINE TARGET AND PATH STRATEGY ===
@@ -897,6 +910,17 @@ class SmartPathPlanner(Node):
                             if abs(dx) > 0.001 or abs(dy) > 0.001:
                                 target_theta = math.atan2(dy, dx)
                                 if direction == -1: target_theta += math.pi
+
+                    # === SCAN POINT THETA OVERRIDE ===
+                    # Check if this point on path is near a Distorted Scan Point
+                    # If so, force the target theta to match the Scan Point's requirement
+                    for s_chk_i, s_viz_pt in enumerate(distorted_points):
+                        if s_chk_i < len(scan_thetas):
+                            dist_s = np.linalg.norm(s_viz_pt - pt)
+                            # Threshold: 0.2m (tune as needed)
+                            if dist_s < 0.2:
+                                target_theta = scan_thetas[s_chk_i]
+                                break
                     
                     path_msg_points.append([float(x), float(y), float(target_theta)])
 

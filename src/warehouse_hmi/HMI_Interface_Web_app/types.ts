@@ -42,6 +42,7 @@ export interface RobotState {
   autoMode: boolean;
   connected: boolean; // New property for real-time connection status
   commandLog: CommandLogEntry[]; // New: Log of recent commands
+  latestSpeakMessage?: string; // New: Last spoken message
 }
 
 export interface Rack {
@@ -97,6 +98,7 @@ export interface RosTopicConfig {
   restartLocalisation?: string;
   scanData?: string; // New: Topic for real-time scan strings
   rackData?: string; // New: Topic for rack configuration data
+  speak?: string; // New: Topic for speech output
 }
 
 export interface ScheduleConfig {

@@ -19,7 +19,7 @@ STOP_POINT_WAIT_TIME = 5.0 # Seconds to wait at the last point (No Scan)
 COOLDOWN_TIME = 10.0       # Seconds to wait at Start before restart
 
 # Rack Configuration
-POINTS_PER_RACK = 1        # Number of scan points per rack
+POINTS_PER_RACK = 3        # Number of scan points per rack
 ZSCAN_LOWER = 20.0
 ZSCAN_UPPER = 170.0
 
@@ -121,6 +121,11 @@ class WarehouseManager(Node):
         self.state = "MOVING"
         self.set_motion(True)
         self.get_logger().info("🔄 New autoscan cycle started. Heading to Point 1.")
+        
+        # Signal new session for CSV logging
+        session_msg = String()
+        session_msg.data = "NEW"
+        self.pub_session.publish(session_msg)
 
     # ================= CALLBACKS =================
     def restart_callback(self, msg):

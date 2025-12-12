@@ -34,7 +34,9 @@ const DEFAULT_SETTINGS: SettingsState = {
         restart: '/restart',
         scanRack: '/scan_rack',
         restartLocalisation: '/restart_localisation',
-        scanData: '/scan_data'
+        restartLocalisation: '/restart_localisation',
+        scanData: '/scan_data',
+        speak: '/speak'
     },
     updateRate: 20,
     debugMode: false,
@@ -254,52 +256,99 @@ function App() {
 
                 <div className="p-8">
                     {activeTab === 'dashboard' && (
-                        <div className="grid grid-cols-12 gap-6">
-                            <div className="col-span-12 lg:col-span-8 space-y-6">
-                                <MapVisualizer state={robotState} settings={settings} onMapClick={handleMapClick} />
+                        <div className="h-[calc(100vh-8rem)] flex flex-col items-center justify-center relative overflow-hidden">
+                            {/* Sci-Fi Background Elements */}
+                            <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sci-accent/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+                                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px] animate-pulse-slow delay-1000"></div>
+                                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
                             </div>
-                            <div className="col-span-12 lg:col-span-4 space-y-6">
-                                <div className="bg-sci-panel border border-slate-700 rounded-xl p-4 flex items-center justify-between">
-                                    <h3 className="font-semibold text-white">System Control</h3>
-                                    <button
-                                        onClick={() => {
-                                            if (confirm('Are you sure you want to restart the robot?')) {
-                                                robotService.sendRestartCommand();
-                                                alert('Restart command sent to robot.');
-                                            }
-                                        }}
-                                        className="px-4 py-2 bg-sci-danger/10 text-sci-danger rounded-lg border border-sci-danger/20 hover:bg-sci-danger/20 transition-colors flex items-center space-x-2"
-                                    >
-                                        <LogOut size={16} className="rotate-180" />
-                                        <span>Restart Robot</span>
-                                    </button>
-                                </div>
 
-                                {/* Restart Localisation Button */}
-                                <div className="bg-sci-panel border border-slate-700 rounded-xl p-4 flex items-center justify-between">
-                                    <h3 className="font-semibold text-white">Localisation</h3>
-                                    <button
-                                        onClick={() => setShowLocModal(true)}
-                                        className="px-4 py-2 bg-sci-accent/10 text-sci-accent rounded-lg border border-sci-accent/20 hover:bg-sci-accent/20 transition-colors flex items-center space-x-2"
-                                    >
-                                        <MapIcon size={16} />
-                                        <span>Restart Localisation</span>
-                                    </button>
+                            {/* Central Rotating Logo */}
+                            <div className="relative z-10 flex flex-col items-center mb-12 group">
+                                <div className="relative w-64 h-64 flex items-center justify-center">
+                                    {/* Outer Rings */}
+                                    <div className="absolute inset-0 border-2 border-sci-accent/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                                    <div className="absolute inset-2 border border-purple-500/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                                    <div className="absolute inset-0 rounded-full bg-gradient-to-b from-sci-accent/5 to-transparent blur-md"></div>
+
+                                    {/* The Logo */}
+                                    <img
+                                        src="/eternal-logo.png"
+                                        alt="Eternal System"
+                                        className="w-48 h-48 object-contain drop-shadow-[0_0_30px_rgba(14,165,233,0.6)] animate-[spin_20s_linear_infinite]"
+                                    />
                                 </div>
-                                <SmartCommand />
-                                <div className="bg-sci-panel border border-slate-700 rounded-xl p-4 h-[320px] overflow-hidden flex flex-col">
-                                    <h3 className="font-semibold text-white mb-4 flex items-center">
-                                        <Database size={18} className="mr-2 text-sci-accent" />
-                                        Recent Logs
-                                    </h3>
-                                    <div className="flex-1 overflow-hidden">
-                                        <DataLog limit={5} />
+                                <h1 className="mt-8 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sci-accent to-purple-400 tracking-wider">
+                                    ETERNAL
+                                </h1>
+                                <div className="mt-2 flex items-center space-x-2 text-sci-accent/60 font-mono text-sm tracking-[0.2em]">
+                                    <Activity size={12} className="animate-pulse" />
+                                    <span>SYSTEM ONLINE</span>
+                                    <Activity size={12} className="animate-pulse" />
+                                </div>
+                            </div>
+
+                            {/* Speak Message Display */}
+                            <div className="z-10 w-full max-w-2xl text-center mb-12 min-h-[4rem]">
+                                {robotState.latestSpeakMessage && (
+                                    <div className="animate-fade-in-up">
+                                        <p className="text-sci-accent text-sm font-mono mb-2 uppercase tracking-widest border-b border-sci-accent/20 inline-block px-4 pb-1">
+                                            System Message
+                                        </p>
+                                        <p className="text-2xl text-white font-light leading-relaxed drop-shadow-md">
+                                            "{robotState.latestSpeakMessage}"
+                                        </p>
                                     </div>
-                                </div>
-
-                                {settings.debugMode && (
-                                    <CommandLogger logs={robotState.commandLog || []} />
                                 )}
+                            </div>
+
+                            {/* Controls */}
+                            <div className="z-10 flex items-center space-x-8">
+                                <button
+                                    onClick={() => robotService.sendCommand('START_AUTO_SCAN')}
+                                    disabled={robotState.autoMode}
+                                    className={`
+                                        group relative px-8 py-4 bg-slate-900 border border-sci-accent/50 rounded-xl overflow-hidden transition-all duration-300
+                                        ${robotState.autoMode ? 'opacity-50 cursor-not-allowed' : 'hover:border-sci-accent hover:shadow-[0_0_30px_rgba(14,165,233,0.3)] hover:-translate-y-1'}
+                                    `}
+                                >
+                                    <div className="absolute inset-0 bg-sci-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                    <div className="relative flex items-center space-x-3">
+                                        <div className={`p-2 rounded-lg bg-sci-accent/20 text-sci-accent ${robotState.autoMode ? 'animate-pulse' : ''}`}>
+                                            <MapIcon size={24} />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className="text-xs text-sci-accent/70 uppercase tracking-widest font-semibold">Initiate</div>
+                                            <div className="text-xl font-bold text-white">AUTO SCAN</div>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button
+                                    onClick={() => robotService.sendCommand('STOP_AUTO_SCAN')}
+                                    disabled={!robotState.autoMode}
+                                    className={`
+                                        group relative px-8 py-4 bg-slate-900 border border-red-500/50 rounded-xl overflow-hidden transition-all duration-300
+                                        ${!robotState.autoMode ? 'opacity-50 cursor-not-allowed' : 'hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:-translate-y-1'}
+                                    `}
+                                >
+                                    <div className="absolute inset-0 bg-red-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                                    <div className="relative flex items-center space-x-3">
+                                        <div className="p-2 rounded-lg bg-red-500/20 text-red-500">
+                                            <LogOut size={24} />
+                                        </div>
+                                        <div className="text-left">
+                                            <div className="text-xs text-red-500/70 uppercase tracking-widest font-semibold">Terminate</div>
+                                            <div className="text-xl font-bold text-white">STOP SCAN</div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+
+                            {/* Manual Override Hint */}
+                            <div className="fixed bottom-8 text-slate-600 text-xs font-mono tracking-wider">
+                                COMMAND CENTER v2.0 // CONNECTED: {settings.connection.url}
                             </div>
                         </div>
                     )}

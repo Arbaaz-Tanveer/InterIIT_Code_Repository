@@ -14,7 +14,9 @@ export class RobotService {
     wifiSignal: 90,
     autoMode: false,
     connected: false,
-    commandLog: []
+    connected: false,
+    commandLog: [],
+    latestSpeakMessage: ''
   };
 
   private subscribers: ((state: RobotState) => void)[] = [];
@@ -287,6 +289,25 @@ export class RobotService {
         }
       });
       this.rosTopics.set('scanData', scanDataTopic);
+      scanDataTopic.subscribe(async (message: any) => {
+        // ... (existing scan data logic)
+      });
+      this.rosTopics.set('scanData', scanDataTopic);
+    }
+
+    // Speak Topic (New)
+    if (topics.speak) {
+      const speakTopic = new ROSLIB.Topic({
+        ros: this.ros,
+        name: topics.speak,
+        messageType: 'std_msgs/String'
+      });
+      speakTopic.subscribe((message: any) => {
+        this.logCommand('IN', 'SPEAK', message.data);
+        this.state.latestSpeakMessage = message.data;
+        this.notify();
+      });
+      this.rosTopics.set('speak', speakTopic);
     }
 
   }

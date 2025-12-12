@@ -25,6 +25,7 @@ def check_port(context, *args, **kwargs):
     print("\033[92mPort 9090 is free. Launching rosbridge...\033[0m\n")
 
 
+
 def generate_launch_description():
 
     # Run the check *before* launching nodes
@@ -113,6 +114,12 @@ def generate_launch_description():
         Node(
             package="warehouse_hmi",
             executable="speaker_module",
+            output="screen"
+        ),
+
+        Node(
+            package="warehouse_hmi",
+            executable="hmi_display",
             output="screen"
         ),
 
