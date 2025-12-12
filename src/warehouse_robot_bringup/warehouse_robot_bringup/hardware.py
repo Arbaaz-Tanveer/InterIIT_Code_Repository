@@ -16,7 +16,7 @@ import time
 import traceback
 
 # Stepper details
-threshold_height = 16.9
+threshold_height = 16.2
 distance_in_1_tick = 1/50.0
 
 # ------------------ Configuration ------------------
@@ -101,7 +101,7 @@ class STMBridge(Node):
             self.update_vel_command(msg)
 
     def cb_autoscan(self, msg: String):
-        self.queue_restart() # Send restart on any autoscan message
+        # self.queue_restart() # Send restart on any autoscan message
         text = (msg.data or "").strip()
         new_state = (text == "START" or text == "COORDINATE")
         if new_state != self.use_autoscan:
@@ -113,7 +113,7 @@ class STMBridge(Node):
 
     def cb_restart(self, msg: String):
         self.get_logger().info(f"Restart topic received: {msg.data}")
-        self.queue_restart()
+        # self.queue_restart()
 
     def cb_zscan(self, msg: Bool):
         if self.use_autoscan:
@@ -207,7 +207,7 @@ class STMBridge(Node):
                     
                     # Immediately send restart to ensure STM is fresh
                     time.sleep(0.1) # Wait briefly for bootloader/startup
-                    self.queue_restart()
+                    # self.queue_restart()
                     self.last_odom_time = time.time() # Reset watchdog
                     
                     return

@@ -1,0 +1,7 @@
+image: map_2025-12-10_22-36-12.pgm
+mode: trinary
+resolution: 0.03
+origin: [-3.78, -10.7, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.25

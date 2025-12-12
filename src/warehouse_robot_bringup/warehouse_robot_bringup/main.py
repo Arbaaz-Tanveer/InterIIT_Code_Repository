@@ -10,8 +10,9 @@ import json
 import os
 
 # Thresholds & Timers
-ARRIVAL_THRESHOLD = 0.15   # meters
-THETA_THRESHOLD = 0.1      # radians
+# Thresholds & Timers
+# ARRIVAL_THRESHOLD = 0.07   # Moved to config
+# THETA_THRESHOLD = 0.05     # Moved to config
 CONFIG_FILE = "planner_config.json"
 SETTLE_TIME = 1.0          # Seconds to wait to stabilize
 STOP_POINT_WAIT_TIME = 5.0 # Seconds to wait at the last point (No Scan)
@@ -50,6 +51,10 @@ class WarehouseManager(Node):
         self.sub_zscan_manual = self.create_subscription(
             Float32, 'zscan_manual', self.zscan_manual_callback, 10)
 
+        # --- UPDATED: Path Subscriber for Theta ---
+        self.sub_path = self.create_subscription(
+            Float32MultiArray, 'target_pos', self.path_callback, 10)
+
         # --- PUBLISHERS ---
         self.pub_target = self.create_publisher(
             Float32MultiArray, '/decision_target_data', 10)
@@ -72,6 +77,9 @@ class WarehouseManager(Node):
         self.target_z_end = None # 'TOP' or 'BOTTOM' for the actual scan move
         self.scanner_at_top = False # Track logical position (False=Bottom, True=Top)
         
+        # Path Tracking State
+        self.current_path_target_theta = None
+        
         # State Machine
         self.state = "IDLE"
         self.target_idx = 1       
@@ -80,6 +88,10 @@ class WarehouseManager(Node):
         # Execution Control
         self.scan_limit_idx = -1  # -1 means run to end
         self.rack_queue = []      # Queue for rack sequence [1, 2, 3...]
+        
+        # Thresholds (Defaults)
+        self.arrival_threshold = 0.07
+        self.theta_threshold = 0.05
 
         # Load initial points
         self.load_initial_points()
@@ -93,7 +105,9 @@ class WarehouseManager(Node):
                 with open(CONFIG_FILE, 'r') as f:
                     data = json.load(f)
                     self.points = data.get("scan_points", [])
-                    self.get_logger().info(f"Loaded {len(self.points)} initial points.")
+                    self.arrival_threshold = data.get("arrival_threshold", 0.07)
+                    self.theta_threshold = data.get("theta_threshold", 0.05)
+                    self.get_logger().info(f"Loaded {len(self.points)} initial points. Thresh: Dist={self.arrival_threshold}, Theta={self.theta_threshold}")
             except Exception as e:
                 self.get_logger().error(f"Failed to load JSON: {e}")
         else:
@@ -225,6 +239,16 @@ class WarehouseManager(Node):
         # Keep track of where the scanner is, roughly
         self.current_z_cm = msg.data
 
+    def path_callback(self, msg):
+        # target_pos is [x, y, theta, x, y, theta...]
+        # We want the theta of the LAST point in the path, as that is the final orientation for this segment.
+        data = msg.data
+        if len(data) >= 3:
+            # Last 3 elements are [x, y, theta]
+            self.current_path_target_theta = data[-1]
+        else:
+            self.current_path_target_theta = None
+
     # ================= HELPERS =================
     def publish_target(self, point):
         msg = Float32MultiArray()
@@ -272,13 +296,33 @@ class WarehouseManager(Node):
             self.publish_target(target)
             self.set_motion(True)
             
+            target = self.points[0] 
+            self.publish_target(target)
+            self.set_motion(True)
+            
             dist = self.get_distance(self.robot_pose, target)
-            if dist < ARRIVAL_THRESHOLD:
-                self.set_motion(False)
-                self.trigger_zscan(False) 
-                self.target_idx = 1 
-                self.get_logger().info("Restart Complete. At Start.")
-                self.state = "IDLE"
+            if dist < self.arrival_threshold:
+                # CHECK THETA THRESHOLD
+                arrived = True
+                
+                if self.current_path_target_theta is not None:
+                     current_theta = self.robot_pose[2]
+                     diff = self.current_path_target_theta - current_theta
+                     while diff > math.pi: diff -= 2*math.pi
+                     while diff < -math.pi: diff += 2*math.pi
+                     
+                     while diff > math.pi: diff -= 2*math.pi
+                     while diff < -math.pi: diff += 2*math.pi
+                     
+                     if abs(diff) > self.theta_threshold:
+                         arrived = False
+
+                if arrived:
+                    self.set_motion(False)
+                    self.trigger_zscan(False) 
+                    self.target_idx = 1 
+                    self.get_logger().info("Restart Complete. At Start.")
+                    self.state = "IDLE"
             return 
 
         # --- STATE: MOVING ---
@@ -329,16 +373,37 @@ class WarehouseManager(Node):
             # Update: I will just use distance check as before if no theta.
              
             # Wait, `get_distance` uses [0] and [1]. My `robot_pose` is now 3 elements. ensure get_distance works.
-            
-            if dist < ARRIVAL_THRESHOLD:
-                self.state = "SETTLING"
-                self.timer_start_time = time.time()
-                is_last_point = (self.target_idx == len(self.points) - 1)
+                       
+            dist = self.get_distance(self.robot_pose, target) # Re-calc dist
+            if dist < self.arrival_threshold:
+                # CHECK THETA THRESHOLD
+                arrived = True
                 
-                if is_last_point:
-                    self.get_logger().info(f"Arrived at FINAL Point {self.target_idx}.")
-                else:
-                    self.get_logger().info(f"Arrived at Point {self.target_idx}.")
+                if self.current_path_target_theta is not None:
+                     # Calculate diff
+                     current_theta = self.robot_pose[2]
+                     diff = self.current_path_target_theta - current_theta
+                     # Normalize
+                     while diff > math.pi: diff -= 2*math.pi
+                     while diff < -math.pi: diff += 2*math.pi
+                     
+                     while diff > math.pi: diff -= 2*math.pi
+                     while diff < -math.pi: diff += 2*math.pi
+                     
+                     if abs(diff) > self.theta_threshold:
+                         arrived = False
+                         # Optional: Log occasionally?
+                         # self.get_logger().info(f"Dist OK, but Angle Diff {diff:.2f} > {THETA_THRESHOLD}")
+
+                if arrived:
+                    self.state = "SETTLING"
+                    self.timer_start_time = time.time()
+                    is_last_point = (self.target_idx == len(self.points) - 1)
+                    
+                    if is_last_point:
+                        self.get_logger().info(f"Arrived at FINAL Point {self.target_idx}.")
+                    else:
+                        self.get_logger().info(f"Arrived at Point {self.target_idx}.")
 
         # --- STATE: SETTLING ---
         elif self.state == "SETTLING":
@@ -462,11 +527,25 @@ class WarehouseManager(Node):
             target = self.points[0]
             self.publish_target(target)
             self.set_motion(True)
+            
             dist = self.get_distance(self.robot_pose, target)
-            if dist < ARRIVAL_THRESHOLD:
-                self.get_logger().info("Returned to Start. Settling...")
-                self.state = "RETURNING_SETTLE"
-                self.timer_start_time = time.time()
+            if dist < self.arrival_threshold:
+                # CHECK THETA THRESHOLD
+                arrived = True
+                
+                if self.current_path_target_theta is not None:
+                     current_theta = self.robot_pose[2]
+                     diff = self.current_path_target_theta - current_theta
+                     while diff > math.pi: diff -= 2*math.pi
+                     while diff < -math.pi: diff += 2*math.pi
+                     
+                     if abs(diff) > self.theta_threshold:
+                         arrived = False
+
+                if arrived:
+                    self.get_logger().info("Returned to Start. Settling...")
+                    self.state = "RETURNING_SETTLE"
+                    self.timer_start_time = time.time()
 
         # --- STATE: RETURNING_SETTLE ---
         elif self.state == "RETURNING_SETTLE":

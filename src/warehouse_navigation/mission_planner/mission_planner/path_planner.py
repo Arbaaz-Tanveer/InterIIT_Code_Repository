@@ -22,18 +22,19 @@ OBS_RADIUS = 0.15
 SAFETY_MARGIN = 0.15 
 TOTAL_SAFE_DIST = ROBOT_RADIUS + OBS_RADIUS + SAFETY_MARGIN
 
+# BOUNDARY_MARGIN Removed - replaced by dynamic obstacle_bound
+
 LOOKAHEAD_DIST = 0.5
 STEP_SIZE = 0.1    
 CIRCLE_STEP_ANGLE = 0.1 
 
-ARRIVAL_THRESHOLD = 0.15
-THETA_THRESHOLD = 0.1 
+# ARRIVAL_THRESHOLD & THETA_THRESHOLD moved to config 
 
 # --- OBSTACLE FILTERS & PERSISTENCE ---
 OBS_IGNORE_BELOW_Y = -2.0           # Ignore individual obstacles detected below this Y
 ROBOT_IGNORE_ALL_Y_THRESHOLD = -2.0 # If robot is below this Y, ignore ALL obstacles (Start Zone)
 
-OBS_PERSISTENCE_TIMEOUT = 1.0       # Obstacles persist for 1.0s after detection stops
+OBS_PERSISTENCE_TIMEOUT = 10.0       # Obstacles persist for 1.0s after detection stops
 OBS_SMOOTHING_ALPHA = 0.3           # Smoothing factor (0.1 = Slow/Smooth, 1.0 = Instant)
 OBS_MATCH_DIST = 0.2                # Max distance to match a new detection to a tracked obstacle
 
@@ -68,9 +69,11 @@ DEFAULT_DATA = {
         [-1.6, -0.5, 0.4, 1.5], 
         [-1.6, 1.5, 0.4, 1.5],
         [0.0, 2.1, 1.2, 0.4],
-        [1.6, 1.5, 0.4, 1.5],
         [1.6, -0.5, 0.4, 1.5]
-    ]
+    ],
+    "obstacle_bound": [-1.95, -2.95, 1.95, 2.95], # x1, y1, x2, y2 (Default safe zone)
+    "arrival_threshold": 0.15,
+    "theta_threshold": 0.1
 }
 
 class SmartPathPlanner(Node):
@@ -89,7 +92,9 @@ class SmartPathPlanner(Node):
         # Map Updates
         self.sub_scan_update = self.create_subscription(Float32MultiArray, 'map/scan_points', self.scan_update_callback, 10)
         self.sub_path_update = self.create_subscription(Float32MultiArray, 'map/path_segments', self.path_update_callback, 10)
+        self.sub_path_update = self.create_subscription(Float32MultiArray, 'map/path_segments', self.path_update_callback, 10)
         self.sub_racks_update = self.create_subscription(Float32MultiArray, 'map/racks', self.racks_update_callback, 10)
+        self.sub_obs_bound_update = self.create_subscription(Float32MultiArray, 'map/obstacle_bound', self.obstacle_bound_callback, 10)
 
         # Publishers
         self.pub_path = self.create_publisher(Float32MultiArray, 'target_pos', 10)
@@ -116,9 +121,11 @@ class SmartPathPlanner(Node):
         
         # Map Data
         self.scan_points = []
-        self.raw_path_segments = []
         self.racks = [] 
         self.segment_constraints = [] 
+        self.obstacle_bound = [] # [x1, y1, x2, y2]
+        self.arrival_threshold = 0.15
+        self.theta_threshold = 0.1
         
         self.load_config()
 
@@ -144,6 +151,9 @@ class SmartPathPlanner(Node):
         self.scan_points = [np.array(p) for p in data.get("scan_points", [])]
         self.raw_path_segments = data.get("path_segments", DEFAULT_DATA["path_segments"])
         self.racks = data.get("racks", DEFAULT_DATA["racks"])
+        self.obstacle_bound = data.get("obstacle_bound", DEFAULT_DATA["obstacle_bound"])
+        self.arrival_threshold = data.get("arrival_threshold", DEFAULT_DATA["arrival_threshold"])
+        self.theta_threshold = data.get("theta_threshold", DEFAULT_DATA["theta_threshold"])
         self.current_scan_index = 0
 
     def save_config(self):
@@ -151,7 +161,10 @@ class SmartPathPlanner(Node):
             data = {
                 "scan_points": [p.tolist() for p in self.scan_points],
                 "path_segments": self.raw_path_segments,
-                "racks": self.racks
+                "racks": self.racks,
+                "obstacle_bound": self.obstacle_bound,
+                "arrival_threshold": self.arrival_threshold,
+                "theta_threshold": self.theta_threshold
             }
             with open(CONFIG_FILE, 'w') as f:
                 json.dump(data, f, indent=4)
@@ -290,8 +303,21 @@ class SmartPathPlanner(Node):
                     ox, oy = data[idx], data[idx+1]
                     
                     # Y-Level Filter
+                    # Y-Level Filter
                     if oy > OBS_IGNORE_BELOW_Y:
-                        raw_detections.append(np.array([ox, oy]))
+                        # DYNAMIC BOUNDARY FILTER
+                        # obstacle_bound is [x1, y1, x2, y2]
+                        if len(self.obstacle_bound) == 4:
+                            x_min = min(self.obstacle_bound[0], self.obstacle_bound[2])
+                            x_max = max(self.obstacle_bound[0], self.obstacle_bound[2])
+                            y_min = min(self.obstacle_bound[1], self.obstacle_bound[3])
+                            y_max = max(self.obstacle_bound[1], self.obstacle_bound[3])
+                            
+                            if x_min <= ox <= x_max and y_min <= oy <= y_max:
+                                raw_detections.append(np.array([ox, oy]))
+                        else:
+                             # Fallback if config is broken (should not happen with defaults)
+                             raw_detections.append(np.array([ox, oy]))
 
         # 3. MATCHING & SMOOTHING
         # We try to match every new detection to an existing tracked obstacle
@@ -428,6 +454,13 @@ class SmartPathPlanner(Node):
         if new_racks:
             self.racks = new_racks
             self.save_config()
+
+    def obstacle_bound_callback(self, msg):
+        data = list(msg.data)
+        if len(data) == 4:
+             self.obstacle_bound = data
+             self.save_config()
+             self.get_logger().info(f"Updated Obstacle Bound: {self.obstacle_bound}")
 
     # ================= INTERIOR PROJECTION LOGIC =================
     def process_distorted_scan_points(self):
@@ -711,9 +744,17 @@ class SmartPathPlanner(Node):
                  # Normalize
                  while diff > math.pi: diff -= 2*math.pi
                  while diff < -math.pi: diff += 2*math.pi
+             theta_error = 0.0
+             if not self.going_to_transition:
+                 # Final Target
+                 desired_th = self.manual_target_pose[2]
+                 diff = desired_th - self.robot_pose[2]
+                 # Normalize
+                 while diff > math.pi: diff -= 2*math.pi
+                 while diff < -math.pi: diff += 2*math.pi
                  theta_error = abs(diff)
              
-             if dist_to_current_goal < ARRIVAL_THRESHOLD and theta_error < THETA_THRESHOLD:
+             if dist_to_current_goal < self.arrival_threshold and theta_error < self.theta_threshold:
                   # Reached
                   if self.going_to_transition:
                       # If we were going to transition and reached it, loop will handle switching in next iter
@@ -893,6 +934,14 @@ class SmartPathPlanner(Node):
             tl_r = to_pix((rx - rw/2, ry + rh/2))
             br_r = to_pix((rx + rw/2, ry - rh/2))
             cv2.rectangle(img, tl_r, br_r, (120, 120, 120), -1)
+
+        # DRAW DYNAMIC BOUNDARY MARGIN
+        if len(self.obstacle_bound) == 4:
+            x1, y1, x2, y2 = self.obstacle_bound
+            p1 = to_pix((x1, y1))
+            p2 = to_pix((x2, y2))
+            # cv2.rectangle handles any corner order
+            cv2.rectangle(img, p1, p2, (0, 255, 255), 1) # Yellow border for safe zone
 
         if len(self.base_path) > 1:
             pts = np.array([to_pix(p) for p in self.base_path], np.int32)

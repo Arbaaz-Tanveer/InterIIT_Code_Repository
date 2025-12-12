@@ -150,7 +150,7 @@ public:
 
         Function hN; hN << x << y << sin(theta) << cos(theta);
         DMatrix WN(4, 4); WN.setAll(0.0);
-        WN(0,0) = 1500.0; WN(1,1) = 1500.0; 
+        WN(0,0) = 3500.0; WN(1,1) = 3500.0; 
         WN(2,2) = 5000.0; WN(3,3) = 5000.0;
 
         // 3. Trajectory Reference
