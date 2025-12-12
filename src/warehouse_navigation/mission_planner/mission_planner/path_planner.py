@@ -92,7 +92,7 @@ class SmartPathPlanner(Node):
         # Map Updates
         self.sub_scan_update = self.create_subscription(Float32MultiArray, 'map/scan_points', self.scan_update_callback, 10)
         self.sub_path_update = self.create_subscription(Float32MultiArray, 'map/path_segments', self.path_update_callback, 10)
-        self.sub_path_update = self.create_subscription(Float32MultiArray, 'map/path_segments', self.path_update_callback, 10)
+
         self.sub_racks_update = self.create_subscription(Float32MultiArray, 'map/racks', self.racks_update_callback, 10)
         self.sub_obs_bound_update = self.create_subscription(Float32MultiArray, 'map/obstacle_bound', self.obstacle_bound_callback, 10)
 

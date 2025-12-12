@@ -61,6 +61,7 @@ class QRCameraModule(Node):
         self.session_date = datetime.now().strftime("%Y%m%d")
         self.session_counter = self.get_next_session_counter()
         self.current_csv_path = None
+        self.last_session_start_time = datetime.min
         
         # Start initial session
         self.start_new_session("MANUAL")
@@ -138,6 +139,15 @@ class QRCameraModule(Node):
 
     def start_new_session(self, mode_name):
         """Rotates the CSV file and clears tracking for a new session/mode"""
+        
+        # Debounce: If triggered recently for same mode and empty, skip
+        now = datetime.now()
+        if (now - self.last_session_start_time).total_seconds() < 2.0:
+            if self.current_mode == mode_name and len(self.decoded_qr_set) == 0:
+                self.get_logger().info(f"Session debounce: Skipping duplicate start for {mode_name}")
+                return
+
+        self.last_session_start_time = now
         
         # 1. Update State
         self.current_mode = mode_name
