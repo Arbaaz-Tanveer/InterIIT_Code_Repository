@@ -44,8 +44,8 @@ OBSTACLE_MAX_RADIUS = 0.2       # Max radius in meters
 OBSTACLE_MAX_RANGE = 2.5         # Ignore points further than 4m
 OBSTACLE_MIN_ARC_ANGLE = 1.0    # Radians (approx 60 degrees). Filter out small arcs.
 # ---------------------------------
-# obstacle_publishing = True
-obstacle_publishing = False
+obstacle_publishing = True
+# obstacle_publishing = False
 
 # Global to share detected circles with the visualization thread
 latest_obstacles_vis = []
@@ -697,8 +697,8 @@ def localisation_thread_func():
                         velocity_proxy = displacement[0]**2 + displacement[1]**2
                         
                         # Stationary = High Odom Weight (0.95). Moving = Lower Odom Weight (0.75)
-                        # odometry_weight = 0.97 - min(0.20, 300.0 * velocity_proxy)
-                        odometry_weight = 1
+                        odometry_weight = 0.97 - min(0.20, 300.0 * velocity_proxy)
+                        # odometry_weight = 1
                         
                         if log_settings["localisation"]["odometry_weight"]:
                             print(f"Odom Weight: {odometry_weight:.3f}")
