@@ -244,4 +244,4 @@ The web application code is located in the `src/warehouse_hmi/HMI_Interface_Web_
     npm run dev
     ```
 
-Ensure you have `Node.js` and `npm` installed. The app will connect to the robot via the Tailscale Funnel URL configured in the Network Setup section.
+Ensure you have `Node.js` and `npm` installed. The app will connect to the robot via the Tailscale Funnel URL configured in the Network Setup section
